@@ -318,7 +318,7 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Enemy"))
             {
                 // Damage logic
-                Enemy enemy = hit.collider.gameObject.GetComponent<Enemy>();
+                EnemyAI enemy = hit.collider.gameObject.GetComponent<EnemyAI>();
                 if (enemy != null)
                 {
                     enemy.TakeDamage(20); // WE NEED A DAMAGE ENGINE
