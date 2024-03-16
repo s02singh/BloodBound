@@ -95,6 +95,8 @@ public class PlayerController : MonoBehaviour
     // CALLED BY ULTIMATE ANIMATION
     public void LightningStorm()
     {
+        sword.GetComponent<SwordController>().Attack(currentAttack, 2);
+        /*
         // Made a triangle
         Vector3 swordPosition = sword.transform.position;
         Vector3 attackDirection = sword.transform.forward;
@@ -133,6 +135,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        */
     }
     
 
@@ -291,6 +294,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        sword.GetComponent<SwordController>().Attack(currentAttack, 0);
+        /*
         // Get sword position and attack direction
         Vector3 swordPosition = sword.transform.position;
         Vector3 attackDirection = sword.transform.forward;
@@ -329,20 +334,8 @@ public class PlayerController : MonoBehaviour
                     Debug.LogWarning("WENT WRONG");
                 }
             }
-            else if (hit.collider.gameObject.CompareTag("Dragon"))
-            {
-                // Damage logic
-                DragonAI enemy = hit.collider.gameObject.GetComponent<DragonAI>();
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(20); // WE NEED A DAMAGE ENGINE
-                }
-                else
-                {
-                    Debug.LogWarning("WENT WRONG");
-                }
-            }
         }
+        */
     }
 
     // NO CHARACTER HEALTH YET. JUST ANIMATION
