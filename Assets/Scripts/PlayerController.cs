@@ -329,6 +329,19 @@ public class PlayerController : MonoBehaviour
                     Debug.LogWarning("WENT WRONG");
                 }
             }
+            else if (hit.collider.gameObject.CompareTag("Dragon"))
+            {
+                // Damage logic
+                DragonAI enemy = hit.collider.gameObject.GetComponent<DragonAI>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(20); // WE NEED A DAMAGE ENGINE
+                }
+                else
+                {
+                    Debug.LogWarning("WENT WRONG");
+                }
+            }
         }
     }
 
