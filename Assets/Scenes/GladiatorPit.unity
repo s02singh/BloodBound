@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6765586359068fa42a193abe89e71421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portal: {fileID: 716500517}
   zombiePrefab: {fileID: 3732994290620253174, guid: 5da65eef10a0bd04bafaafec9dcb94c1, type: 3}
   archerPrefab: {fileID: 9021420381144571565, guid: 9e0177f13b10bc54ba2425ef0d238d51, type: 3}
   warrokPrefab: {fileID: 5474368215837606952, guid: 5e38fa9372523de45999fe10fa926ddb, type: 3}
@@ -399,11 +400,11 @@ GameObject:
   - component: {fileID: 716500518}
   m_Layer: 0
   m_Name: Portal
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &716500518
 MonoBehaviour:
   m_ObjectHideFlags: 0

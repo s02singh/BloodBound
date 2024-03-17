@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
+    public GameObject portal;
     public GameObject zombiePrefab;
     public GameObject archerPrefab; 
     public GameObject warrokPrefab; 
@@ -9,6 +10,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     private int currentWave = 0;
     private bool waveInProgress = false;
+    private bool portalActive = false;
     // waveTimer and spawnInterval do not do anything as of now.
     // we can decide whether to remove or implement enemies spawning in
     // certain intervals throughout the wave
@@ -22,7 +24,12 @@ public class WaveSpawner : MonoBehaviour
     {
         if (currentWave == 10)
         {
-            // ALL WAVES COMPLETED: Add code to allow player to transfer to boss fight
+            if (!waveInProgress && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && !portalActive)
+            {
+                // ALL WAVES COMPLETED: Add code to allow player to transfer to boss fight
+                portal.SetActive(true);
+                portalActive = true;
+            }
             return;
         }
         waveTimer += Time.deltaTime;
@@ -37,6 +44,8 @@ public class WaveSpawner : MonoBehaviour
 
     void StartNextWave()
     {
+        // Begin the wave
+        waveInProgress = true;
         currentWave++;
         waveTimer = 0f;
         
@@ -98,9 +107,6 @@ public class WaveSpawner : MonoBehaviour
 
         Debug.Log("Current Wave: " + currentWave);
 
-
-        // Begin the wave
-        waveInProgress = true;
         SpawnWave(currentWave);
     }
 
