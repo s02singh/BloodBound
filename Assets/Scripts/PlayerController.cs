@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour
     public bool isEquipping;
     public bool isEquipped;
 
+    public float maxHealth = 100f;
+    public float currentHealth;
+    public float regenCooldown = 2f;
+    public float timeSinceHit = 0f;
+
     private Vector3 dodgeDirection;
 
 
@@ -45,6 +50,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     LineRenderer lineRenderer;
 
+    public AudioSource audioSource;
+    public AudioClip swordSlash;
 
 
     private void Start()
@@ -53,6 +60,8 @@ public class PlayerController : MonoBehaviour
         dodgeTimer = dodge_lastframe.time;
         characterController = GetComponent<CharacterController>();
         thirdPersonController = GetComponent<ThirdPersonController>();
+        audioSource = GetComponent<AudioSource>();
+        currentHealth = maxHealth;
 
     }
     private void Update()
@@ -67,6 +76,24 @@ public class PlayerController : MonoBehaviour
         Equip();
         Block();
         Kick();
+        Regen();
+
+    }
+
+    private void Regen()
+    {
+        timeSinceHit += Time.deltaTime;
+        if (timeSinceHit > regenCooldown && currentHealth < maxHealth)
+        {
+            currentHealth += 5 * Time.deltaTime;
+            currentHealth = Mathf.Clamp(currentHealth, 0, 100);
+        }
+    }
+
+    private void PlaySwordSound()
+    {
+        audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(swordSlash);
     }
 
     // PRESS R TO EQUIP
@@ -233,6 +260,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.K) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
         {
+            
             if (!isEquipped)
                 return;
 
@@ -347,6 +375,8 @@ public class PlayerController : MonoBehaviour
         }
         if (!isBlocking)
         {
+            currentHealth -= damage;
+            timeSinceHit = 0f;
             playerAnim.SetTrigger("Hit");
         }
         else

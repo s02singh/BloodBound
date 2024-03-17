@@ -8,7 +8,7 @@ public class SwordController : MonoBehaviour
     [SerializeField] private float specialModeCooldownPeriod = 5.0f;
     
     [SerializeField] private float baseDamage = 20;
-    [SerializeField] private float swordRange = 15;
+    private float swordRange = 1f;
     // 0: normal0, 1: normal1, 2: normal2, 3: special0, 4: special1
     [SerializeField] private int swordMode = 0;
     // column 1: normal, column 2: special
@@ -104,7 +104,7 @@ public class SwordController : MonoBehaviour
         );
 
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemy");
-        objects += GameObject.FindGameObjectsWithTag("Dragon");
+        //objects += GameObject.FindGameObjectsWithTag("Dragon");
 
         foreach (GameObject obj in objects)
         {
