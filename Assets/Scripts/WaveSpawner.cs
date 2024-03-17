@@ -3,11 +3,11 @@ using UnityEngine;
 public class WaveSpawner : MonoBehaviour
 {
     public GameObject portal;
-    public GameObject zombiePrefab;
-    public GameObject archerPrefab; 
-    public GameObject warrokPrefab; 
-    public GameObject reaperPrefab; 
-    public Transform[] spawnPoints;
+    [SerializeField] private GameObject zombiePrefab;
+    [SerializeField] private GameObject archerPrefab; 
+    [SerializeField] private GameObject warrokPrefab; 
+    [SerializeField] private GameObject reaperPrefab; 
+    [SerializeField] private Transform[] spawnPoints;
     private int currentWave = 0;
     private bool waveInProgress = false;
     private bool portalActive = false;

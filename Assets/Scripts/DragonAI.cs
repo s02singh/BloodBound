@@ -20,6 +20,7 @@ public class DragonAI : MonoBehaviour
     private float flyTimer;
     [SerializeField] private float airTime;
     [SerializeField] private float attackRange;
+    private float groundedAttackRange;
     [SerializeField] private bool alive, attacking, stage2, isFlying;
     [SerializeField] private int rotationSpeed;
 
@@ -59,6 +60,7 @@ public class DragonAI : MonoBehaviour
                     isFlying = false;
                     animator.SetBool("isFlying", false);
 
+                    attackRange = groundedAttackRange;
                 }
             }
             else
@@ -72,6 +74,10 @@ public class DragonAI : MonoBehaviour
                     isFlying = true;
                     animator.SetBool("isFlying", true);
 
+                    // infinite attack range when flying: shoots fireballs
+                    // store grounded attack range to return to it after he lands
+                    groundedAttackRange = attackRange;
+                    attackRange = 300;
                 }
             }
         }
@@ -160,6 +166,10 @@ public class DragonAI : MonoBehaviour
     // TODO: DAMAGE IMPLEMENTATION
     public void TakeDamage(int damage)
     {
+        if (isFlying)
+        {
+            return;
+        }
         health -= damage;
 
         if (health <= 0)

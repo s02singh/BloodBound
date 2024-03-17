@@ -2798,17 +2798,17 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.48247764
-        functionName: RaycastHit
+      - time: 1
+        functionName: endAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: endAttack
+      - time: 0.4901367
+        functionName: Launch
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 121802, guid: 8f18e1d8c46c51f429429815455062fc, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

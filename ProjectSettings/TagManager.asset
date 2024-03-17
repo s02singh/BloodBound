@@ -8,6 +8,8 @@ TagManager:
   - CinemachineTarget
   - Dragon
   - Portal
+  - WaveStart
+  - Fire
   layers:
   - Default
   - TransparentFX
