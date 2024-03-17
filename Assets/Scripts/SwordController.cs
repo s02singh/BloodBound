@@ -74,7 +74,7 @@ public class SwordController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(swordPosition, attackDirection, out hit, swordRange))
         {
-            if (hit.collider.gameObject.CompareTag("Enemy"))
+            if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Dragon"))
             {
                 DamageEnemy(hit.collider.gameObject, comboCounter, attackType);
             }
@@ -103,6 +103,7 @@ public class SwordController : MonoBehaviour
         );
 
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemy");
+        objects += GameObject.FindGameObjectsWithTag("Dragon");
 
         foreach (GameObject obj in objects)
         {
@@ -144,11 +145,25 @@ public class SwordController : MonoBehaviour
 
     private void DamageEnemy(GameObject enemy, int comboCounter, int attackType)
     {
+
+        /**
+         * The Enemy can be of 2 types: EnemyAI and DragonAI. So this script checks
+         * for both types and calls the appropriate method to deal damage to the enemy.
+        */
+
+        int damage = (int)CalculateDamage(comboCounter, attackType);
+
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
-        if (enemy != null)
+        if (enemyAI != null)
         {
-            int damage = (int)CalculateDamage(comboCounter, attackType);
             enemyAI.TakeDamage(damage);
+            Debug.Log("Did Damage to " + enemy.name + " with " + damage + " damage");
+        }
+        
+        DragonAI dragonAI = enemy.GetComponent<DragonAI>();
+        if (dragonAI != null)
+        {
+            dragonAI.TakeDamage(damage);
             Debug.Log("Did Damage to " + enemy.name + " with " + damage + " damage");
         }
     }
