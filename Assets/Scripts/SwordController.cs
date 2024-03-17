@@ -68,6 +68,7 @@ public class SwordController : MonoBehaviour
     {      
         // Get sword position and attack direction
         Vector3 swordPosition = transform.position;
+        swordPosition.y += 1.0f; // added to make the colliders work a little better, instead of raycast coming out from the ground it comes out from the player's chest
         Vector3 attackDirection = transform.forward;
 
         // Perform raycast
