@@ -138,6 +138,8 @@ public class EnemyAI : MonoBehaviour
             }
             agent.enabled = false;
             alive = false;
+            BoxCollider enemyCollider = GetComponent<BoxCollider>();
+            enemyCollider.enabled = false;
             Destroy(gameObject, 5f);
         }
     }
