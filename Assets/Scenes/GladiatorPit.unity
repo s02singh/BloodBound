@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.49641335, b: 0.5748179, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657946, g: 0.49641424, b: 0.574819, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -654,7 +654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1152631115
 Transform:
   m_ObjectHideFlags: 0
@@ -937,7 +937,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1680943437
 Transform:
   m_ObjectHideFlags: 0
@@ -1160,8 +1160,36 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4517181724459097441, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 963194228}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7016159312064160757, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2132128152}
   m_SourcePrefab: {fileID: 100100000, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+--- !u!1 &2132128151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7016159312064160757, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+  m_PrefabInstance: {fileID: 2132128150}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2132128152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132128151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55a9b1bb85b78f844b2979103d3f4f3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  specialModeCooldownPeriod: 5
+  baseDamage: 20
+  swordRange: 15
+  swordMode: 5
+  lightningPrefab: {fileID: 8565405721982213369, guid: c507b66843bed6d408086e0de685fcf2, type: 3}
+  lightningOffsetX: -2.25
+  lightningOffsetZ: 0.6
+  lightningOffsetY: 20
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

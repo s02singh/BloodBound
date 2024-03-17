@@ -20,9 +20,6 @@ public class SwordController : MonoBehaviour
         new List<float> {30, 50}
     };
 
-    [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private GameObject swordElectricity;
-
     [SerializeField] private GameObject lightningPrefab;
     [SerializeField] private float lightningOffsetX = -0.03f;   // selected via testing
     [SerializeField] private float lightningOffsetZ =  2.54f;   // selected via testing
@@ -32,24 +29,10 @@ public class SwordController : MonoBehaviour
     void Start()
     {        
         swordMode = 0;
-        
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.enabled = false;
-        
-        swordElectricity.SetActive(false);
     }
 
     void Update()
     {
-        if (swordMode >= 3) 
-        {
-            swordElectricity.SetActive(true);
-        }
-        else
-        {
-            swordElectricity.SetActive(false);
-        }
-
         if (specialModeCooldownStatus < specialModeCooldownPeriod)
         {
             specialModeCooldownStatus += Time.deltaTime;
@@ -91,14 +74,6 @@ public class SwordController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(swordPosition, attackDirection, out hit, swordRange))
         {
-            Debug.DrawRay(swordPosition, attackDirection * swordRange, Color.red, 3f);
-            
-            // lineRenderer.SetPosition(0, swordPosition);
-            // lineRenderer.SetPosition(1, hit.point);
-            // lineRenderer.startWidth = 0.1f;
-            // lineRenderer.endWidth = 0.05f;
-            // lineRenderer.enabled = true;
-
             if (hit.collider.gameObject.CompareTag("Enemy"))
             {
                 DamageEnemy(hit.collider.gameObject, comboCounter, attackType);
@@ -117,8 +92,8 @@ public class SwordController : MonoBehaviour
 
         GameObject lightning = Instantiate(
             lightningPrefab, 
-            new Vector3(0,0,0), 
-            new Quaternion(0.8509035f, 0, 0, 0.525322f)
+            new Vector3(swordPosition.x+lightningOffsetX,swordPosition.y+lightningOffsetY,swordPosition.z+lightningOffsetZ), 
+            Quaternion.Euler(90,0,0)
         );
 
         lightning.GetComponent<LightningController>().Init(
@@ -127,22 +102,24 @@ public class SwordController : MonoBehaviour
             swordPosition.y+lightningOffsetY
         );
 
-        Collider[] hitColliders = Physics.OverlapBox(swordPosition, new Vector3(5f, 5f, 5f)); 
-        
-        // lineRenderer.positionCount = 4;
-        // lineRenderer.SetPosition(0, swordPosition);
-        // lineRenderer.SetPosition(1, leftPoint);
-        // lineRenderer.SetPosition(2, rightPoint);
-        // lineRenderer.SetPosition(3, center);
-        // lineRenderer.startWidth = .1f;
-        // lineRenderer.endWidth = .05f;
-        // lineRenderer.enabled = true;
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemy");
 
-        foreach (Collider collider in hitColliders)
+        foreach (GameObject obj in objects)
         {
-            if (collider.gameObject.CompareTag("Enemy"))
+            // Calculate vector from apex point to object's position
+            Vector3 vectorToObj = obj.transform.position - swordPosition;
+
+            // Calculate angle between direction vector and vector to object
+            float angle = Vector3.Angle(attackDirection, vectorToObj);
+
+            // Check if object is within cone's angle
+            if (angle <= 45f / 2f)
             {
-                DamageEnemy(collider.gameObject, comboCounter, attackType);
+                // Check if object is within maximum distance
+                if (vectorToObj.magnitude <= swordRange)
+                {
+                    DamageEnemy(obj, comboCounter, attackType);
+                }
             }
         }
     }
@@ -184,9 +161,9 @@ public class SwordController : MonoBehaviour
     }
 
     // call to reset the sword to base state
-    public void Reset() {
+    public void Reset()
+    {
         swordMode = 0;
-        swordElectricity.SetActive(false);
     }
 
     // returns the cooldown status as a percentage (0-1)

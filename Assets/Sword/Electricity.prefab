@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1474470720718331959}
   - component: {fileID: 6015547576502551099}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Electricity
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
