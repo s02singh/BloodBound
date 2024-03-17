@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class WaveSpawner : MonoBehaviour
 {
+    public GameObject portal;
     public GameObject zombiePrefab;
     public GameObject archerPrefab; 
     public GameObject warrokPrefab; 
@@ -9,6 +10,7 @@ public class WaveSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     private int currentWave = 0;
     private bool waveInProgress = false;
+    private bool portalActive = false;
     // waveTimer and spawnInterval do not do anything as of now.
     // we can decide whether to remove or implement enemies spawning in
     // certain intervals throughout the wave
@@ -20,6 +22,16 @@ public class WaveSpawner : MonoBehaviour
 
     void Update()
     {
+        if (currentWave == 10)
+        {
+            if (!waveInProgress && GameObject.FindGameObjectsWithTag("Enemy").Length == 0 && !portalActive)
+            {
+                // ALL WAVES COMPLETED: Add code to allow player to transfer to boss fight
+                portal.SetActive(true);
+                portalActive = true;
+            }
+            return;
+        }
         waveTimer += Time.deltaTime;
         // If a wave is not currently in progress and there's no enemies left alive, start the next wave
         if (!waveInProgress && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
@@ -32,38 +44,69 @@ public class WaveSpawner : MonoBehaviour
 
     void StartNextWave()
     {
+        // Begin the wave
+        waveInProgress = true;
         currentWave++;
         waveTimer = 0f;
-        // set the amount of enemies to be spawned in next wave 
-        // TODO: NEEDS BALANCING CHANGES!!!
-        zombiesPerWave = currentWave * 2;
-        archersPerWave = currentWave * 1; 
-
-        // Calculate warroks and reapers per wave (warroks start spawning on wave 3, reapers on wave 5)
-        // TODO: NEEDS BALANCING
-        if (currentWave >= 3)
-        {
-            warroksPerWave = Mathf.RoundToInt(currentWave * 0.3f);
-        }
-        else
-        {
-            warroksPerWave = 0;
-        }
         
-        if (currentWave >= 5)
+        switch (currentWave)
         {
-            reapersPerWave = Mathf.RoundToInt(currentWave * 0.2f);
-        }
-        else
-        {
-            reapersPerWave = 0;
+            case 1:
+                zombiesPerWave = 5;
+                archersPerWave = 0;
+                break;
+            case 2:
+                zombiesPerWave = 5;
+                archersPerWave = 2;
+                break;
+            case 3:
+                zombiesPerWave = 7;
+                archersPerWave = 3;
+                break;
+            case 4:
+                zombiesPerWave = 5;
+                archersPerWave = 2;
+                warroksPerWave = 1;
+                break;
+            case 5:
+                zombiesPerWave = 7;
+                archersPerWave = 3;
+                warroksPerWave = 2;
+                break;
+            case 6:
+                zombiesPerWave = 10;
+                archersPerWave = 4;
+                warroksPerWave = 3;
+                break;
+            case 7:
+                zombiesPerWave = 10;
+                archersPerWave = 5;
+                warroksPerWave = 3;
+                break;
+            case 8:
+                zombiesPerWave = 12;
+                archersPerWave = 6;
+                warroksPerWave = 4;
+                reapersPerWave = 1;
+                break;
+            case 9:
+                zombiesPerWave = 15;
+                archersPerWave = 8;
+                warroksPerWave = 5;
+                reapersPerWave = 2;
+                break;
+            case 10:
+                zombiesPerWave = 20;
+                archersPerWave = 5;
+                warroksPerWave = 10;
+                reapersPerWave = 3;
+                break;
+            default:
+                break;
         }
 
         Debug.Log("Current Wave: " + currentWave);
 
-
-        // Begin the wave
-        waveInProgress = true;
         SpawnWave(currentWave);
     }
 

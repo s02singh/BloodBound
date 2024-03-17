@@ -20,8 +20,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float chaseRange = 10f; // Distance to trigger chase
 
-    [SerializeField]
-    private float patrolRange = 5f; // Distance to roam around patrol points
+    //[SerializeField]
+    //private float patrolRange = 5f; // Distance to roam around patrol points
 
     [SerializeField]
     private Transform[] patrolPoints; // Array of patrol points. I still need to make this
@@ -33,7 +33,7 @@ public class Enemy : MonoBehaviour
     private RaycastHit hit;
 
     private bool isAttacking = false;
-    private bool isChasing = false;
+    //private bool isChasing = false;
 
     private float nextAttackTime = 0f;
     private bool isBlocking = false;
@@ -143,7 +143,7 @@ public class Enemy : MonoBehaviour
     private void Patrol()
     {
         
-        isChasing = false;
+        // isChasing = false;
         agent.isStopped = false;
 
         // Move to patrol point
