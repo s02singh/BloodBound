@@ -218,9 +218,11 @@ public class PlayerController : MonoBehaviour
     // Press R to dodge
     private void Dodge()
     {
+        
         // Check for dodge input
         if (Input.GetKeyDown(KeyCode.Q) && !isDodging && thirdPersonController._speed != 0)
         {
+            isAttacking = false;
             StartCoroutine(Roll());
         }
     }
@@ -238,6 +240,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
         isDodging = false;
+        
             
 
     }
@@ -260,6 +263,8 @@ public class PlayerController : MonoBehaviour
     // PRESS Left Mouse Button TO ATTACK
     private void Attack()
     {
+        if (isDodging) { return;}
+        
         if (Input.GetMouseButtonDown(0) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
         {
             if (!isEquipped)
