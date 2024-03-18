@@ -153525,7 +153525,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 2.2
-    functionName: 
+    functionName: RaycastAttack
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

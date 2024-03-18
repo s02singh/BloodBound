@@ -106,16 +106,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // PRESS U TO ULTIMATE ABILITY
+    // PRESS C TO ULTIMATE ABILITY
     private void Ultimate()
     {
-        if (Input.GetKeyDown(KeyCode.U) && playerAnim.GetBool("Grounded"))
+        if (Input.GetKeyDown(KeyCode.C) && playerAnim.GetBool("Grounded"))
         {
             if (!isEquipped)
                 return;
             isAttacking = true;
             playerAnim.SetTrigger("Ultimate");
-            
         }
     }
 
@@ -209,17 +208,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // IGNORE NOT FINISHED
+    // Press R to dodge
     private void Dodge()
     {
         // Check for dodge input
-
-        if (Input.GetKeyDown(KeyCode.F) && !isDodging && thirdPersonController._speed!=0)
+        if (Input.GetKeyDown(KeyCode.Q) && !isDodging && thirdPersonController._speed != 0)
         {
             StartCoroutine(Roll());
-
         }
-
     }
 
     IEnumerator Roll() {
@@ -254,13 +250,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // PRESS K FOR LIGHT ATTACKS. 3 PIECE COMBO
+    // PRESS Left Mouse Button TO ATTACK
     private void Attack()
     {
-
-        if (Input.GetKey(KeyCode.K) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
+        if (Input.GetMouseButtonDown(0) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
         {
-            
             if (!isEquipped)
                 return;
 
@@ -276,22 +270,19 @@ public class PlayerController : MonoBehaviour
 
             //Call Attack Triggers
             playerAnim.SetTrigger("Attack" + currentAttack);
-        
 
             //Reset Timer
             timeSinceAttack = 0;
         }
-
-
     }
 
-    // HOLD J FOR HEAVY ATTACK. PRESS J AT THE END OF LIGHT COMBO FOR HEAVY COMBO
+    // PRESS Left Mouse Button + F TO HEAVY ATTACK
     private void HeavyAttack()
     {
         if (!isEquipped)
             return;
-        
-        if (Input.GetKey(KeyCode.J) && playerAnim.GetBool("Grounded"))
+
+        if (Input.GetMouseButtonDown(0) && Input.GetKeyDown(KeyCode.F) && playerAnim.GetBool("Grounded"))
         {
             isAttacking = true;
             if (currentAttack == 3)

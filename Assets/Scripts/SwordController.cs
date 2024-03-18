@@ -8,7 +8,7 @@ public class SwordController : MonoBehaviour
     [SerializeField] private float specialModeCooldownPeriod = 5.0f;
     
     [SerializeField] private float baseDamage = 20;
-    private float swordRange = 1f;
+    public float swordRange = 1f;
     // 0: normal0, 1: normal1, 2: normal2, 3: special0, 4: special1
     [SerializeField] private int swordMode = 0;
     // column 1: normal, column 2: special
@@ -36,6 +36,17 @@ public class SwordController : MonoBehaviour
         if (specialModeCooldownStatus < specialModeCooldownPeriod)
         {
             specialModeCooldownStatus += Time.deltaTime;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("here in collision");
+        // Check if the collision is with the dragon
+        if (collision.gameObject.CompareTag("Dragon"))
+        {
+            // Damage the dragon
+            DamageDragon(1, 0);
         }
     }
 
@@ -70,15 +81,57 @@ public class SwordController : MonoBehaviour
         Vector3 swordPosition = transform.position;
         swordPosition.y += 1.0f; // added to make the colliders work a little better, instead of raycast coming out from the ground it comes out from the player's chest
         Vector3 attackDirection = transform.forward;
-
+        
         // Perform raycast
         RaycastHit hit;
         if (Physics.Raycast(swordPosition, attackDirection, out hit, swordRange))
         {
-            if (hit.collider.gameObject.CompareTag("Enemy") || hit.collider.gameObject.CompareTag("Dragon"))
+            if (hit.collider.gameObject.CompareTag("Enemy"))
             {
                 DamageEnemy(hit.collider.gameObject, comboCounter, attackType);
             }
+            else if (hit.collider.gameObject.CompareTag("Dragon"))
+            {
+                DamageDragon(comboCounter, attackType);
+            }
+           
+        }
+        swordPosition.y += 3.0f; // two for dragon 
+        RaycastHit hit2;
+        if (Physics.Raycast(swordPosition, attackDirection, out hit2, swordRange+3f))
+        {
+           if (hit2.collider.gameObject.CompareTag("Dragon"))
+            {
+                DamageDragon(comboCounter, attackType);
+            }
+
+        }
+
+        Bounds swordBounds = GetComponent<Collider>().bounds;
+        Collider[] dragonColliders = Physics.OverlapBox(swordBounds.center, swordBounds.extents, transform.rotation, LayerMask.GetMask("Dragon"));
+
+        if (dragonColliders.Length > 0)
+        {
+            DamageDragon(comboCounter, attackType);
+        }
+    }
+
+    private void DamageDragon(int comboCounter, int attackType)
+    {
+
+        /**
+         * The Enemy can be of 2 types: EnemyAI and DragonAI. So this script checks
+         * for both types and calls the appropriate method to deal damage to the enemy.
+        */
+
+        int damage = (int)CalculateDamage(comboCounter, attackType);
+
+        GameObject enemy = GameObject.Find("Dragon");
+        DragonAI dragonAI = enemy.GetComponent<DragonAI>();
+        if (dragonAI != null)
+        {
+            dragonAI.TakeDamage(damage);
+            Debug.Log("Did Damage to " + enemy.name + " with " + damage + " damage");
         }
     }
 
@@ -160,7 +213,7 @@ public class SwordController : MonoBehaviour
             enemyAI.TakeDamage(damage);
             Debug.Log("Did Damage to " + enemy.name + " with " + damage + " damage");
         }
-        
+
         DragonAI dragonAI = enemy.GetComponent<DragonAI>();
         if (dragonAI != null)
         {

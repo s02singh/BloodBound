@@ -166,10 +166,7 @@ public class DragonAI : MonoBehaviour
     // TODO: DAMAGE IMPLEMENTATION
     public void TakeDamage(int damage)
     {
-        if (isFlying)
-        {
-            return;
-        }
+      
         health -= damage;
 
         if (health <= 0)
