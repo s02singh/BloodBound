@@ -16589,6 +16589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
+  damage: 35
   timeBetweenAttacks: 5
   attackRange: 7
   playerInAttackRange: 0

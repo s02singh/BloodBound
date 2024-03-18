@@ -7,6 +7,7 @@ public class EnemyAI : MonoBehaviour
     private Transform player;
     private Animator animator;
     [SerializeField] private float health;
+    [SerializeField] private int damage;
 
     // Attacking
     private RaycastHit hit;
@@ -114,7 +115,7 @@ public class EnemyAI : MonoBehaviour
 
             if (hit.collider.gameObject.CompareTag("Player"))
             {
-                player.GetComponent<PlayerController>()?.TakeDamage(20); // NEED DAMAGE ENGINE
+                player.GetComponent<PlayerController>()?.TakeDamage(damage);
             }
         }
     }
@@ -122,13 +123,14 @@ public class EnemyAI : MonoBehaviour
     {
         attacking = false;
         animator.SetBool("inRange", false);
-        timeSinceLastAttack = 0;
+        // Randomize attack patterns so all enemies dont attack at the same time
+        timeSinceLastAttack = Random.Range(0f, 2f);
     }
 
     // TODO: DAMAGE IMPLEMENTATION
-    public void TakeDamage(int damage)
+    public void TakeDamage(int dmg)
     {
-        health -= damage;
+        health -= dmg;
 
         if (health <= 0)
         {
