@@ -293,6 +293,7 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKey(KeyCode.J) && playerAnim.GetBool("Grounded"))
         {
+            isAttacking = true;
             if (currentAttack == 3)
             {
                 currentAttack = 1;
@@ -323,47 +324,7 @@ public class PlayerController : MonoBehaviour
         }
 
         sword.GetComponent<SwordController>().Attack(currentAttack, 0);
-        /*
-        // Get sword position and attack direction
-        Vector3 swordPosition = sword.transform.position;
-        Vector3 attackDirection = sword.transform.forward;
-
-        // Perform raycast
-        RaycastHit hit;
-        if (Physics.Raycast(swordPosition, attackDirection, out hit, 15))
-        {
-            Debug.DrawRay(swordPosition, attackDirection * 50, Color.red, 3f);
-
-            Debug.Log("Hit something: " + hit.collider.gameObject.name);
-            lineRenderer.SetPosition(0, swordPosition);
-            lineRenderer.SetPosition(1, hit.point);
-
-      
-            lineRenderer.startWidth = 0.1f;
-            lineRenderer.endWidth = 0.05f;
-            
-
-            // I added this line renderer to visualize
-            lineRenderer.enabled = true;
-
-
-            // Check if enemy hit
-            if (hit.collider.gameObject.CompareTag("Enemy"))
-            {
-                // Damage logic
-                EnemyAI enemy = hit.collider.gameObject.GetComponent<EnemyAI>();
-                if (enemy != null)
-                {
-                    enemy.TakeDamage(20); // WE NEED A DAMAGE ENGINE
-                }
-                else
-                {
-                    
-                    Debug.LogWarning("WENT WRONG");
-                }
-            }
-        }
-        */
+        
     }
 
     // NO CHARACTER HEALTH YET. JUST ANIMATION
