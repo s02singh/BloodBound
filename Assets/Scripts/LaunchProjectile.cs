@@ -9,6 +9,9 @@ public class LaunchProjectile : MonoBehaviour
     public float horizontalSpeed = 25f;
     public float verticalSpeed = 3f;
 
+    public AudioSource audioSource;
+    public AudioClip arrowWhoosh;
+
     public void Launch(GameObject projectile)
     {
         player = GameObject.Find("PlayerArmature");
@@ -27,6 +30,9 @@ public class LaunchProjectile : MonoBehaviour
         // Add forces to the projectile
         rb.AddForce(direction * horizontalSpeed, ForceMode.Impulse);
         rb.AddForce(transform.up * verticalSpeed, ForceMode.Impulse);
+
+        audioSource.PlayOneShot(arrowWhoosh);
+
 
         // Destroy the projectile after a delay
         Destroy(rb.gameObject, 2f);

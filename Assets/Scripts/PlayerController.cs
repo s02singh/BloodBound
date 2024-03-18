@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip swordSlash;
+    public AudioClip rollSfx;
 
 
     private void Start()
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour
 
         // Call all mechanic functions
         Attack();
-        HeavyAttack();
+        //HeavyAttack();
         Dodge();
         Ultimate();
         Equip();
@@ -94,6 +95,12 @@ public class PlayerController : MonoBehaviour
     {
         audioSource.pitch = Random.Range(0.9f, 1.1f);
         audioSource.PlayOneShot(swordSlash);
+        audioSource.pitch = 1f;
+    }
+
+    private void PlayRollSound()
+    {
+        audioSource.PlayOneShot(rollSfx);
     }
 
     // PRESS R TO EQUIP
@@ -261,6 +268,15 @@ public class PlayerController : MonoBehaviour
             currentAttack++;
             isAttacking = true;
 
+            
+
+            // Check for chained heavy attack after the third attack
+            if (currentAttack == 4 && Input.GetKey(KeyCode.F))
+            {
+                ChainedHeavyAttack();
+                return;
+            }
+
             if (currentAttack > 3)
                 currentAttack = 1;
 
@@ -275,6 +291,16 @@ public class PlayerController : MonoBehaviour
             timeSinceAttack = 0;
         }
     }
+
+    // Chained Heavy Attack triggered after the third light attack if F key is held
+    private void ChainedHeavyAttack()
+    {
+        isAttacking = true;
+        currentAttack = 0;
+        playerAnim.SetTrigger("HeavyCombo");
+        timeSinceAttack = 0;
+    }
+
 
     // PRESS Left Mouse Button + F TO HEAVY ATTACK
     private void HeavyAttack()
