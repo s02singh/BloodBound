@@ -5,6 +5,7 @@ using UnityEngine;
 public class StartZoneTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject startWaves;
+    [SerializeField] private GameObject blockPlayer;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -15,6 +16,7 @@ public class StartZoneTrigger : MonoBehaviour
                 bar.CloseBar();
             }
             startWaves.SetActive(true);
+            blockPlayer.SetActive(true);
         }
     }
 }
