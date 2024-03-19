@@ -80,25 +80,25 @@ public class WaveSpawner : MonoBehaviour
                 break;
             case 7:
                 zombiesPerWave = 10;
-                archersPerWave = 5;
-                warroksPerWave = 3;
+                archersPerWave = 7;
+                warroksPerWave = 1;
                 break;
             case 8:
-                zombiesPerWave = 12;
-                archersPerWave = 6;
-                warroksPerWave = 4;
+                zombiesPerWave = 5;
+                archersPerWave = 3;
+                warroksPerWave = 2;
                 reapersPerWave = 1;
                 break;
             case 9:
-                zombiesPerWave = 15;
-                archersPerWave = 8;
-                warroksPerWave = 5;
-                reapersPerWave = 2;
+                zombiesPerWave = 12;
+                archersPerWave = 4;
+                warroksPerWave = 2;
+                reapersPerWave = 1;
                 break;
             case 10:
-                zombiesPerWave = 20;
-                archersPerWave = 5;
-                warroksPerWave = 10;
+                zombiesPerWave = 3;
+                archersPerWave = 2;
+                warroksPerWave = 2;
                 reapersPerWave = 3;
                 break;
             default:
