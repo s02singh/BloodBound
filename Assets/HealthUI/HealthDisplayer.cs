@@ -5,7 +5,12 @@ using TMPro;
 public class HealthUIUpdater : MonoBehaviour
 {
     public TextMeshProUGUI healthAndStaminaText;
-    public PlayerController characterScript;
+    private PlayerController characterScript;
+
+    void Start()
+    {
+        characterScript = transform.parent.GetComponent<HealthUIReferences>().characterScript;
+    }
 
     void Update()
     {
