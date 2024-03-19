@@ -197,6 +197,18 @@ namespace StarterAssets
             }
         }
 
+        public bool GroundedCheckPlayer()
+        {
+            // set sphere position, with offset
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
+                transform.position.z);
+            Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
+                QueryTriggerInteraction.Ignore);
+            return Grounded;
+
+           
+        }
+
         private void CameraRotation()
         {
             // if there is an input and camera position is not fixed
@@ -297,6 +309,9 @@ namespace StarterAssets
 
         private void JumpAndGravity()
         {
+            if (playerController.isAttacking || playerController.isBlocking || playerController.isDodging
+                || playerController.timeSinceAttack < 0.8)
+                return;
             if (Grounded)
             {
                 isJumping = true;

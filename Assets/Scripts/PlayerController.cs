@@ -271,6 +271,8 @@ public class PlayerController : MonoBehaviour
             if (!isEquipped)
                 return;
 
+            if (!thirdPersonController.GroundedCheckPlayer())
+                return;
             currentAttack++;
             isAttacking = true;
 
