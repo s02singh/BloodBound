@@ -53,6 +53,8 @@ namespace StarterAssets
         [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
 
+        public bool isJumping = false;
+
         [Tooltip("Useful for rough ground")]
         public float GroundedOffset = -0.14f;
 
@@ -223,8 +225,13 @@ namespace StarterAssets
 
 
             // set target speed based on move speed, sprint speed and if sprint is pressed
+
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
+            if (playerController.isAttacking || playerController.timeSinceAttack < 0.8)
+            {
+                targetSpeed = 0;
+            }
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
@@ -292,6 +299,7 @@ namespace StarterAssets
         {
             if (Grounded)
             {
+                isJumping = true;
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
 
@@ -355,6 +363,7 @@ namespace StarterAssets
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
+            isJumping = false;
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

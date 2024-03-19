@@ -47,13 +47,16 @@ namespace StarterAssets
 
 		public void OnJump(InputValue value)
 		{
-			if (playerController.isEquipping || playerController.isBlocking || playerController.isKicking || playerController.isAttacking)
+			if (playerController.isEquipping || playerController.isBlocking || playerController.isKicking || playerController.isAttacking ||
+				playerController.isDodging)
 				return;
 			JumpInput(value.isPressed);
 		}
 
 		public void OnSprint(InputValue value)
 		{
+			if (playerController.isAttacking || playerController.timeSinceAttack < 0.8)
+				return;
 			SprintInput(value.isPressed);
 		}
 #endif

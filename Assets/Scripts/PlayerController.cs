@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     AnimationCurve dodgeCurve;
 
-    bool isDodging;
+    public bool isDodging;
     float dodgeTimer;
 
     CharacterController characterController;
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
     //Attack Parameters
     public bool isAttacking;
-    private float timeSinceAttack;
+    public float timeSinceAttack;
     public int currentAttack = 0;
     public float shieldDelay = 1f;
     public float timeToBlock = 0f;
@@ -263,7 +263,8 @@ public class PlayerController : MonoBehaviour
     // PRESS Left Mouse Button TO ATTACK
     private void Attack()
     {
-        if (isDodging) { return;}
+
+        if (isDodging || thirdPersonController.isJumping) { return;}
         
         if (Input.GetMouseButtonDown(0) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
         {
