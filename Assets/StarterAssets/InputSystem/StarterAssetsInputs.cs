@@ -55,8 +55,7 @@ namespace StarterAssets
 
 		public void OnSprint(InputValue value)
 		{
-			if (playerController.isAttacking || playerController.timeSinceAttack < 0.8)
-				return;
+			
 			SprintInput(value.isPressed);
 		}
 #endif

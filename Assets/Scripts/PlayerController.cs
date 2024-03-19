@@ -108,6 +108,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && playerAnim.GetBool("Grounded"))
         {
+            if (isAttacking || isDodging || isEquipping)
+                return;
             isEquipping = true;
             playerAnim.SetTrigger("Equip");
         }
@@ -222,6 +224,8 @@ public class PlayerController : MonoBehaviour
         // Check for dodge input
         if (Input.GetKeyDown(KeyCode.Q) && !isDodging && thirdPersonController._speed != 0)
         {
+            if (isEquipping)
+                return;
             isAttacking = false;
             StartCoroutine(Roll());
         }
@@ -264,7 +268,8 @@ public class PlayerController : MonoBehaviour
     private void Attack()
     {
 
-        if (isDodging || thirdPersonController.isJumping) { return;}
+        if (isDodging || thirdPersonController.isJumping || isEquipping)
+            return;
         
         if (Input.GetMouseButtonDown(0) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
         {
