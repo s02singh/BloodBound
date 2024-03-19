@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964134, b: 0.5748181, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657946, g: 0.49641424, b: 0.574819, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -518,6 +518,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4517181724459097441, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
   m_PrefabInstance: {fileID: 2132128150}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &602653964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 602653965}
+  m_Layer: 0
+  m_Name: LightningSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &602653965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602653964}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.56, y: 15.11, z: 1.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2132128156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &701155494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1732,6 +1763,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4517181724459097441, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 963194228}
+    - targetCorrespondingSourceObject: {fileID: 8328156691782091295, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 602653965}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7619141846102596993, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
       insertIndex: -1
@@ -1765,6 +1799,7 @@ MonoBehaviour:
   swordRange: 1
   swordMode: 5
   lightningPrefab: {fileID: 8565405721982213369, guid: c507b66843bed6d408086e0de685fcf2, type: 3}
+  lightningSpawnPoint: {fileID: 602653965}
   lightningOffsetX: -2.08
   lightningOffsetZ: -0.89
   lightningOffsetY: 20
@@ -1790,6 +1825,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3236720986300101758, guid: d99a58207b894604eb19c59dab11fa53, type: 3}
+--- !u!4 &2132128156 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8328156691782091295, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+  m_PrefabInstance: {fileID: 2132128150}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

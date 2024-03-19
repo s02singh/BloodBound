@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SwordController : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class SwordController : MonoBehaviour
     };
 
     [SerializeField] private GameObject lightningPrefab;
+    [SerializeField] private Transform  lightningSpawnPoint;
+
+
     [SerializeField] private float lightningOffsetX = -0.03f;   // selected via testing
     [SerializeField] private float lightningOffsetZ =  2.54f;   // selected via testing
     [SerializeField] private float lightningOffsetY =  4.42f;   // selected via testing
@@ -145,20 +149,21 @@ public class SwordController : MonoBehaviour
         Vector3 center = swordPosition;
 
         GameObject lightning = Instantiate(
-            lightningPrefab, 
-            new Vector3(swordPosition.x+lightningOffsetX,swordPosition.y+lightningOffsetY,swordPosition.z+lightningOffsetZ), 
+            lightningPrefab,
+            lightningSpawnPoint.position, 
             Quaternion.Euler(90,0,0)
-        );
+        );  
 
-        lightning.GetComponent<LightningController>().Init(
-            swordPosition.x+lightningOffsetX, 
-            swordPosition.z+lightningOffsetZ, 
-            swordPosition.y+lightningOffsetY
-        );
+        // lightning.GetComponent<LightningController>().Init(
+        //     swordPosition.x+lightningOffsetX, 
+        //     swordPosition.z+lightningOffsetZ, 
+        //     swordPosition.y+lightningOffsetY
+        // );
 
-        GameObject[] objects = GameObject.FindGameObjectsWithTag("Enemy");
-        //objects += GameObject.FindGameObjectsWithTag("Dragon");
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] dragons = GameObject.FindGameObjectsWithTag("Dragon");
 
+        GameObject[] objects = CreateCombinedArrayFrom(enemies, dragons);
         foreach (GameObject obj in objects)
         {
             // Calculate vector from apex point to object's position
@@ -239,5 +244,17 @@ public class SwordController : MonoBehaviour
     public float GetSpecialModeCooldownStatus()
     {
         return (specialModeCooldownPeriod - specialModeCooldownStatus)/specialModeCooldownPeriod;
+    }
+
+
+
+
+
+    public static T[] CreateCombinedArrayFrom< T >(T[] first, T[] second)
+    {
+        T[] result = new T[first.Length + second.Length];
+        Array.Copy(first, 0, result, 0, first.Length);
+        Array.Copy(second, 0, result, first.Length, second.Length);
+        return result;
     }
 }

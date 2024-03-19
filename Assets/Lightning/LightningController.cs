@@ -13,6 +13,18 @@ public class LightningController : MonoBehaviour
     private ParticleSystem lightning;
     private AudioSource audioSource;
 
+    void Start()
+    {
+        lightning = GetComponent<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
+        audioSource.clip = thunderSound;
+        
+        ChangeLocation(transform.position.x, transform.position.z);
+        ChangeHeight(transform.position.y);
+
+        Startlightning(); 
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -23,11 +35,7 @@ public class LightningController : MonoBehaviour
     }
 
     public void Init(float start_x, float start_z, float height)
-    {
-        lightning = GetComponent<ParticleSystem>();
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = thunderSound;
-        
+    {        
         ChangeLocation(start_x, start_z);
         ChangeHeight(height);        
         Startlightning();
