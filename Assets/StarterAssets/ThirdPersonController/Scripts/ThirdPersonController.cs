@@ -163,7 +163,7 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
+            
             GroundedCheck();
             Move();
         }
@@ -307,7 +307,7 @@ namespace StarterAssets
             }
         }
 
-        private void JumpAndGravity()
+        public void JumpAndGravity()
         {
             if (playerController.isAttacking || playerController.isBlocking || playerController.isDodging
                 || playerController.timeSinceAttack < 0.8)

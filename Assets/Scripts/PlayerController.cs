@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
         Attack();
         //HeavyAttack();
         Dodge();
+        thirdPersonController.JumpAndGravity();
         Ultimate();
         Equip();
         Block();
@@ -227,12 +228,15 @@ public class PlayerController : MonoBehaviour
             if (isEquipping)
                 return;
             isAttacking = false;
+            if (!thirdPersonController.GroundedCheckPlayer())
+                return;
             StartCoroutine(Roll());
         }
     }
 
     IEnumerator Roll() {
         playerAnim.SetTrigger("Dodge");
+        
         isDodging = true;
         float timer = 0;
         while (timer < dodgeTimer)
