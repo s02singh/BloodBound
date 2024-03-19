@@ -1222,7 +1222,7 @@ MonoBehaviour:
   health: 20
   damage: 20
   timeBetweenAttacks: 5
-  attackRange: 1
+  attackRange: 1.25
   playerInAttackRange: 0
   animated: 1
   alive: 1
@@ -1237,7 +1237,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3732994290620253174}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Speed: 2
   m_Acceleration: 8
   avoidancePriority: 50

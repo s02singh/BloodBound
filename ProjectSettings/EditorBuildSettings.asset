@@ -5,10 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/PauseScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
     path: Assets/Scenes/FinalBossFight.unity
     guid: 6b21e4765a60c4d559209067378fbe28
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: de1e94ed1d1b2d7448094a34889efcbc
+  - enabled: 1
+    path: Assets/Scenes/GladiatorPit.unity
+    guid: 91c2ecbd77d9a6d4482df18acbeaa8c9
   m_configObjects: {}
