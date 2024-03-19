@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4da79394579f34a6fbd7e5d34ac17692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthText: {fileID: 430058238}
+  healthAndStaminaText: {fileID: 430058238}
   characterScript: {fileID: 408520121}
 --- !u!114 &430058238
 MonoBehaviour:

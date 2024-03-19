@@ -31,6 +31,12 @@ public class PlayerController : MonoBehaviour
     public float regenCooldown = 2f;
     public float timeSinceHit = 0f;
 
+    public float maxStam = 100f;
+    public float currentStam;
+    public float regenStam = 2f;
+    public float timeSinceStam = 0f;
+
+  
     private Vector3 dodgeDirection;
 
 
@@ -63,6 +69,7 @@ public class PlayerController : MonoBehaviour
         thirdPersonController = GetComponent<ThirdPersonController>();
         audioSource = GetComponent<AudioSource>();
         currentHealth = maxHealth;
+        currentStam = maxStam;
 
     }
     private void Update()
@@ -90,6 +97,13 @@ public class PlayerController : MonoBehaviour
             currentHealth += 5 * Time.deltaTime;
             currentHealth = Mathf.Clamp(currentHealth, 0, 100);
         }
+
+        timeSinceStam += Time.deltaTime;
+        if (timeSinceStam > regenStam && currentStam < maxStam)
+        {
+            currentStam += 12 * Time.deltaTime;
+            currentStam = Mathf.Clamp(currentStam, 0, 100);
+        }
     }
 
     private void PlaySwordSound()
@@ -109,7 +123,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && playerAnim.GetBool("Grounded"))
         {
-            if (isAttacking || isDodging || isEquipping)
+            if (isAttacking || isDodging || isEquipping || isBlocking || isKicking)
                 return;
             isEquipping = true;
             playerAnim.SetTrigger("Equip");
@@ -206,6 +220,10 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
+        if (isAttacking || isDodging || isEquipping || isKicking)
+            return;
+
         if (Input.GetKey(KeyCode.Mouse1) && playerAnim.GetBool("Grounded"))
         {
             playerAnim.SetBool("Block", true);
@@ -230,6 +248,10 @@ public class PlayerController : MonoBehaviour
             isAttacking = false;
             if (!thirdPersonController.GroundedCheckPlayer())
                 return;
+            if (currentStam < 20f)
+                return;
+            currentStam -= 20f;
+            timeSinceStam = 0;
             StartCoroutine(Roll());
         }
     }
@@ -256,6 +278,10 @@ public class PlayerController : MonoBehaviour
     // HOLD CTRL TO KICK
     public void Kick()
     {
+
+        if (isAttacking || isDodging || isEquipping || isBlocking)
+            return;
+
         if (Input.GetKey(KeyCode.LeftControl) && playerAnim.GetBool("Grounded"))
         {
             playerAnim.SetBool("Kick", true);
@@ -282,6 +308,9 @@ public class PlayerController : MonoBehaviour
 
             if (!thirdPersonController.GroundedCheckPlayer())
                 return;
+
+            if (currentStam < 5f + (currentAttack + 1) * 1.2f)
+                return;
             currentAttack++;
             isAttacking = true;
 
@@ -303,6 +332,9 @@ public class PlayerController : MonoBehaviour
 
             //Call Attack Triggers
             playerAnim.SetTrigger("Attack" + currentAttack);
+
+            currentStam -= 5f + currentAttack * 1.2f;
+            timeSinceStam = 0;
 
             //Reset Timer
             timeSinceAttack = 0;

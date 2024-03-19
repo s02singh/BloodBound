@@ -239,6 +239,18 @@ namespace StarterAssets
             // set target speed based on move speed, sprint speed and if sprint is pressed
 
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            if (_input.sprint)
+            {
+                if (playerController.currentStam < 1f)
+                {
+                    targetSpeed = MoveSpeed;
+                }
+                else {
+                    playerController.currentStam -= 5f*Time.deltaTime;
+                    playerController.timeSinceStam = 0;
+                }
+                
+            }
 
             if (playerController.isAttacking || playerController.timeSinceAttack < 0.8)
             {
@@ -314,6 +326,7 @@ namespace StarterAssets
                 return;
             if (Grounded)
             {
+                
                 isJumping = true;
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
@@ -331,9 +344,16 @@ namespace StarterAssets
                     _verticalVelocity = -2f;
                 }
 
+                if(playerController.currentStam < 15f)
+                {
+                    _input.jump = false;
+                }
+
                 // Jump
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
+                    playerController.currentStam -= 15f;
+                    playerController.timeSinceStam = 0;
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
