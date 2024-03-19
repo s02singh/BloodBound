@@ -57,8 +57,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 1
-        functionName: endAttack
+      - time: 0.39726028
+        functionName: playWarrokHitSFX
         data: 
         objectReferenceParameter: {fileID: 919132149155446097, guid: 08b9c1cdb2bb9d840bfc71f77c961215, type: 3}
         floatParameter: 0
@@ -66,6 +66,13 @@ ModelImporter:
         messageOptions: 0
       - time: 0.55781245
         functionName: RaycastHit
+        data: 
+        objectReferenceParameter: {fileID: 919132149155446097, guid: 08b9c1cdb2bb9d840bfc71f77c961215, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 1
+        functionName: endAttack
         data: 
         objectReferenceParameter: {fileID: 919132149155446097, guid: 08b9c1cdb2bb9d840bfc71f77c961215, type: 3}
         floatParameter: 0

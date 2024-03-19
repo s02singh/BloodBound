@@ -18,6 +18,9 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private bool playerInAttackRange, animated, alive, attacking;
     [SerializeField] private int rotationSpeed;
 
+
+
+
     private void Awake()
     {
         player = GameObject.Find("PlayerArmature").transform;
@@ -31,6 +34,7 @@ public class EnemyAI : MonoBehaviour
         attacking = false;
         alive = true;
     }
+
 
     private void Update()
     {
