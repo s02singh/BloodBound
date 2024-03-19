@@ -9,7 +9,7 @@ public class HealthUIUpdater : MonoBehaviour
 
     void Start()
     {
-        characterScript = transform.parent.GetComponent<HealthUIReferences>().characterScript;
+        // characterScript = transform.parent.GetComponent<HealthUIReferences>().characterScript;
     }
 
     void Update()

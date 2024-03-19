@@ -4,26 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField]
-    GameObject pauseMenu;
-    [SerializeField]
-    GameObject controlsMenu;
-    [SerializeField]
-    GameObject playerCamera;
+    public GameObject pauseMenu;
+    public GameObject controlsMenu;
+    public GameObject playerCamera;
 
     private bool isPaused = false;
-    ThirdPersonController cameraController;
 
-    // Upon pressing escape, open/close the pause menu.
     void Update()
     {
-        // Escape key press - https://docs.unity3d.com/ScriptReference/KeyCode.Escape.html.
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            // Check the current state, and act based on if it is paused or resuming.
             if (isPaused)
             {
                 ContinueGame();
@@ -35,22 +29,18 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public bool isGamePaused()
-    {
-        return isPaused;
-    }
-
     public void PauseGame()
     {
+        pauseMenu.SetActive(true);
+
         // Stop camera from moving
-        cameraController = playerCamera.GetComponent<ThirdPersonController>();
-        cameraController.enabled = false;
+        playerCamera.GetComponent<ThirdPersonController>().enabled = false;
 
         // Show cursor and let it move
-        Cursor.lockState = CursorLockMode.None;
+        // Cursor.lockState = CursorLockMode.None; // <- problem code
+        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
-        
-        pauseMenu.SetActive(true);
+
         // Pause application with timeScale
         Time.timeScale = 0f;
         isPaused = true;
@@ -62,8 +52,7 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
 
         // Let camera move again
-        cameraController = playerCamera.GetComponent<ThirdPersonController>();
-        cameraController.enabled = true;
+        playerCamera.GetComponent<ThirdPersonController>().enabled = true;
 
         // Hide and lock cursor
         Cursor.lockState = CursorLockMode.Locked;

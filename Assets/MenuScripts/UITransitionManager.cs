@@ -10,6 +10,12 @@ public class UITransitionManager : MonoBehaviour
     public CinemachineVirtualCamera currentCamera;
     public GameObject crossfadeTransition;
 
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // next scene in Build Settings
@@ -25,10 +31,12 @@ public class UITransitionManager : MonoBehaviour
         // Deselects clicked button so that it is no longer selected.
         EventSystem.current.SetSelectedGameObject(null);
 
+        // decrease old camera priority
         currentCamera.Priority--;
 
         currentCamera = target;
 
+        // increase target camera priority
         currentCamera.Priority++;
     }
 
@@ -38,15 +46,21 @@ public class UITransitionManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
 
         UpdateCamera(target);
-        target.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = 0;
-        StartCoroutine(LoadLevel(target));
+
+        StartCoroutine(LoadMainLevel(target));
     }
 
-    IEnumerator LoadLevel(CinemachineVirtualCamera target)
+    IEnumerator LoadMainLevel(CinemachineVirtualCamera target)
     {
+        // reset dolly camera position
+        target.GetCinemachineComponent<CinemachineTrackedDolly>().m_PathPosition = 0;
+
+        // wait for cameras to switch
         yield return new WaitForSeconds(0.5f);
 
+        // start moving dolly camera
         target.GetComponent<Animator>().enabled = true;
+        
         crossfadeTransition.SetActive(true);
         crossfadeTransition.GetComponent<Animator>().enabled = true;
 
