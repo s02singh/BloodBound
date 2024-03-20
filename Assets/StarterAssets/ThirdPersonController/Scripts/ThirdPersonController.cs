@@ -21,7 +21,7 @@ namespace StarterAssets
         [Header("Camera Sensitiyvity")]
         public Vector2 LookSensitivity;
 
-       [Tooltip("Sprint speed of the character in m/s")]
+        [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
         [Tooltip("How fast the character turns to face movement direction")]
@@ -142,7 +142,7 @@ namespace StarterAssets
         private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            
+
             _hasAnimator = TryGetComponent(out _animator);
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<StarterAssetsInputs>();
@@ -159,11 +159,13 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
         }
 
+  
+
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            
+        
             GroundedCheck();
             Move();
         }
@@ -206,30 +208,50 @@ namespace StarterAssets
                 QueryTriggerInteraction.Ignore);
             return Grounded;
 
-           
+
         }
+
+
 
         private void CameraRotation()
         {
-            // if there is an input and camera position is not fixed
-            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            if (playerController.isMeteorUlt)
             {
-                //Don't multiply mouse input by Time.deltaTime;
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * LookSensitivity.x;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * LookSensitivity.y;
+                float rotationSpeed = 150.0f;
+  
+              
+                _cinemachineTargetYaw += rotationSpeed * Time.deltaTime;
             }
+            else
+            {
+          
+                if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+                {
+                    //Don't multiply mouse input by Time.deltaTime;
+                    float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-            // clamp our rotations so our values are limited 360 degrees
-            _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
-            _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+                    _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * LookSensitivity.x;
+                    _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * LookSensitivity.y;
+                }
+
+                // clamp our rotations so our values are limited 360 degrees
+                _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
+                _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+            }
 
             // Cinemachine will follow this target
             CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
         }
 
+
+  
+
+        private void ChangeTime(float time)
+        {
+            Time.timeScale = time;
+        }
         private void Move()
         {
             if (playerController.isEquipping || playerController.isBlocking || playerController.isKicking || playerController.isAttacking || playerController.isDashing || playerController.isMeteorUlt)

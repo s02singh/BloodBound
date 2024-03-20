@@ -4859,12 +4859,12 @@ MonoBehaviour:
   - {fileID: 4300000, guid: 371ed6c0dd75f6a4ebd1dfcb0b578b46, type: 3}
   - {fileID: 4300010, guid: 371ed6c0dd75f6a4ebd1dfcb0b578b46, type: 3}
   DestinationRadius: 15
-  Source: {x: 96.55652, y: 37.39, z: 102.94298}
+  Source: {x: 82.016884, y: 37.39, z: 101.843475}
   SourceRadius: 10
   TimeToImpact: 1
   MeteorsPerSecondRange:
-    Minimum: 20
-    Maximum: 30
+    Minimum: 30
+    Maximum: 40
   ScaleRange:
     Minimum: 0.25
     Maximum: 1
