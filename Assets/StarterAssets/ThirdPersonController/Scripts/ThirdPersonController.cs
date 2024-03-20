@@ -246,7 +246,7 @@ namespace StarterAssets
                     targetSpeed = MoveSpeed;
                 }
                 else {
-                    playerController.currentStam -= 5f*Time.deltaTime;
+                    playerController.currentStam -= 1f*Time.deltaTime;
                     playerController.timeSinceStam = 0;
                 }
                 

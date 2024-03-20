@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         timeSinceStam += Time.deltaTime;
         if (timeSinceStam > regenStam && currentStam < maxStam)
         {
-            currentStam += 12 * Time.deltaTime;
+            currentStam += 20 * Time.deltaTime;
             currentStam = Mathf.Clamp(currentStam, 0, 100);
         }
     }
@@ -248,9 +248,9 @@ public class PlayerController : MonoBehaviour
             isAttacking = false;
             if (!thirdPersonController.GroundedCheckPlayer())
                 return;
-            if (currentStam < 20f)
+            if (currentStam < 10f)
                 return;
-            currentStam -= 20f;
+            currentStam -= 10f;
             timeSinceStam = 0;
             StartCoroutine(Roll());
         }
@@ -309,7 +309,7 @@ public class PlayerController : MonoBehaviour
             if (!thirdPersonController.GroundedCheckPlayer())
                 return;
 
-            if (currentStam < 5f + (currentAttack + 1) * 1.2f)
+            if (currentStam < 1f + (currentAttack + 1) * 1.2f)
                 return;
             currentAttack++;
             isAttacking = true;
@@ -317,13 +317,16 @@ public class PlayerController : MonoBehaviour
             
 
             // Check for chained heavy attack after the third attack
-            if (currentAttack == 4 && Input.GetKey(KeyCode.F))
+            if (currentAttack == 3 && Input.GetKey(KeyCode.F))
             {
+                if (currentStam < 5f)
+                    return;
+                currentStam -= 5f;
                 ChainedHeavyAttack();
                 return;
             }
 
-            if (currentAttack > 3)
+            if (currentAttack > 2)
                 currentAttack = 1;
 
             //Reset
@@ -333,7 +336,7 @@ public class PlayerController : MonoBehaviour
             //Call Attack Triggers
             playerAnim.SetTrigger("Attack" + currentAttack);
 
-            currentStam -= 5f + currentAttack * 1.2f;
+            currentStam -= 1f + currentAttack * 1.2f;
             timeSinceStam = 0;
 
             //Reset Timer
