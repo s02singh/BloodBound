@@ -26,6 +26,7 @@ public class DragonAI : MonoBehaviour
 
     public AudioSource audioSource;
     public AudioClip biteSound;
+    public AudioClip stompSound;
 
     private void Awake()
     {
@@ -133,7 +134,13 @@ public class DragonAI : MonoBehaviour
 
     private void PlayBiteSound()
     {
+        audioSource.volume = .5f;
         audioSource.PlayOneShot(biteSound);
+    }
+    private void PlayStompSound()
+    {
+        audioSource.volume = .7f;
+        audioSource.PlayOneShot(stompSound);
     }
     private void StartAttack()
     {
