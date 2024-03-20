@@ -391,8 +391,12 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
-        sword.GetComponent<SwordController>().Attack(currentAttack, 0);
+        int attackCombo = currentAttack;
+        if (attackCombo == 0)
+        {
+            attackCombo = 3;
+        }
+        sword.GetComponent<SwordController>().Attack(attackCombo, 0);
         
     }
 
