@@ -193,6 +193,12 @@ namespace DigitalRuby.PyroParticles
                 p.Stop();
             }
 
+            // Disable the area of effect collider
+            if (gameObject.GetComponent<BoxCollider>() != null)
+            {
+                gameObject.GetComponent<BoxCollider>().enabled = false;
+            }
+
             StartCoroutine(CleanupEverythingCoRoutine());
         }
 

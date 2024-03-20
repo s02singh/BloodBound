@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaunchFireball : MonoBehaviour
+public class DragonFire : MonoBehaviour
 {   
     [SerializeField] private GameObject dragon;
     [SerializeField] private GameObject player;
-    public void Launch(GameObject projectile)
+    public void FlameAttack(GameObject projectile)
     {
         player = GameObject.Find("PlayerArmature");
         // Get the position of the dragon

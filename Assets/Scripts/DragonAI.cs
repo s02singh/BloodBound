@@ -118,10 +118,10 @@ public class DragonAI : MonoBehaviour
         // Make sure enemy doesn't move when attacking player
         agent.SetDestination(transform.position);
         
-        startAttack();
+        StartAttack();
     }
 
-    private void startAttack()
+    private void StartAttack()
     {
         // Aim at enemy
         // Start attack (aiming at player) if not currently attacking for melee
@@ -147,7 +147,8 @@ public class DragonAI : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("Player"))
             {   
                 // double damage in stage 2
-                float calculatedDamage = stage2 ? damage * 2f : damage; // NEED DAMAGE ENGINE
+                // NOTE: current implementation has varied damage numbers for stage 2, uses projectile scripts to do damage
+                float calculatedDamage = stage2 ? damage * 2f : damage;
 
                 int roundedDamage = Mathf.RoundToInt(calculatedDamage);
 
@@ -156,7 +157,7 @@ public class DragonAI : MonoBehaviour
             }
         }
     }
-    private void endAttack()
+    private void EndAttack()
     {
         attacking = false;
         animator.SetBool("inRange", false);
