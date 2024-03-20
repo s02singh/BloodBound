@@ -24,6 +24,9 @@ public class DragonAI : MonoBehaviour
     [SerializeField] private bool alive, attacking, stage2, isFlying, startOfStage2;
     [SerializeField] private int rotationSpeed;
 
+    public AudioSource audioSource;
+    public AudioClip biteSound;
+
     private void Awake()
     {
         player = GameObject.Find("PlayerArmature").transform;
@@ -127,6 +130,11 @@ public class DragonAI : MonoBehaviour
         StartAttack();
     }
 
+
+    private void PlayBiteSound()
+    {
+        audioSource.PlayOneShot(biteSound);
+    }
     private void StartAttack()
     {
         // Aim at enemy
