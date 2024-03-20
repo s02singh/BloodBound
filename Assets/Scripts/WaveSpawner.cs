@@ -3,6 +3,7 @@ using UnityEngine;
 public class WaveSpawner : MonoBehaviour
 {
     public GameObject portal;
+    public GameObject fog;
     [SerializeField] private GameObject zombiePrefab;
     [SerializeField] private GameObject archerPrefab; 
     [SerializeField] private GameObject warrokPrefab; 
@@ -29,6 +30,10 @@ public class WaveSpawner : MonoBehaviour
                 // ALL WAVES COMPLETED: Add code to allow player to transfer to boss fight
                 portal.SetActive(true);
                 portalActive = true;
+                fog.SetActive(true);
+                PlayerDoorOpen door = FindObjectOfType<PlayerDoorOpen>();
+                door.isOpening = true;
+                door.OpenDoor();
             }
             return;
         }
