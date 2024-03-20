@@ -21,7 +21,7 @@ public class DragonAI : MonoBehaviour
     [SerializeField] private float airTime;
     [SerializeField] private float attackRange;
     private float groundedAttackRange;
-    [SerializeField] private bool alive, attacking, stage2, isFlying;
+    [SerializeField] private bool alive, attacking, stage2, isFlying, startOfStage2;
     [SerializeField] private int rotationSpeed;
 
     private void Awake()
@@ -34,6 +34,7 @@ public class DragonAI : MonoBehaviour
         attacking = false;
         alive = true;
         stage2 = false;
+        startOfStage2 = true;
     }
 
     private void Update()
@@ -49,6 +50,11 @@ public class DragonAI : MonoBehaviour
             stage2 = true;
             animator.SetBool("stage2", true);
 
+            if (startOfStage2)
+            {
+                groundTimer = groundedTime;
+                startOfStage2 = false;
+            }
             if (isFlying)
             {
                 flyTimer += Time.deltaTime;
@@ -167,6 +173,10 @@ public class DragonAI : MonoBehaviour
     // TODO: DAMAGE IMPLEMENTATION
     public void TakeDamage(int damage)
     {
+        if (isFlying)
+        {
+            return;
+        }
       
         health -= damage;
 
