@@ -54,7 +54,7 @@ public class SwordController : MonoBehaviour
         }
     }
 
-    // attackType: 0: normal, 1: heavy, 2: special
+    // attackType: 0: normal, 1: heavy, 2: special, 3: dash
     public void Attack(int comboCounter, int attackType)
     {
         switch (attackType)
@@ -75,6 +75,9 @@ public class SwordController : MonoBehaviour
                 {
                     ExecuteNormalAttack(comboCounter, attackType);
                 }
+                break;
+            case 3:
+                ExecuteNormalAttack(comboCounter, attackType);
                 break;
         }
     }
@@ -99,16 +102,6 @@ public class SwordController : MonoBehaviour
                 DamageDragon(comboCounter, attackType);
             }
            
-        }
-        swordPosition.y += 3.0f; // two for dragon 
-        RaycastHit hit2;
-        if (Physics.Raycast(swordPosition, attackDirection, out hit2, swordRange+3f))
-        {
-           if (hit2.collider.gameObject.CompareTag("Dragon"))
-            {
-                DamageDragon(comboCounter, attackType);
-            }
-
         }
 
         Bounds swordBounds = GetComponent<Collider>().bounds;
@@ -195,6 +188,9 @@ public class SwordController : MonoBehaviour
                 break;
             case 2:
                 damage += damageModTable[swordMode][0];
+                break;
+            case 3:
+                damage = 10f;
                 break;
             default:
                 return 0;

@@ -294,6 +294,7 @@ public class PlayerController : MonoBehaviour
     public void finishDash()
     {
         dashFinished = true;
+        
     }
     // Press R to dodge
     private void Dodge()
@@ -443,6 +444,8 @@ public class PlayerController : MonoBehaviour
     }
 
 
+
+
     // CALLED BY EACH ATTACK ANIMATION
     public void RaycastAttack()
     {
@@ -456,7 +459,10 @@ public class PlayerController : MonoBehaviour
         {
             attackCombo = 3;
         }
-        sword.GetComponent<SwordController>().Attack(attackCombo, 0);
+        int attackType = 0;
+        if (isDashing)
+            attackType = 3;
+        sword.GetComponent<SwordController>().Attack(attackCombo, attackType);
         
     }
 
@@ -485,6 +491,7 @@ public class PlayerController : MonoBehaviour
         isEquipping = false;
         isAttacking = false;
         isKicking = false;
+        dashFinished = true;
         
       
     }
