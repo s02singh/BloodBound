@@ -16527,7 +16527,7 @@ GameObject:
   - component: {fileID: 6544184670812315773}
   - component: {fileID: 5801354228568123491}
   - component: {fileID: 5507486453157794951}
-  - component: {fileID: 7536534140913290706}
+  - component: {fileID: 989496635363128317}
   - component: {fileID: 4263967865368332554}
   m_Layer: 0
   m_Name: Reaper
@@ -16620,8 +16620,8 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!65 &7536534140913290706
-BoxCollider:
+--- !u!136 &989496635363128317
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -16638,8 +16638,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 6, z: 2}
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Height: 6
+  m_Direction: 1
   m_Center: {x: 0, y: 3, z: 0}
 --- !u!82 &4263967865368332554
 AudioSource:
