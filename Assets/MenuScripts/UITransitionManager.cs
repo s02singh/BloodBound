@@ -64,7 +64,11 @@ public class UITransitionManager : MonoBehaviour
         crossfadeTransition.SetActive(true);
         crossfadeTransition.GetComponent<Animator>().enabled = true;
 
+        // wait for dolly animation to play out
         yield return new WaitForSeconds(30f / 12f);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
         PlayGame();
     }

@@ -16,7 +16,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {
@@ -34,11 +34,11 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
 
         // Stop camera from moving
-        playerCamera.GetComponent<ThirdPersonController>().enabled = false;
+        playerCamera.GetComponent<ThirdPersonController>().LockCameraPosition = true;
 
         // Show cursor and let it move
-        // Cursor.lockState = CursorLockMode.None; // <- problem code
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None; // <- problem code
+        // Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
 
         // Pause application with timeScale
@@ -52,7 +52,7 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
 
         // Let camera move again
-        playerCamera.GetComponent<ThirdPersonController>().enabled = true;
+        playerCamera.GetComponent<ThirdPersonController>().LockCameraPosition = false;
 
         // Hide and lock cursor
         Cursor.lockState = CursorLockMode.Locked;

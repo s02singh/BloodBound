@@ -13,6 +13,20 @@ public class RespawnMenu : MonoBehaviour
 
     void Update()
     {
+        if (playerController.GetComponent<PlayerController>().currentHealth <= 0)
+        {
+            // prompt fade in
+            transition.SetTrigger("Died");
+
+            // Stop camera from moving
+            playerController.GetComponent<ThirdPersonController>().LockCameraPosition = true;
+
+            // Show cursor and let it move
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        
+        /* Debugging
         // simulate game over
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -24,7 +38,7 @@ public class RespawnMenu : MonoBehaviour
 
             // Show cursor and let it move
             Cursor.visible = true;
-            // Cursor.lockState = CursorLockMode.None; // <- problem code
+            Cursor.lockState = CursorLockMode.None; 
         }
 
         // simulate restarting
@@ -38,12 +52,17 @@ public class RespawnMenu : MonoBehaviour
         {
             MainMenu();
         }
+        */
     }
 
     public void Restart()
     {
         // Deselects clicked button so that it is no longer selected.
         EventSystem.current.SetSelectedGameObject(null);
+
+        // Hide and lock cursor
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
