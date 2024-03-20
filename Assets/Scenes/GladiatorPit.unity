@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657946, g: 0.49641424, b: 0.574819, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657916, g: 0.49641365, b: 0.57481825, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -153,10 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   portal: {fileID: 716500517}
-  zombiePrefab: {fileID: 3732994290620253174, guid: 5da65eef10a0bd04bafaafec9dcb94c1, type: 3}
-  archerPrefab: {fileID: 9021420381144571565, guid: 9e0177f13b10bc54ba2425ef0d238d51, type: 3}
-  warrokPrefab: {fileID: 5474368215837606952, guid: 5e38fa9372523de45999fe10fa926ddb, type: 3}
-  reaperPrefab: {fileID: 6372584588177614472, guid: 7d7ff0478e3bd1841a768530e1f84b6f, type: 3}
+  zombiePrefab: {fileID: 482501445905130886, guid: d85d2cdfcb547484cad0542d6e7bc930, type: 3}
+  archerPrefab: {fileID: 6378757841120355147, guid: 9ebded25d248ac444bcf77c5d0a7a4a0, type: 3}
+  warrokPrefab: {fileID: 3745807718593662560, guid: 62ef55ccfdd6cef49891716d990c5f7c, type: 3}
+  reaperPrefab: {fileID: 1479176975387422987, guid: edf3606768962b44c91854a57cb0ef5e, type: 3}
   spawnPoints:
   - {fileID: 1695452950}
   - {fileID: 1680943437}
