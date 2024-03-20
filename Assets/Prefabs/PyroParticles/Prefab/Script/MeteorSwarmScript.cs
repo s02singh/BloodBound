@@ -10,7 +10,7 @@ namespace DigitalRuby.PyroParticles
     /// <param name="script">Meteor swarm script</param>
     /// <param name="meteor">Meteor</param>
     public delegate void MeteorSwarmCollisionDelegate(MeteorSwarmScript script, GameObject meteor);
-
+    
     /// <summary>
     /// Handles the meteor swarm effect
     /// </summary>
@@ -180,7 +180,10 @@ namespace DigitalRuby.PyroParticles
             {
                 CollisionDelegate(this, obj);
             }
-            if (col.gameObject.CompareTag("Enemy"))
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            PlayerController playerController = player.GetComponent<PlayerController>();
+            if (col.gameObject.CompareTag("Enemy") && playerController.isMeteorUlt)
             {
                 var enemy = col.gameObject;
                 EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();

@@ -396,7 +396,6 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Kick", false);
             isKicking = false;
         }
-        RaycastAttack();
     }
 
     // PRESS Left Mouse Button TO ATTACK
