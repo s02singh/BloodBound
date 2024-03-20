@@ -17,17 +17,18 @@ public class SwordController : MonoBehaviour
         new List<float> { 0,  0},
         new List<float> { 5,  0},
         new List<float> {10,  0},
-        new List<float> {20, 30},
-        new List<float> {30, 50}
+        new List<float> {20, 20},
+        new List<float> {30, 25},
+        new List<float> {40, 30},
+        new List<float> {50, 35},
+        new List<float> {60, 40},
+        new List<float> {70, 45},
+        new List<float> {80, 50},
+        new List<float> {90, 55}
     };
 
     [SerializeField] private GameObject lightningPrefab;
     [SerializeField] private Transform  lightningSpawnPoint;
-
-
-    [SerializeField] private float lightningOffsetX = -0.03f;   // selected via testing
-    [SerializeField] private float lightningOffsetZ =  2.54f;   // selected via testing
-    [SerializeField] private float lightningOffsetY =  4.42f;   // selected via testing
 
 
     void Start()
@@ -85,7 +86,7 @@ public class SwordController : MonoBehaviour
     public void ExecuteNormalAttack(int comboCounter, int attackType)
     {      
         // Get sword position and attack direction
-        Vector3 swordPosition = transform.position;
+        Vector3 swordPosition = transform.parent.position;
         swordPosition.y += 1.0f; // added to make the colliders work a little better, instead of raycast coming out from the ground it comes out from the player's chest
         Vector3 attackDirection = transform.forward;
         
@@ -115,12 +116,6 @@ public class SwordController : MonoBehaviour
 
     private void DamageDragon(int comboCounter, int attackType)
     {
-
-        /**
-         * The Enemy can be of 2 types: EnemyAI and DragonAI. So this script checks
-         * for both types and calls the appropriate method to deal damage to the enemy.
-        */
-
         int damage = (int)CalculateDamage(comboCounter, attackType);
 
         GameObject enemy = GameObject.Find("Dragon");
@@ -146,12 +141,6 @@ public class SwordController : MonoBehaviour
             lightningSpawnPoint.position, 
             Quaternion.Euler(90,0,0)
         );  
-
-        // lightning.GetComponent<LightningController>().Init(
-        //     swordPosition.x+lightningOffsetX, 
-        //     swordPosition.z+lightningOffsetZ, 
-        //     swordPosition.y+lightningOffsetY
-        // );
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject[] dragons = GameObject.FindGameObjectsWithTag("Dragon");

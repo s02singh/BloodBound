@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,8 +19,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private bool playerInAttackRange, animated, alive, attacking;
     [SerializeField] private int rotationSpeed;
 
-
-
+    [SerializeField] private Transform bloodSpawnPoint;
+    [SerializeField] private GameObject bloodPrefab;
 
     private void Awake()
     {
@@ -148,6 +149,13 @@ public class EnemyAI : MonoBehaviour
             enemyCollider.enabled = false;
             Destroy(gameObject, 5f);
         }
+
+        GameObject b = Instantiate(
+            bloodPrefab,
+            bloodSpawnPoint.position, 
+            Quaternion.identity
+        );
+        b.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
     }
     
     private void OnDrawGizmosSelected()

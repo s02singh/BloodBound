@@ -42,6 +42,7 @@ public class WaveSpawner : MonoBehaviour
         if (!waveInProgress && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
             StartNextWave();
+            FindObjectOfType<PlayerController>().sword.GetComponent<SwordController>().Upgrade();
         }
         // Check to see if the wave is over at every frame
         checkEndOfWave();

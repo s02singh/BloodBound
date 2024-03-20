@@ -399,6 +399,8 @@ MonoBehaviour:
   alive: 1
   attacking: 0
   rotationSpeed: 180
+  bloodSpawnPoint: {fileID: 3270128731047288105}
+  bloodPrefab: {fileID: 5036332063993683860, guid: 58178bcc6c7901840abca065a736735d, type: 3}
 --- !u!195 &5524459387308051516
 NavMeshAgent:
   m_ObjectHideFlags: 0

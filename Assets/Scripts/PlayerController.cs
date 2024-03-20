@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 
     //Equip-Unequip parameters
     [SerializeField]
-    private GameObject sword;
+    public GameObject sword;
     [SerializeField]
     private GameObject swordOnShoulder;
     public bool isEquipping;
@@ -166,46 +166,6 @@ public class PlayerController : MonoBehaviour
     public void LightningStorm()
     {
         sword.GetComponent<SwordController>().Attack(currentAttack, 2);
-        /*
-        // Made a triangle
-        Vector3 swordPosition = sword.transform.position;
-        Vector3 attackDirection = sword.transform.forward;
-
-        Vector3 leftPoint = swordPosition + attackDirection * 5f - sword.transform.right * 5f;  
-        Vector3 rightPoint = swordPosition + attackDirection * 5f + sword.transform.right * 5f;
-        Vector3 center = swordPosition;
-
-        
-
-        // Check for collisions within the box. need to add triangle logic later
-        Collider[] hitColliders = Physics.OverlapBox(center, new Vector3(5f, 5f, 5f)); 
-        
-        lineRenderer.positionCount = 4;
-        lineRenderer.SetPosition(0, swordPosition);
-        lineRenderer.SetPosition(1, leftPoint);
-        lineRenderer.SetPosition(2, rightPoint);
-        lineRenderer.SetPosition(3, center);
-
-        lineRenderer.startWidth = .1f;
-        lineRenderer.endWidth = .05f;
-        lineRenderer.enabled = true;
-
-        foreach (Collider collider in hitColliders)
-        {
-            Debug.Log("Hit something: " + collider.gameObject.name);
-            if (collider.gameObject.CompareTag("Enemy"))
-            {
-              
-                Enemy enemy = collider.gameObject.GetComponent<Enemy>();
-                if (enemy != null)
-                {
-                    // WE NEED TO CHANGE THIS ONCE WE FIGURE OUT DAMAGE ENGINE
-                    enemy.TakeDamage(100);
-
-                }
-            }
-        }
-        */
     }
     
 
