@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657916, g: 0.49641365, b: 0.57481825, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964134, b: 0.5748181, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1550,6 +1550,34 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 408520125}
+    - target: {fileID: 1509294578734078891, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: dashCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509294578734078891, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[0].time
+      value: 0.004169464
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509294578734078891, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[1].time
+      value: 1.9205476
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509294578734078891, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[0].value
+      value: 1.3938751
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509294578734078891, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[1].value
+      value: 0.2680047
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509294578734078891, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[0].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1509294578734078891, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: dashCurve.m_Curve.Array.data[0].outSlope
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2148329064019608750, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
       propertyPath: LookSensitivity.x
       value: 2

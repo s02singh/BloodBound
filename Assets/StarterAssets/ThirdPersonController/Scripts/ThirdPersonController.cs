@@ -232,7 +232,7 @@ namespace StarterAssets
 
         private void Move()
         {
-            if (playerController.isEquipping || playerController.isBlocking || playerController.isKicking || playerController.isAttacking)
+            if (playerController.isEquipping || playerController.isBlocking || playerController.isKicking || playerController.isAttacking || playerController.isDashing)
                 return;
 
 

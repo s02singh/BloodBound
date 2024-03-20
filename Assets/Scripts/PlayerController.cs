@@ -11,9 +11,16 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     AnimationCurve dodgeCurve;
+    [SerializeField]
+    AnimationCurve dashCurve;
 
     public bool isDodging;
     float dodgeTimer;
+
+    public bool isDashing;
+    float dashTimer;
+
+    public bool dashFinished;
 
     CharacterController characterController;
     ThirdPersonController thirdPersonController;
@@ -65,6 +72,8 @@ public class PlayerController : MonoBehaviour
     {
         Keyframe dodge_lastframe = dodgeCurve[dodgeCurve.length-1];
         dodgeTimer = dodge_lastframe.time;
+        Keyframe dash_lastframe = dashCurve[dashCurve.length - 1];
+        dashTimer = dash_lastframe.time;
         characterController = GetComponent<CharacterController>();
         thirdPersonController = GetComponent<ThirdPersonController>();
         audioSource = GetComponent<AudioSource>();
@@ -77,6 +86,7 @@ public class PlayerController : MonoBehaviour
         timeSinceAttack += Time.deltaTime;
 
         // Call all mechanic functions
+        DashAttack();
         Attack();
         //HeavyAttack();
         Dodge();
@@ -236,6 +246,55 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    // Sprint + left click
+    private void DashAttack()
+    {
+        if (isAttacking || !isEquipped)
+            return;
+
+        // Check for dodge input
+        if (Input.GetMouseButtonDown(0) && !isAttacking && !isDodging && thirdPersonController._speed > 5)
+        {
+            if (isEquipping)
+                return;
+            isAttacking = false;
+            if (!thirdPersonController.GroundedCheckPlayer())
+                return;
+            if (currentStam < 10f)
+                return;
+            currentStam -= 10f;
+            timeSinceStam = 0;
+            thirdPersonController._speed = 0;
+            StartCoroutine(Dash());
+        }
+    }
+
+
+    IEnumerator Dash()
+    {
+        playerAnim.SetTrigger("DashAttack");
+        dashFinished = false;
+        isDashing = true;
+        float timer = 0;
+        while (!dashFinished)
+        {
+            float speed = dashCurve.Evaluate(timer);
+            Vector3 dir = (transform.forward * speed);
+            characterController.Move(dir * Time.deltaTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        isDashing = false;
+
+
+
+    }
+
+    public void finishDash()
+    {
+        dashFinished = true;
+    }
     // Press R to dodge
     private void Dodge()
     {
@@ -255,6 +314,7 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(Roll());
         }
     }
+
 
     IEnumerator Roll() {
         playerAnim.SetTrigger("Dodge");
@@ -298,7 +358,7 @@ public class PlayerController : MonoBehaviour
     private void Attack()
     {
 
-        if (isDodging || thirdPersonController.isJumping || isEquipping)
+        if (isDodging || thirdPersonController.isJumping || isEquipping || isDashing)
             return;
         
         if (Input.GetMouseButtonDown(0) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
@@ -421,13 +481,14 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetTrigger("BlockImpact");
             timeToBlock = Time.time + shieldDelay;
         }
-
+        isDashing = false;
         isEquipping = false;
         isAttacking = false;
         isKicking = false;
         
       
     }
+
 
 
     // AT THE END OF ATTACKS. IGNORE THIS FOR NOW
