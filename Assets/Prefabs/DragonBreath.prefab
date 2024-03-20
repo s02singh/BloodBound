@@ -4936,8 +4936,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2.5, z: 15}
-  m_Center: {x: 0, y: 1.25, z: 7.5}
+  m_Size: {x: 2, y: 2.5, z: 20}
+  m_Center: {x: 0, y: 1.25, z: 10}
 --- !u!114 &4516906466157254478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4951,6 +4951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageAmount: 10
+  damageCooldown: 0.1
 --- !u!1 &8251744434113779137
 GameObject:
   m_ObjectHideFlags: 0
