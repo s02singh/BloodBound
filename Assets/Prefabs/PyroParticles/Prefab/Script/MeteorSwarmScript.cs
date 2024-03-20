@@ -180,7 +180,16 @@ namespace DigitalRuby.PyroParticles
             {
                 CollisionDelegate(this, obj);
             }
-
+            if (col.gameObject.CompareTag("Enemy"))
+            {
+                var enemy = col.gameObject;
+                EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
+                if (enemyAI != null)
+                {
+                    enemyAI.TakeDamage(20);
+                    Debug.Log("Did Damage to " + enemy.name + " with " + 20 + " damage");
+                }
+            }
             Vector3 pos, normal;
             if (col.contacts.Length == 0)
             {

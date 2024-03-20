@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StarterAssets;
+using DigitalRuby.PyroParticles;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,10 +18,18 @@ public class PlayerController : MonoBehaviour
     public bool isDodging;
     float dodgeTimer;
 
+    public GameObject aura;
+    public GameObject player;
+
+    public GameObject meteors;
+    public float rage = 0f;
+
     public bool isDashing;
     float dashTimer;
 
     public bool dashFinished;
+
+    public bool isMeteorUlt = false;
 
     CharacterController characterController;
     ThirdPersonController thirdPersonController;
@@ -87,6 +96,7 @@ public class PlayerController : MonoBehaviour
 
         // Call all mechanic functions
         DashAttack();
+        MeteorShower();
         Attack();
         //HeavyAttack();
         Dodge();
@@ -133,7 +143,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && playerAnim.GetBool("Grounded"))
         {
-            if (isAttacking || isDodging || isEquipping || isBlocking || isKicking)
+            if (isAttacking || isDodging || isEquipping || isBlocking || isKicking || isMeteorUlt)
                 return;
             isEquipping = true;
             playerAnim.SetTrigger("Equip");
@@ -231,7 +241,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (isAttacking || isDodging || isEquipping || isKicking)
+        if (isAttacking || isDodging || isEquipping || isKicking || isMeteorUlt)
             return;
 
         if (Input.GetKey(KeyCode.Mouse1) && playerAnim.GetBool("Grounded"))
@@ -250,7 +260,7 @@ public class PlayerController : MonoBehaviour
     // Sprint + left click
     private void DashAttack()
     {
-        if (isAttacking || !isEquipped)
+        if (isAttacking || !isEquipped ||isMeteorUlt)
             return;
 
         // Check for dodge input
@@ -291,6 +301,39 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Rage()
+    {
+        if(rage < 100)
+        {
+            aura.SetActive(false);
+        }
+    }
+    public void MeteorShower()
+    {
+        if (isAttacking || isDodging || isEquipping || isKicking || isBlocking ||isMeteorUlt)
+            return;
+        if (!thirdPersonController.GroundedCheckPlayer())
+            return;
+        if (rage == 100 && Input.GetKeyDown(KeyCode.V))
+        {
+            isMeteorUlt = true;
+            MeteorSwarmScript meteorShowerScript = meteors.GetComponent<MeteorSwarmScript>();
+            var meteorPosition = player.transform.position;
+            meteorPosition.y += 18f;
+            meteorShowerScript.Source = meteorPosition;
+            playerAnim.SetTrigger("MeteorStrike");
+            Instantiate(meteors, meteorPosition, Quaternion.identity);
+            rage = 0;
+            aura.SetActive(false);
+
+        }
+    }
+
+    public void resetMeteor()
+    {
+        isMeteorUlt = false;
+    }
+
     public void finishDash()
     {
         dashFinished = true;
@@ -303,7 +346,7 @@ public class PlayerController : MonoBehaviour
         // Check for dodge input
         if (Input.GetKeyDown(KeyCode.Q) && !isDodging && thirdPersonController._speed != 0)
         {
-            if (isEquipping)
+            if (isEquipping || isMeteorUlt)
                 return;
             isAttacking = false;
             if (!thirdPersonController.GroundedCheckPlayer())
@@ -340,7 +383,7 @@ public class PlayerController : MonoBehaviour
     public void Kick()
     {
 
-        if (isAttacking || isDodging || isEquipping || isBlocking)
+        if (isAttacking || isDodging || isEquipping || isBlocking || isMeteorUlt)
             return;
 
         if (Input.GetKey(KeyCode.LeftControl) && playerAnim.GetBool("Grounded"))
@@ -353,6 +396,7 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Kick", false);
             isKicking = false;
         }
+        RaycastAttack();
     }
 
     // PRESS Left Mouse Button TO ATTACK
@@ -469,13 +513,19 @@ public class PlayerController : MonoBehaviour
     // NO CHARACTER HEALTH YET. JUST ANIMATION
     public void TakeDamage(int damage)
     {
-        if (isDodging)
+        if (isDodging || isMeteorUlt)
         {
             return;
         }
         if (!isBlocking)
         {
             currentHealth -= damage;
+            rage += damage / 2;
+            if (rage >= 100)
+            {
+                rage = 100;
+                aura.SetActive(true);
+            }
             timeSinceHit = 0f;
             playerAnim.SetTrigger("Hit");
         }
@@ -492,7 +542,7 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;
         isKicking = false;
         dashFinished = true;
-        
+  
       
     }
 
