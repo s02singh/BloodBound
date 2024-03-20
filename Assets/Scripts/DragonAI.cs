@@ -27,6 +27,7 @@ public class DragonAI : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip biteSound;
     public AudioClip stompSound;
+    public AudioClip[] wingFlaps;
 
     private void Awake()
     {
@@ -141,6 +142,13 @@ public class DragonAI : MonoBehaviour
     {
         audioSource.volume = .7f;
         audioSource.PlayOneShot(stompSound);
+    }
+    private void PlayFlapSound()
+    {
+        int length = wingFlaps.Length;
+        int index = Random.Range(0, length);
+        audioSource.volume = .7f;
+        audioSource.PlayOneShot(wingFlaps[index]);
     }
     private void StartAttack()
     {

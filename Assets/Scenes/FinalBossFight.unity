@@ -10877,6 +10877,14 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1401631014}
+    - target: {fileID: 8141489670789363879, guid: d2b47dba9ded8194abaf8e53ccb47a9f, type: 3}
+      propertyPath: wingFlaps.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8141489670789363879, guid: d2b47dba9ded8194abaf8e53ccb47a9f, type: 3}
+      propertyPath: wingFlaps.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8faec68a75f6e421ea294387f5f7f08e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
