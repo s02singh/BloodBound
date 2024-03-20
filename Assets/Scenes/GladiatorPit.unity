@@ -9796,21 +9796,6 @@ RectTransform:
   m_AnchoredPosition: {x: -22.2838, y: -338}
   m_SizeDelta: {x: 255.4325, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &7013429867449701086
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9108237066286061458}
-  serializedVersion: 2
-  m_LocalRotation: {x: -1.07113e-23, y: 0.5, z: -1.8552516e-23, w: 0.8660254}
-  m_LocalPosition: {x: 169.96646, y: 40.2, z: 79.26982}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &7020055266199960574
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12014,22 +11999,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3248168214912037799}
   m_CullTransparentMesh: 1
---- !u!1 &9108237066286061458
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7013429867449701086}
-  m_Layer: 0
-  m_Name: LightningSpawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &9124368731209598831
 GameObject:
   m_ObjectHideFlags: 0
@@ -12167,7 +12136,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 705507995}
-  - {fileID: 7013429867449701086}
   - {fileID: 1580111201}
   - {fileID: 1376426063}
   - {fileID: 62790098}
