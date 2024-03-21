@@ -105,8 +105,7 @@ public class SwordController : MonoBehaviour
             else if (hit.collider.gameObject.CompareTag("Dragon"))
             {
                 DamageDragon(comboCounter, attackType);
-            }
-           
+            } 
         }
 
         Bounds swordBounds = GetComponent<Collider>().bounds;
@@ -133,16 +132,13 @@ public class SwordController : MonoBehaviour
 
     public void ExecuteSpecialAttack(int comboCounter, int attackType)
     {
-        Vector3 swordPosition = transform.position;
-        Vector3 attackDirection = transform.forward;
-
-        Vector3 leftPoint = swordPosition + attackDirection * 5f - transform.right * 5f;  
-        Vector3 rightPoint = swordPosition + attackDirection * 5f + transform.right * 5f;
-        Vector3 center = swordPosition;
+        Vector3 swordPosition = transform.parent.position;
+        lightningSpawnPoint.position = new Vector3(swordPosition.x, swordPosition.y + 20.0f, swordPosition.z);
+        Vector3 attackDirection = new Vector3(0f, -1f, 0f);
 
         GameObject lightning = Instantiate(
             lightningPrefab,
-            lightningSpawnPoint.position, 
+            lightningSpawnPoint.position,
             Quaternion.Euler(90,0,0)
         );  
 
@@ -153,7 +149,7 @@ public class SwordController : MonoBehaviour
         foreach (GameObject obj in objects)
         {
             // Calculate vector from apex point to object's position
-            Vector3 vectorToObj = obj.transform.position - swordPosition;
+            Vector3 vectorToObj = obj.transform.position - lightningSpawnPoint.position;
 
             // Calculate angle between direction vector and vector to object
             float angle = Vector3.Angle(attackDirection, vectorToObj);
@@ -161,11 +157,7 @@ public class SwordController : MonoBehaviour
             // Check if object is within cone's angle
             if (angle <= 45f / 2f)
             {
-                // Check if object is within maximum distance
-                if (vectorToObj.magnitude <= swordRange)
-                {
-                    DamageEnemy(obj, comboCounter, attackType);
-                }
+                DamageEnemy(obj, comboCounter, attackType);
             }
         }
     }
@@ -206,13 +198,6 @@ public class SwordController : MonoBehaviour
         if (enemyAI != null)
         {
             enemyAI.TakeDamage(damage);
-            Debug.Log("Did Damage to " + enemy.name + " with " + damage + " damage");
-        }
-
-        DragonAI dragonAI = enemy.GetComponent<DragonAI>();
-        if (dragonAI != null)
-        {
-            dragonAI.TakeDamage(damage);
             Debug.Log("Did Damage to " + enemy.name + " with " + damage + " damage");
         }
     }

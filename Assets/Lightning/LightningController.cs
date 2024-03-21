@@ -19,8 +19,8 @@ public class LightningController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = thunderSound;
         
-        ChangeLocation(transform.position.x, transform.position.z);
-        ChangeHeight(transform.position.y);
+        // ChangeLocation(transform.position.x, transform.position.z);
+        // ChangeHeight(transform.position.y);
 
         Startlightning(); 
     }
@@ -32,13 +32,6 @@ public class LightningController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    public void Init(float start_x, float start_z, float height)
-    {        
-        ChangeLocation(start_x, start_z);
-        ChangeHeight(height);        
-        Startlightning();
     }
 
     public void Startlightning()
