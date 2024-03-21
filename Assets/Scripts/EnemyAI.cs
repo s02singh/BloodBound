@@ -155,7 +155,15 @@ public class EnemyAI : MonoBehaviour
             bloodSpawnPoint.position, 
             Quaternion.identity
         );
-        b.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+        if (transform.parent != null && transform.parent.gameObject.name == "Warrok")
+        {
+            Debug.Log("warrok size");
+            b.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f); 
+        }
+        else
+        {
+            b.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+        }
     }
     
     private void OnDrawGizmosSelected()

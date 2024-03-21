@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public GameObject aura;
     public GameObject player;
 
+    public GameObject[] slashes;
+
     public GameObject meteors;
     public float rage = 0f;
 
@@ -126,6 +128,16 @@ public class PlayerController : MonoBehaviour
             currentStam += 20 * Time.deltaTime;
             currentStam = Mathf.Clamp(currentStam, 0, 100);
         }
+    }
+
+    private void MakeSlash(int index)
+    {
+        slashes[index].SetActive(true);
+    }
+
+    private void DestroySlash(int index)
+    {
+        slashes[index].SetActive(false);
     }
 
     private void PlaySwordSound()
@@ -512,6 +524,7 @@ public class PlayerController : MonoBehaviour
         isAttacking = false;
         isKicking = false;
         dashFinished = true;
+        StopDashVfx();
   
       
     }
