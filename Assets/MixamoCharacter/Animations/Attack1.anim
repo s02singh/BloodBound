@@ -101976,7 +101976,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.0666666
+  - time: 1.0833334
     functionName: DestroySlash
     data: 
     objectReferenceParameter: {fileID: 0}

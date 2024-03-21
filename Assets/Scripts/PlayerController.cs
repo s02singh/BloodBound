@@ -139,11 +139,25 @@ public class PlayerController : MonoBehaviour
 
     private void MakeSlash(int index)
     {
+        ParticleSystem slashParticle = slashes[index].GetComponent<ParticleSystem>();
+        if (slashParticle != null)
+        {
+            Debug.Log("in clear");
+            slashParticle.Stop(); 
+            slashParticle.Clear();
+            slashParticle.Play();
+        }
         slashes[index].SetActive(true);
     }
 
     private void DestroySlash(int index)
     {
+        ParticleSystem slashParticle = slashes[index].GetComponent<ParticleSystem>();
+        if (slashParticle != null)
+        {
+            slashParticle.Stop(); 
+            slashParticle.Clear();
+        }
         slashes[index].SetActive(false);
     }
 
@@ -407,7 +421,7 @@ public class PlayerController : MonoBehaviour
             
 
             // Check for chained heavy attack after the third attack
-            if (currentAttack == 3 && Input.GetKey(KeyCode.F))
+            if (currentAttack == 3)
             {
                 if (currentStam < 5f)
                     return;
@@ -520,8 +534,11 @@ public class PlayerController : MonoBehaviour
                 aura.SetActive(true);
             }
             timeSinceHit = 0f;
-            if(damage > 10)
+            if (damage > 10)
+            {
                 playerAnim.SetTrigger("Hit");
+                DestroyAllSlashes();
+            }
         }
         else
         {
@@ -544,9 +561,7 @@ public class PlayerController : MonoBehaviour
         isKicking = false;
         dashFinished = true;
         StopDashVfx();
-        DestroyAllSlashes();
-  
-      
+   
     }
 
 
