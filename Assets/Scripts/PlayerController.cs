@@ -270,9 +270,9 @@ public class PlayerController : MonoBehaviour
             isAttacking = false;
             if (!thirdPersonController.GroundedCheckPlayer())
                 return;
-            if (currentStam < 10f)
+            if (currentStam < 20f)
                 return;
-            currentStam -= 10f;
+            currentStam -= 20f;
             timeSinceStam = 0;
             thirdPersonController._speed = 0;
             StartCoroutine(Dash());
