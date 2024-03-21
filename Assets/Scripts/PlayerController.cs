@@ -20,11 +20,16 @@ public class PlayerController : MonoBehaviour
 
     public bool isDead;
 
-    public GameObject aura;
     public GameObject player;
 
-    public GameObject[] slashes;
 
+    public GameObject lightningAura;
+    [SerializeField] private float lightningCooldownPeriod = 30.0f;
+    private float lightningCooldownStatus = 0.0f;
+
+    public GameObject ultimateVFX;
+    public bool isMeteorUlt = false;
+    public GameObject meteorAura;
     public GameObject meteors;
     public float rage = 0f;
 
@@ -32,15 +37,15 @@ public class PlayerController : MonoBehaviour
     float dashTimer;
 
     public GameObject dashVfx;
-    public GameObject ultimateVFX;
+    
 
     public bool dashFinished;
 
-    public bool isMeteorUlt = false;
 
     CharacterController characterController;
     ThirdPersonController thirdPersonController;
 
+    public GameObject[] slashes;
     //Equip-Unequip parameters
     [SerializeField]
     public GameObject sword;
@@ -80,7 +85,6 @@ public class PlayerController : MonoBehaviour
     LineRenderer lineRenderer;
 
     public AudioSource audioSource;
-    public AudioClip swordSlash;
     public AudioClip rollSfx;
 
 
@@ -95,6 +99,7 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         currentHealth = maxHealth;
         currentStam = maxStam;
+        lightningCooldownStatus = lightningCooldownPeriod;
 
     }
     private void Update()
@@ -112,6 +117,7 @@ public class PlayerController : MonoBehaviour
         //HeavyAttack();
         Dodge();
         thirdPersonController.JumpAndGravity();
+        CheckAura();
         Ultimate();
         Equip();
         Block();
@@ -161,13 +167,6 @@ public class PlayerController : MonoBehaviour
         slashes[index].SetActive(false);
     }
 
-    private void PlaySwordSound()
-    {
-        audioSource.pitch = Random.Range(0.9f, 1.1f);
-        audioSource.PlayOneShot(swordSlash);
-        audioSource.pitch = 1f;
-    }
-
     private void PlayRollSound()
     {
         audioSource.PlayOneShot(rollSfx);
@@ -200,7 +199,15 @@ public class PlayerController : MonoBehaviour
     // CALLED BY ULTIMATE ANIMATION
     public void LightningStorm()
     {
-        sword.GetComponent<SwordController>().Attack(currentAttack, 2);
+        if (LightningTime())
+        {
+            sword.GetComponent<SwordController>().Attack(currentAttack, 2);
+        }
+        else
+        {
+            sword.GetComponent<SwordController>().Attack(currentAttack, 1);
+        }
+        lightningCooldownStatus = lightningCooldownPeriod;        
     }
     
 
@@ -226,6 +233,29 @@ public class PlayerController : MonoBehaviour
     public void Equipped()
     {
         isEquipping = false;
+    }
+
+    private void CheckAura()
+    {
+        if (rage >= 100)
+        {
+            rage = 100;
+            meteorAura.SetActive(true);
+        }
+        else if (rage < 100)
+        {
+            meteorAura.SetActive(false);
+        }
+
+        if (LightningTime())
+        {
+            lightningAura.SetActive(true);
+        }
+        else
+        {
+            lightningAura.SetActive(false);
+        }
+
     }
 
     private void DoDashVfx()
@@ -300,13 +330,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void Rage()
-    {
-        if(rage < 100)
-        {
-            aura.SetActive(false);
-        }
-    }
     public void MeteorShower()
     {
         if (isAttacking || isDodging || isEquipping || isKicking || isBlocking ||isMeteorUlt)
@@ -322,16 +345,7 @@ public class PlayerController : MonoBehaviour
             meteorShowerScript.Source = meteorPosition;
             playerAnim.SetTrigger("MeteorStrike");
             Instantiate(meteors, meteorPosition, Quaternion.identity);
-  
-
         }
-    }
-
-    public void resetMeteor()
-    {
-        isMeteorUlt = false;
-        rage = 0;
-        aura.SetActive(false);
     }
 
     public void finishDash()
@@ -531,7 +545,6 @@ public class PlayerController : MonoBehaviour
             if (rage >= 100)
             {
                 rage = 100;
-                aura.SetActive(true);
             }
             timeSinceHit = 0f;
             if (damage > 10)
@@ -584,5 +597,18 @@ public class PlayerController : MonoBehaviour
     public void ResetAttack()
     {
         isAttacking = false;
+    }
+
+    private bool LightningTime()
+    {
+        if (lightningCooldownStatus > 0)
+        {
+            lightningCooldownStatus -= Time.deltaTime;
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     } 
 }   

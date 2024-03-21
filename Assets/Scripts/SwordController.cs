@@ -6,7 +6,7 @@ using System;
 public class SwordController : MonoBehaviour
 {
     private float specialModeCooldownStatus = 0.0f;
-    [SerializeField] private float specialModeCooldownPeriod = 5.0f;
+    [SerializeField] private float specialModeCooldownPeriod = 30.0f;
     PlayerController playerController;
     
     [SerializeField] private float baseDamage = 20;
@@ -18,18 +18,21 @@ public class SwordController : MonoBehaviour
         new List<float> { 0,  0},
         new List<float> { 5,  0},
         new List<float> {10,  0},
-        new List<float> {20, 20},
-        new List<float> {30, 25},
-        new List<float> {40, 30},
-        new List<float> {50, 35},
-        new List<float> {60, 40},
-        new List<float> {70, 45},
-        new List<float> {80, 50},
-        new List<float> {90, 55}
+        new List<float> {20, 10},
+        new List<float> {30, 15},
+        new List<float> {40, 20},
+        new List<float> {50, 25},
+        new List<float> {60, 30},
+        new List<float> {70, 35},
+        new List<float> {80, 40},
+        new List<float> {90, 45}
     };
 
     [SerializeField] private GameObject lightningPrefab;
-    [SerializeField] private Transform  lightningSpawnPoint;
+    
+
+    public AudioSource audioSource;
+    public AudioClip swordSlash;
 
 
     void Start()
@@ -40,17 +43,8 @@ public class SwordController : MonoBehaviour
         playerController = player.GetComponent<PlayerController>();
     }
 
-    void Update()
-    {
-        if (specialModeCooldownStatus < specialModeCooldownPeriod)
-        {
-            specialModeCooldownStatus += Time.deltaTime;
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("here in collision");
         // Check if the collision is with the dragon
         if (collision.gameObject.CompareTag("Dragon"))
         {
@@ -68,23 +62,17 @@ public class SwordController : MonoBehaviour
                 ExecuteNormalAttack(comboCounter, attackType);
                 break;
             case 1:
-                ExecuteNormalAttack(comboCounter, attackType);
+                ExecuteNormalAttack(comboCounter, attackType);      //TODO: Heavy Attack
                 break;
             case 2:
-                if (swordMode >= 3 && specialModeCooldownStatus >= specialModeCooldownPeriod)
-                {
-                    ExecuteSpecialAttack(comboCounter, attackType);
-                    specialModeCooldownStatus = 0.0f;
-                }
-                else 
-                {
-                    ExecuteNormalAttack(comboCounter, attackType);
-                }
+                ExecuteLightningAttack(comboCounter, attackType);
                 break;
             case 3:
                 ExecuteNormalAttack(comboCounter, attackType);
                 break;
         }
+
+        PlaySwordSound();
     }
 
     public void ExecuteNormalAttack(int comboCounter, int attackType)
@@ -130,15 +118,15 @@ public class SwordController : MonoBehaviour
         }
     }
 
-    public void ExecuteSpecialAttack(int comboCounter, int attackType)
+    public void ExecuteLightningAttack(int comboCounter, int attackType)
     {
         Vector3 swordPosition = transform.parent.position;
-        lightningSpawnPoint.position = new Vector3(swordPosition.x, swordPosition.y + 20.0f, swordPosition.z);
+        Vector3 lightningSpawnPoint = new Vector3(swordPosition.x, swordPosition.y + 20.0f, swordPosition.z);
         Vector3 attackDirection = new Vector3(0f, -1f, 0f);
 
-        GameObject lightning = Instantiate(
+        Instantiate(
             lightningPrefab,
-            lightningSpawnPoint.position,
+            lightningSpawnPoint,
             Quaternion.Euler(90,0,0)
         );  
 
@@ -149,7 +137,7 @@ public class SwordController : MonoBehaviour
         foreach (GameObject obj in objects)
         {
             // Calculate vector from apex point to object's position
-            Vector3 vectorToObj = obj.transform.position - lightningSpawnPoint.position;
+            Vector3 vectorToObj = obj.transform.position - lightningSpawnPoint;
 
             // Calculate angle between direction vector and vector to object
             float angle = Vector3.Angle(attackDirection, vectorToObj);
@@ -221,6 +209,14 @@ public class SwordController : MonoBehaviour
         return (specialModeCooldownPeriod - specialModeCooldownStatus)/specialModeCooldownPeriod;
     }
 
+
+
+    private void PlaySwordSound()
+    {
+        // audioSource.pitch = Random.Range(0.9f, 1.1f);
+        audioSource.PlayOneShot(swordSlash);
+        audioSource.pitch = 1f;
+    }
 
 
 
