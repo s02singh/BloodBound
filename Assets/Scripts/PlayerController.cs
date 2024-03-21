@@ -437,6 +437,19 @@ public class PlayerController : MonoBehaviour
             if (timeSinceAttack > 1.0f)
                 currentAttack = 1;
 
+
+            // Find nearest enemy
+            Transform nearestEnemy = FindNearestEnemyInRange();
+
+            ///// JUST TESTING
+            // Rotate towards the nearest enemy
+            if (nearestEnemy != null)
+            {
+                Vector3 directionToEnemy = (nearestEnemy.position - transform.position).normalized;
+                directionToEnemy.y = 0; 
+                transform.forward = directionToEnemy;
+            }
+
             //Call Attack Triggers
             playerAnim.SetTrigger("Attack" + currentAttack);
 
@@ -447,6 +460,30 @@ public class PlayerController : MonoBehaviour
             timeSinceAttack = 0;
         }
     }
+
+    
+    private Transform FindNearestEnemyInRange()
+    {
+        Transform nearestEnemy = null;
+        float nearestDistanceSqr = Mathf.Infinity;
+        Vector3 currentPosition = transform.position;
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in enemies)
+        {
+            Vector3 directionToEnemy = enemy.transform.position - currentPosition;
+            float dSqrToTarget = directionToEnemy.sqrMagnitude;
+            if (dSqrToTarget < nearestDistanceSqr && dSqrToTarget <= 2f * 2f)
+            {
+                nearestDistanceSqr = dSqrToTarget;
+                nearestEnemy = enemy.transform;
+            }
+        }
+
+        return nearestEnemy;
+    }
+
 
     // Chained Heavy Attack triggered after the third light attack if F key is held
     private void ChainedHeavyAttack()
