@@ -9,7 +9,7 @@ public class FallOffCliff : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerController playerController = FindObjectOfType<PlayerController>();
-            playerController.currentHealth = -1;
+            playerController.TakeDamage(100);
         }
     }
 }
