@@ -7,6 +7,7 @@ public class SwordController : MonoBehaviour
 {
     private float specialModeCooldownStatus = 0.0f;
     [SerializeField] private float specialModeCooldownPeriod = 5.0f;
+    PlayerController playerController;
     
     [SerializeField] private float baseDamage = 20;
     public float swordRange = 1f;
@@ -34,6 +35,9 @@ public class SwordController : MonoBehaviour
     void Start()
     {        
         swordMode = 0;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        playerController = player.GetComponent<PlayerController>();
     }
 
     void Update()
@@ -196,6 +200,7 @@ public class SwordController : MonoBehaviour
         */
 
         int damage = (int)CalculateDamage(comboCounter, attackType);
+        playerController.rage += damage / 10;
 
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
         if (enemyAI != null)

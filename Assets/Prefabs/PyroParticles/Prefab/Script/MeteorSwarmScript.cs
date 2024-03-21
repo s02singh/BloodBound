@@ -183,7 +183,7 @@ namespace DigitalRuby.PyroParticles
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             PlayerController playerController = player.GetComponent<PlayerController>();
-            if (col.gameObject.CompareTag("Enemy") && playerController.isMeteorUlt)
+            if (col.gameObject.CompareTag("Enemy") && (playerController.isMeteorUlt || playerController.isDashing))
             {
                 var enemy = col.gameObject;
                 EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();

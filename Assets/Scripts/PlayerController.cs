@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public bool isDashing;
     float dashTimer;
 
+    public GameObject dashVfx;
+
     public bool dashFinished;
 
     public bool isMeteorUlt = false;
@@ -193,6 +195,14 @@ public class PlayerController : MonoBehaviour
         isEquipping = false;
     }
 
+    private void DoDashVfx()
+    {
+        dashVfx.SetActive(true);
+    }
+    private void StopDashVfx()
+    {
+        dashVfx.SetActive(false);
+    }
     // HOLD DOUBLE CLICK/RIGHT CLICK TO BLOCK
     private void Block()
     {
@@ -283,8 +293,7 @@ public class PlayerController : MonoBehaviour
             meteorShowerScript.Source = meteorPosition;
             playerAnim.SetTrigger("MeteorStrike");
             Instantiate(meteors, meteorPosition, Quaternion.identity);
-            rage = 0;
-            aura.SetActive(false);
+  
 
         }
     }
@@ -292,6 +301,8 @@ public class PlayerController : MonoBehaviour
     public void resetMeteor()
     {
         isMeteorUlt = false;
+        rage = 0;
+        aura.SetActive(false);
     }
 
     public void finishDash()
