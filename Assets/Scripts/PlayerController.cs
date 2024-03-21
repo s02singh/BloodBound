@@ -348,6 +348,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void resetMeteor()
+    {
+        isMeteorUlt = false;
+        rage = 0;
+    }
+
     public void finishDash()
     {
         dashFinished = true;
