@@ -200,8 +200,8 @@ namespace DigitalRuby.PyroParticles
                 DragonAI dragonAI = dragon.GetComponent<DragonAI>();
                 if (dragonAI != null)
                 {
-                    dragonAI.TakeDamage(10);
-                    Debug.Log("Did Damage to " + dragon.name + " with " + 10 + " damage");
+                    dragonAI.TakeDamage(7);
+                    Debug.Log("Did Damage to " + dragon.name + " with " + 7 + " damage");
                 }
             }
             Vector3 pos, normal;

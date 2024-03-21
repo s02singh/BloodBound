@@ -43129,6 +43129,14 @@ PrefabInstance:
       propertyPath: slashes.Array.data[2]
       value: 
       objectReference: {fileID: 1567567975}
+    - target: {fileID: 2148329064019608750, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: LookSensitivity.x
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2148329064019608750, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: LookSensitivity.y
+      value: 3.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3282601381522886947, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 225.66702

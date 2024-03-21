@@ -63,6 +63,7 @@ public class RespawnMenu : MonoBehaviour
         // Hide and lock cursor
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        playerController.GetComponent<ThirdPersonController>().LockCameraPosition = false;
 
         if (GameObject.FindWithTag("Dragon") == null)
         {
