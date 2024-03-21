@@ -225,11 +225,7 @@ public class PlayerController : MonoBehaviour
     // HOLD DOUBLE CLICK/RIGHT CLICK TO BLOCK
     private void Block()
     {
-        if (Time.time < timeToBlock)
-        {
-            return;
-        }
-
+       
         if (isAttacking || isDodging || isEquipping || isKicking || isMeteorUlt)
             return;
 
@@ -524,7 +520,8 @@ public class PlayerController : MonoBehaviour
                 aura.SetActive(true);
             }
             timeSinceHit = 0f;
-            playerAnim.SetTrigger("Hit");
+            if(damage > 10)
+                playerAnim.SetTrigger("Hit");
         }
         else
         {
@@ -532,6 +529,7 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetBool("Block", false);
             isBlocking = false;
             playerAnim.SetTrigger("BlockImpact");
+            currentHealth -= damage * .3f;
             timeToBlock = Time.time + shieldDelay;
         }
 

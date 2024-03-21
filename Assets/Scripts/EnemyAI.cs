@@ -65,7 +65,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         // TESTING DEATH ANIMATIONS // REMOVE WHEN DAMAGE IMPLEMENTED
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             TakeDamage(100);
         }

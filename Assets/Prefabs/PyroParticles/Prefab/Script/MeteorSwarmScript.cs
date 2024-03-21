@@ -193,6 +193,17 @@ namespace DigitalRuby.PyroParticles
                     Debug.Log("Did Damage to " + enemy.name + " with " + 20 + " damage");
                 }
             }
+
+            if (col.gameObject.CompareTag("Dragon") && (playerController.isMeteorUlt || playerController.isDashing))
+            {
+                var dragon = col.gameObject;
+                DragonAI dragonAI = dragon.GetComponent<DragonAI>();
+                if (dragonAI != null)
+                {
+                    dragonAI.TakeDamage(10);
+                    Debug.Log("Did Damage to " + dragon.name + " with " + 10 + " damage");
+                }
+            }
             Vector3 pos, normal;
             if (col.contacts.Length == 0)
             {
