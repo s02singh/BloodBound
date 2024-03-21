@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657946, g: 0.49641424, b: 0.574819, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964134, b: 0.5748181, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30324,7 +30324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31f4abfde43d49c692610fc95519202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
+  damageAmount: 5
 --- !u!199 &823902993
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -65684,7 +65684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31f4abfde43d49c692610fc95519202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 10
+  damageAmount: 5
 --- !u!199 &2065170966
 ParticleSystemRenderer:
   serializedVersion: 6

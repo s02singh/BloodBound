@@ -346,7 +346,7 @@ public class PlayerController : MonoBehaviour
         // Check for dodge input
         if (Input.GetKeyDown(KeyCode.Q) && !isDodging && thirdPersonController._speed != 0)
         {
-            if (isEquipping || isMeteorUlt)
+            if (isEquipping || isMeteorUlt || isBlocking)
                 return;
             isAttacking = false;
             if (!thirdPersonController.GroundedCheckPlayer())
