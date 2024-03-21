@@ -99,6 +99,10 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+
+
+        if (isDead)
+            return;
         timeSinceAttack += Time.deltaTime;
 
         // Call all mechanic functions
