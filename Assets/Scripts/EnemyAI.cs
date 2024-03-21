@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
     private float timeSinceLastAttack;
     private float distanceToPlayer;
     [SerializeField] private float attackRange;
-    [SerializeField] private bool playerInAttackRange, animated, alive, attacking;
+    [SerializeField] private bool playerInAttackRange, alive, attacking;
     [SerializeField] private int rotationSpeed;
 
     [SerializeField] private Transform bloodSpawnPoint;
@@ -26,10 +26,8 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.Find("PlayerArmature").transform;
         agent = GetComponent<NavMeshAgent>();
-        if (animated)
-        {
-            animator = GetComponent<Animator>();
-        }
+        animator = GetComponent<Animator>();
+        
         // Ready for attack
         timeSinceLastAttack = timeBetweenAttacks;
         attacking = false;
@@ -78,10 +76,7 @@ public class EnemyAI : MonoBehaviour
         {
             agent.SetDestination(player.position);
         }
-        if (animated)
-        {
-            animator.SetBool("inRange", false);
-        }
+        animator.SetBool("inRange", false);
     }
 
     private void AttackPlayer()
@@ -89,10 +84,10 @@ public class EnemyAI : MonoBehaviour
         // Make sure enemy doesn't move when attacking player
         agent.SetDestination(transform.position);
         
-        startAttack();
+        StartAttack();
     }
 
-    private void startAttack()
+    private void StartAttack()
     {
         // Aim at enemy
         // Start attack (aiming at player) if not currently attacking for melee
@@ -102,14 +97,11 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        if (animated)
+        animator.SetBool("inRange", true);
+        if (timeSinceLastAttack >= timeBetweenAttacks)
         {
-            animator.SetBool("inRange", true);
-            if (timeSinceLastAttack >= timeBetweenAttacks)
-            {
-                animator.SetTrigger("attack");
-                attacking = true;
-            }
+            animator.SetTrigger("attack");
+            attacking = true;
         }
     }
     private void RaycastHit()
@@ -124,7 +116,7 @@ public class EnemyAI : MonoBehaviour
             }
         }
     }
-    private void endAttack()
+    private void EndAttack()
     {
         attacking = false;
         animator.SetBool("inRange", false);
@@ -139,10 +131,7 @@ public class EnemyAI : MonoBehaviour
 
         if (health <= 0)
         {
-            if (animated)
-            {
-                animator.SetBool("isAlive", false);
-            }
+            animator.SetBool("isAlive", false);
             agent.enabled = false;
             alive = false;
             CapsuleCollider enemyCollider = GetComponent<CapsuleCollider>();
