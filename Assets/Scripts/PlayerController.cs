@@ -402,7 +402,7 @@ public class PlayerController : MonoBehaviour
     private void Attack()
     {
 
-        if (isDodging || thirdPersonController.isJumping || isEquipping || isDashing)
+        if (isDodging || thirdPersonController.isJumping || isEquipping || isDashing || isMeteorUlt)
             return;
         
         if (Input.GetMouseButtonDown(0) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
