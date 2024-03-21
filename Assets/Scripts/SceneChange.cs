@@ -16,7 +16,8 @@ public class SceneChange : MonoBehaviour
     {
         fade.FadeIn();
         yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1); // next scene in Build Settings
+
     }
 
     void OnTriggerEnter(Collider other)

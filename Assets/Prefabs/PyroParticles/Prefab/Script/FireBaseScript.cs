@@ -166,7 +166,7 @@ namespace DigitalRuby.PyroParticles
                 if (h.gameObject.name == "PlayerArmature")
                 {
                     // Dragon fireball damage
-                    int damageAmount = 50;
+                    int damageAmount = 80;
                     PlayerController playerController = h.GetComponent<PlayerController>();
                     if (playerController != null)
                     {
