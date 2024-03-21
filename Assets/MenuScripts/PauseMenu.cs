@@ -71,7 +71,7 @@ public class PauseMenu : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
 
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); // previous scene in Build Settings
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()

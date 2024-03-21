@@ -64,7 +64,14 @@ public class RespawnMenu : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (GameObject.FindWithTag("Dragon") == null)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // in gladiator scene
+        } 
+        else
+        {
+            SceneManager.LoadScene("GladiatorPit"); // in dragon scene, load prev
+        }
     }
 
     public void MainMenu()
@@ -72,6 +79,6 @@ public class RespawnMenu : MonoBehaviour
         // Deselects clicked button so that it is no longer selected.
         EventSystem.current.SetSelectedGameObject(null);
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1); // previous scene in Build Settings
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -218,4 +218,14 @@ public class DragonAI : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public bool GetStage2Status()
+    {
+        return stage2;
+    }
 }
