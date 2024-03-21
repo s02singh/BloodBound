@@ -254,7 +254,9 @@ namespace StarterAssets
         }
         private void Move()
         {
-            if (playerController.isEquipping || playerController.isBlocking || playerController.isKicking || playerController.isAttacking || playerController.isDashing || playerController.isMeteorUlt)
+
+            // Stop movement
+            if (playerController.isEquipping || playerController.isBlocking || playerController.isKicking || playerController.isAttacking || playerController.isDashing || playerController.isMeteorUlt || playerController.isDead)
                 return;
 
 
@@ -344,7 +346,7 @@ namespace StarterAssets
         public void JumpAndGravity()
         {
             if (playerController.isAttacking || playerController.isBlocking || playerController.isDodging
-                || playerController.timeSinceAttack < 0.8 || playerController.isMeteorUlt)
+                || playerController.timeSinceAttack < 0.8 || playerController.isMeteorUlt || playerController.isDead)
                 return;
             if (Grounded)
             {

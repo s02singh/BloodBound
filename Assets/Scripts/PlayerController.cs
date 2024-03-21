@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour
     public bool isDodging;
     float dodgeTimer;
 
+    public bool isDead;
+
     public GameObject aura;
     public GameObject player;
 
@@ -504,7 +506,7 @@ public class PlayerController : MonoBehaviour
     // NO CHARACTER HEALTH YET. JUST ANIMATION
     public void TakeDamage(int damage)
     {
-        if (isDodging || isMeteorUlt)
+        if (isDodging || isMeteorUlt || isDead)
         {
             return;
         }
@@ -528,6 +530,12 @@ public class PlayerController : MonoBehaviour
             playerAnim.SetTrigger("BlockImpact");
             timeToBlock = Time.time + shieldDelay;
         }
+
+        if (currentHealth <= 0)
+        {
+            Die();
+           
+        }
         isDashing = false;
         isEquipping = false;
         isAttacking = false;
@@ -537,6 +545,13 @@ public class PlayerController : MonoBehaviour
         DestroyAllSlashes();
   
       
+    }
+
+
+    private void Die()
+    {
+        playerAnim.SetTrigger("Dead");
+        isDead = true;
     }
 
 
