@@ -19,16 +19,43 @@ public class LightningController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = thunderSound;
         
+        ChangeLocation(transform.position.x, transform.position.z);
+        ChangeHeight(transform.position.y);
+
+        Startlightning(); 
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (!lightning.isPlaying)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public void Init(float start_x, float start_z, float height)
+    {        
+        ChangeLocation(start_x, start_z);
+        ChangeHeight(height);        
+        Startlightning();
+    }
+
+    public void Startlightning()
+    {
         lightning.Play();
         audioSource.Play();
     }
 
-    void Update()
+    public void Stoplightning()
     {
-        if (lightning.isStopped)
-        {
-            Destroy(gameObject);
-        }
+        lightning.Stop();
+        audioSource.Stop();
+    }
+
+    public void ChangeLocation(float x, float z)
+    {
+        transform.position = new Vector3(x, transform.position.y, z);
     }
 
     public void ChangeHeight(float height)
