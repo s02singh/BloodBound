@@ -117237,6 +117237,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.71666664
+    functionName: DoDashVfx
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1.3
     functionName: RaycastAttack
     data: 
@@ -117267,6 +117274,13 @@ AnimationClip:
     messageOptions: 0
   - time: 1.5666667
     functionName: RaycastAttack
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.8666667
+    functionName: StopDashVfx
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

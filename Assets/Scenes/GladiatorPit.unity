@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1509294578734078891, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
+      propertyPath: dashVfx
+      value: 
+      objectReference: {fileID: 988564029}
     - target: {fileID: 3282601381522886947, guid: 39c8421f1ab3b4a129d913162eaa467a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 62.1
@@ -1165,6 +1169,11 @@ MonoBehaviour:
   moveSpeed: 1.5
   maxDistance: 10
   isOpening: 0
+--- !u!1 &988564029 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8145502431507700120, guid: 000832214335ffd4782827d2a4510f4a, type: 3}
+  m_PrefabInstance: {fileID: 237757554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &988564030 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7550432543100381785, guid: 000832214335ffd4782827d2a4510f4a, type: 3}
