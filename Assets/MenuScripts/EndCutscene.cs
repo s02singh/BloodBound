@@ -12,7 +12,7 @@ public class EndCutscene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (dragonController.GetHealth() <= 0 && playerController.currentHealth > 0 || Input.GetKeyDown(KeyCode.M))
+        if (dragonController.GetHealth() <= 0 && playerController.currentHealth > 0)
         {
             StartCoroutine(waitShowCursor());
 
