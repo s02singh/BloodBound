@@ -10,7 +10,7 @@ public class SwordController : MonoBehaviour
     PlayerController playerController;
     
     [SerializeField] private float baseDamage = 20;
-    public float swordRange = 1f;
+    public float swordRange = 2f;
     // 0: normal0, 1: normal1, 2: normal2, 3: special0, 4: special1
     [SerializeField] private int swordMode = 0;
     // column 1: normal, column 2: special
