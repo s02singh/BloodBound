@@ -525,11 +525,19 @@ public class PlayerController : MonoBehaviour
         isKicking = false;
         dashFinished = true;
         StopDashVfx();
+        DestroyAllSlashes();
   
       
     }
 
 
+    private void DestroyAllSlashes()
+    {
+        for (int i = 0; i < slashes.Length; i++)
+        {
+            DestroySlash(i);
+        }
+    }
 
     // AT THE END OF ATTACKS. IGNORE THIS FOR NOW
     public void ResetAttack()
