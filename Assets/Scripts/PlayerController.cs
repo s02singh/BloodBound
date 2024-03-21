@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     float dashTimer;
 
     public GameObject dashVfx;
+    public GameObject ultimateVFX;
 
     public bool dashFinished;
 
@@ -440,6 +441,14 @@ public class PlayerController : MonoBehaviour
         timeSinceAttack = 0;
     }
 
+    private void PlayUltimateVFX()
+    {
+        ultimateVFX.SetActive(true);
+    }
+    private void StopUltimateVFX()
+    {
+        ultimateVFX.SetActive(false);
+    }
 
     // PRESS Left Mouse Button + F TO HEAVY ATTACK
     private void HeavyAttack()
