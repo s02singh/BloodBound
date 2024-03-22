@@ -101,10 +101,10 @@ Once all the base mechanics were implemented, I felt the player lacked a sense o
 #### Technical Proficiency:
 
 My contributions extended beyond animation. I developed the combat logic for the player character. Through the implementation of damage logic, including sword slashing mechanics, aim assist, raycasting, and particle effects, I ensured that combat interactions felt responsive, fluid, and engaging. My scripting was documented, concise and enabled all character mechanics, contributing to the overall polish and gameplay of BloodBound.
+Check out my scripting here [PlayerController.cs](https://github.com/s02singh/BloodBound/blob/359bd4876b90052a129f0684d52f56c03f948f14/Assets/Scripts/PlayerController.cs#L106-L126)
 
 **Describe the steps you took in your role as producer. Typical items include group scheduling mechanisms, links to meeting notes, descriptions of team logistics problems with their resolution, project organization tools (e.g., timelines, dependency/task tracking, Gantt charts, etc.), and repository management methodology.**
 
-### Character Mechanics:
 
 
 ## User Interface and Input
