@@ -354,7 +354,7 @@ Another huge aspect of game feel was ensuring that all animations played through
 Lastly, the game debugging was a large part of my role as I experimented heavily with everybody’s implementations in the project. Although there are still countless bugs within the game, the major gamebreaking ones have mostly been extinguished. Some of the things to note during this process was that I was the main game tester and bug finder for all systems, such as character movement and animation transitions, enemy AI routing and animation transitions, and even some elements of the scene transitions for the map and UI. The presence of bugs in a game brings down the feel enormously, as it makes the game feel unpolished and without effort. Fortunately, everyone in the group worked hard to ensure that the major bugs that I pointed out after each system update were prioritized and dealt with before the final submission of the project.
 
 
-Overall, I think that game feel may be one of most important roles in a game in general, as it contributes to the players experience within the game. Even if you make an amazing game with complex structures that is not fun to play because of some imbalances or bugs, it’s unlikely that anyone will want to play your game.
+Overall, I think that game feel may be one of the most important roles in a game in general, as it contributes to the player's experience within the game. Even if you make an amazing game with complex structures that is not fun to play because of some imbalances or bugs, it’s unlikely that anyone will want to play your game.
 
 
 
