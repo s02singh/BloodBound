@@ -46,6 +46,82 @@ You should replay any **bold text** with your relevant information. Liberally us
 
 **Describe the basics of movement and physics in your game. Is it the standard physics model? What did you change or modify? Did you make your movement scripts that do not use the physics system?**
 
+## Enemy Design and AI
+
+There are five main enemies in our game: 3 melee, 1 ranged, and 1 boss with many attacks.
+
+Zombie: Weak enemy that paths at a medium speed towards the player and has a very short attack range. Appears on the first few waves.
+
+Archer: Weak enemy that paths at a very slow speed towards the player but has a very long attack range, in which the archer shoots an arrow at the player. Appears on the first few waves.
+
+Warrok: Tanky enemy that paths at a slow speed towards the player and has a short-medium attack range. Begins appearing towards the middle waves of the game.
+
+Reaper: Medium health enemy that is incredibly fast and dangerous, with a medium attack range. Only appears in the very late waves of the game.
+
+Dragon: Boss enemy that has two stages of the fight.
+
+Stage 1: Bites at the player from a fairly long distance, as the dragon is very large. Dragon walks towards the player until he is in bite range and keeps biting until he is low enough in health to enter Stage 2.
+
+Stage 2: Dragon now cycles (based on a timer) between two modes: flying and grounded. In the flying mode, the dragon is immune to damage and shoots explosive fireballs at the player until his flying timer is done. Once the flying timer has expired, the dragon lands so the player can get attacks to land on the dragon once again, but the dragon is not docile during this window of attack. Once grounded in Stage 2, the dragon breathes flames on the player, inducing tick damage.
+
+
+For the enemies in our game, I used many assets from the Unity Asset Store and mixamo.com to provide quick implementations of animated enemies without the heavy use of blender. Here is a list of all the sources used in this project for the enemies:
+
+Archer, Warrok, and all humanoid animations:
+https://www.mixamo.com/#/
+
+Zombie:
+https://assetstore.unity.com/packages/3d/characters/humanoids/zombie-30232
+
+Dragon:
+https://assetstore.unity.com/packages/3d/characters/creatures/dragon-pbr-94333
+
+PyroParticles (for dragon fire attacks): 
+https://assetstore.unity.com/packages/vfx/particles/fire-explosions/fire-spell-effects-36825
+
+Arrow (for archer attack): https://assetstore.unity.com/packages/3d/props/weapons/low-poly-rpg-fantasy-weapons-lite-226554
+
+
+With these prefabs and animations ready to implement, I used Unity’s AnimatorController to call certain animations based on boolean logic within my two main scripts: EnemyAI and DragonAI.
+
+EnemyAI:
+This script is used to control the four main enemies from the waves. It uses a NavMeshAgent placed on a NavMeshSurface that is baked into the scene to path towards the player at a speed decided within the inspector. The script provides implementations for all enemy decisions and pathing, using the transform position of the enemy and the position of the player to decide if the enemy is within range to attack. 
+
+https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/EnemyAI.cs#L48C9-L63C10
+
+If it is within range, the enemy will enter the animation state of attacking and use animation events to trigger a Raycast (or for the Archer, another function ProjectileLaunch to launch an arrow) towards the player. Once completed, an animation event within each of the enemies’ attack animations will trigger the end of the attack, indicating to return the enemy back to the idle state where the enemy can decide whether to follow the player or wait for a cooldown for their next attack (if still within range of the target).
+
+https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/EnemyAI.cs#L90C5-L125C6
+
+Finally, a TakeDamage() function is used to provide the player a way to hurt the enemies. When the enemy has taken damage and their health is at or below 0, they will die and be removed from the scene a few seconds later to prevent massive heaps of bodies filling the scene.
+
+https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/EnemyAI.cs#L128C5-L140C10
+
+DragonAI:
+This script uses very similar components to the EnemyAI script but implements two stages of fighting via boolean logic. Once the dragon has taken enough damage to reach a threshold health value, the dragon enters Stage 2 of the fight and begins attacking in new ways. Most of this is handled through boolean logic and calling events from the animation controller within the script.
+
+https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/DragonAI.cs#L53C9-L94C10
+
+Enemy projectile attacks:
+Much of the influence for projectile attacks came from the factory pattern extra credit exercise we completed previously in the course. Both the dragon and the archer use projectile-based attacks. For this, I made separate scripts, DragonFire.cs, LaunchProjectile.cs, and LaunchFireball.cs to instantiate projectiles aimed towards the player with differing physics mechanisms. For example, the LaunchProjectile.cs script uses torque to rotate the projectile mid air to simulate how an arrow should rotate in the air as it reaches its target.
+
+https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/LaunchProjectile.cs#L15C5-L39C6
+
+Many of these projectiles use other scripts to actually deal damage to the player, such as the arrow using ProjectileDamage.cs to deal damage to the player if it hits him, then destroy the arrow GameObject. 
+
+https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/ProjectileDamage.cs#L5C5-L13C6
+
+Some other scripts that deal with these projectiles for the dragon include FireBaseScript.cs and FlamethrowerCollider.cs. FireBaseScript.cs was an implemented script from the PyroParticles package, but I had to add code to damage the player with the fireball explosion. 
+
+https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Prefabs/PyroParticles/Prefab/Script/FireBaseScript.cs#L148C9-L180C10
+
+I created FlamethrowerCollider.cs to deal with a damage over time (DoT) effect of the dragon’s flame breath attack. When the player is standing within the hitbox of the flame breath attack, he takes tick damage every 0.1 seconds for the duration of the attack. This encourages the player to not bathe in the flames of the dragon breath for too long.
+
+https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Prefabs/PyroParticles/Prefab/Script/FlamethrowerCollider.cs#L16C5-L29C6
+
+Wave spawning:
+For the main portion of the game, we needed a way of spawning enemies. I took heavy influence from the shield factory exercise, and simply added a WaveSpawner GameObject to the scene that has the WaveSpawner.cs script attached to it, as well as various transform positions for the enemies to spawn at and the enemy prefabs themselves (Zombie, Archer, Warrok, Reaper). With this in place, all of the logic is contained within the WaveSpawner.cs script. This script begins spawning waves of enemies once the player has entered the arena, increasing in difficulty for each wave beaten. At the end of the 10 specified waves within the script, the player is allowed to enter the boss fight.
+
 ## Animation and Visuals
 
 **List your assets, including their sources and licenses.**
