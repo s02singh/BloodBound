@@ -440,9 +440,13 @@ While our game is not story heavy, there is a context of how the player ended up
 
 ### Narrative in Gameplay
 
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/BertHealth.PNG)
+
 Since the narrative was designed after the gameplay loop, the nature of a wave survival game lends itself to the theme of the player fighting for their freedom. The soulslike difficulty elements hint at the fact that the king does not want you to survive the punishment. The enemy types are non-human to further emphasize this point. The dragon didn't have a name originally, but I thought it would be fitting for it to have a name like Bert and be the king's pet. The enemy types and the pet dragon shows that the king is a frivolous and pompous character. I expanded more on the story with the ending cutscene, where I mentioned that the dragon was the reigning champion of the pit. I was trying to figure out if it would be in character for the king to honor the deal and let the player go after surviving the punishment. In the end, I had the king honor the deal because I thought it would undermine the accomplishment of surviving the gauntlet. Because I wanted to give the opportunity of restarting the game, I had the motivator be the crowd demanding an encore instead.
 
 ### Narrative in UI
+
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/Abilities.jpg)
 
 As mentioned previously, the style of the UI was chosen to fit the medieval dark fantasy theme of the game. The opening animation that plays when the player enters the game also reflects the narrative. Perhaps the narrator or the king is wishing the player luck in surviving their punishment. The cinematic camera movement into the gate promotes the sense of foreboding when it's combined with the "good luck". The respawn menu showing the enemies attacking the player after they're dead could be interpreted as the king being smug. It's likely that the king is controlling the non-human enemies and seeing them continuing to attack the player after they've died could motivate the player into trying harder the next time. Or they could be more reckless and greedy with their attacks the next time. I added descriptions for the special abilities that explain how the player can use those abilities in a way that fits the theme. It's not very informative in gameplay, but it acts as flavor text.
 
