@@ -245,7 +245,7 @@ To enhance immersion, I implemented a 3D audio environment within the game. Each
 
 I linked sound effects to animation events, so that gameplay actions are timed and fluid with appropriate audio feedback. For example, the sound of the sword swing is synchronized with the animation of the player character's attack, giving overall better responsiveness and realism of combat mechanics. I even created custom sound effects, like those for the zombie enemy. SFX was definitely a fun, experimental part of game design for me. It was awesome creating a fully original and unique soundtrack for our game.
 
-https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb1fad/Assets/Scripts/PlayerController.cs#L212-217
+https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb1fad/Assets/Scripts/PlayerController.cs#L212-L217
 
 ![DiscordLayoutGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/sound_animation.png)
 
