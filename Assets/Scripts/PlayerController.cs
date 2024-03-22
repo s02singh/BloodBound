@@ -28,6 +28,12 @@ public class PlayerController : MonoBehaviour
     public GameObject meteors;
     public float rage = 0f;
 
+    public bool canDoLightning = true;
+    public float lightningCooldown = 30.0f;
+    public float timeSinceLightning = 0f;
+    public float lightningUltimateChance = 5.0f;
+    public GameObject lightningAura;
+
     public bool isDashing;
     float dashTimer;
 
@@ -95,7 +101,6 @@ public class PlayerController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         currentHealth = maxHealth;
         currentStam = maxStam;
-
     }
     private void Update()
     {
@@ -118,6 +123,50 @@ public class PlayerController : MonoBehaviour
         Kick();
         Regen();
 
+        CheckAura();
+
+    }
+
+    private void CheckAura()
+    {
+        if (rage >= 100)
+        {
+            aura.SetActive(true);
+        }
+        else
+        {
+            aura.SetActive(false);
+        }
+
+        if (LightningTime())
+        {
+            lightningAura.SetActive(true);
+        }
+        else
+        {
+            lightningAura.SetActive(false);
+        }
+    }
+
+    private bool LightningTime()
+    {
+        if (!canDoLightning)
+        {
+            return false;
+        }
+        
+        if (timeSinceLightning < lightningCooldown)
+        {
+            if (Random.Range(0, 100) < lightningUltimateChance)
+            {
+                timeSinceLightning += Time.deltaTime;
+            }
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     private void Regen()
@@ -200,7 +249,16 @@ public class PlayerController : MonoBehaviour
     // CALLED BY ULTIMATE ANIMATION
     public void LightningStorm()
     {
-        sword.GetComponent<SwordController>().Attack(currentAttack, 2);
+        if (LightningTime())
+        {
+            sword.GetComponent<SwordController>().Attack(currentAttack, 2);
+            timeSinceLightning = 0;
+        }
+        else 
+        {
+            sword.GetComponent<SwordController>().Attack(currentAttack, 1);
+        }
+        
     }
     
 
@@ -270,9 +328,9 @@ public class PlayerController : MonoBehaviour
             isAttacking = false;
             if (!thirdPersonController.GroundedCheckPlayer())
                 return;
-            if (currentStam < 20f)
+            if (currentStam < 10f)
                 return;
-            currentStam -= 20f;
+            currentStam -= 10f;
             timeSinceStam = 0;
             thirdPersonController._speed = 0;
             StartCoroutine(Dash());
@@ -346,7 +404,7 @@ public class PlayerController : MonoBehaviour
         // Check for dodge input
         if (Input.GetKeyDown(KeyCode.Q) && !isDodging && thirdPersonController._speed != 0)
         {
-            if (isEquipping || isMeteorUlt || isBlocking)
+            if (isEquipping || isMeteorUlt)
                 return;
             isAttacking = false;
             if (!thirdPersonController.GroundedCheckPlayer())
@@ -402,7 +460,7 @@ public class PlayerController : MonoBehaviour
     private void Attack()
     {
 
-        if (isDodging || thirdPersonController.isJumping || isEquipping || isDashing || isMeteorUlt)
+        if (isDodging || thirdPersonController.isJumping || isEquipping || isDashing)
             return;
         
         if (Input.GetMouseButtonDown(0) && playerAnim.GetBool("Grounded") && timeSinceAttack > 0.8f)
@@ -437,19 +495,6 @@ public class PlayerController : MonoBehaviour
             if (timeSinceAttack > 1.0f)
                 currentAttack = 1;
 
-
-            // Find nearest enemy
-            Transform nearestEnemy = FindNearestEnemyInRange();
-
-            ///// JUST TESTING
-            // Rotate towards the nearest enemy
-            if (nearestEnemy != null)
-            {
-                Vector3 directionToEnemy = (nearestEnemy.position - transform.position).normalized;
-                directionToEnemy.y = 0; 
-                transform.forward = directionToEnemy;
-            }
-
             //Call Attack Triggers
             playerAnim.SetTrigger("Attack" + currentAttack);
 
@@ -460,30 +505,6 @@ public class PlayerController : MonoBehaviour
             timeSinceAttack = 0;
         }
     }
-
-    
-    private Transform FindNearestEnemyInRange()
-    {
-        Transform nearestEnemy = null;
-        float nearestDistanceSqr = Mathf.Infinity;
-        Vector3 currentPosition = transform.position;
-
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        foreach (GameObject enemy in enemies)
-        {
-            Vector3 directionToEnemy = enemy.transform.position - currentPosition;
-            float dSqrToTarget = directionToEnemy.sqrMagnitude;
-            if (dSqrToTarget < nearestDistanceSqr && dSqrToTarget <= 2f * 2f)
-            {
-                nearestDistanceSqr = dSqrToTarget;
-                nearestEnemy = enemy.transform;
-            }
-        }
-
-        return nearestEnemy;
-    }
-
 
     // Chained Heavy Attack triggered after the third light attack if F key is held
     private void ChainedHeavyAttack()

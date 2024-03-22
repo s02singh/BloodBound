@@ -11,30 +11,31 @@ public class SwordController : MonoBehaviour
     
     [SerializeField] private float baseDamage = 20;
     public float swordRange = 2f;
+
+    public float lightningRadius = 0.6f;    // 6.0 is for the GladiatorPit, 16 is for the DragonFight
+
     // 0: normal0, 1: normal1, 2: normal2, 3: special0, 4: special1
     [SerializeField] private int swordMode = 0;
     // column 1: normal, column 2: special
     private List<List<float>> damageModTable = new List<List<float>> {
         new List<float> { 0,  0},
-        new List<float> { 5,  0},
-        new List<float> {10,  0},
-        new List<float> {20, 20},
-        new List<float> {30, 25},
-        new List<float> {40, 30},
-        new List<float> {50, 35},
-        new List<float> {60, 40},
-        new List<float> {70, 45},
-        new List<float> {80, 50},
-        new List<float> {90, 55}
+        new List<float> { 5,  5},
+        new List<float> {10,  5},
+        new List<float> {20, 10},
+        new List<float> {30, 15},
+        new List<float> {40, 20},
+        new List<float> {50, 25},
+        new List<float> {60, 30},
+        new List<float> {70, 35},
+        new List<float> {80, 40},
+        new List<float> {90, 45}
     };
 
     [SerializeField] private GameObject lightningPrefab;
-    [SerializeField] private Transform  lightningSpawnPoint;
 
 
     void Start()
     {        
-        swordMode = 0;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         playerController = player.GetComponent<PlayerController>();
@@ -50,7 +51,6 @@ public class SwordController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("here in collision");
         // Check if the collision is with the dragon
         if (collision.gameObject.CompareTag("Dragon"))
         {
@@ -71,15 +71,7 @@ public class SwordController : MonoBehaviour
                 ExecuteNormalAttack(comboCounter, attackType);
                 break;
             case 2:
-                if (swordMode >= 3 && specialModeCooldownStatus >= specialModeCooldownPeriod)
-                {
-                    ExecuteSpecialAttack(comboCounter, attackType);
-                    specialModeCooldownStatus = 0.0f;
-                }
-                else 
-                {
-                    ExecuteNormalAttack(comboCounter, attackType);
-                }
+                ExecuteSpecialAttack(comboCounter, attackType);
                 break;
             case 3:
                 ExecuteNormalAttack(comboCounter, attackType);
@@ -118,31 +110,15 @@ public class SwordController : MonoBehaviour
         }
     }
 
-    private void DamageDragon(int comboCounter, int attackType)
-    {
-        int damage = (int)CalculateDamage(comboCounter, attackType);
-
-        GameObject enemy = GameObject.Find("Dragon");
-        DragonAI dragonAI = enemy.GetComponent<DragonAI>();
-        if (dragonAI != null)
-        {
-            dragonAI.TakeDamage(damage);
-            Debug.Log("Did Damage to " + enemy.name + " with " + damage + " damage");
-        }
-    }
-
     public void ExecuteSpecialAttack(int comboCounter, int attackType)
     {
-        Vector3 swordPosition = transform.position;
-        Vector3 attackDirection = transform.forward;
+        Vector3 swordPosition = transform.parent.position;
+        Vector3 lightningSpawnPosition = new Vector3(swordPosition.x, swordPosition.y + 20.0f, swordPosition.z);
+        Vector3 attackDirection = new Vector3(0, -1, 0);
 
-        Vector3 leftPoint = swordPosition + attackDirection * 5f - transform.right * 5f;  
-        Vector3 rightPoint = swordPosition + attackDirection * 5f + transform.right * 5f;
-        Vector3 center = swordPosition;
-
-        GameObject lightning = Instantiate(
+        Instantiate(
             lightningPrefab,
-            lightningSpawnPoint.position, 
+            lightningSpawnPosition, 
             Quaternion.Euler(90,0,0)
         );  
 
@@ -153,18 +129,18 @@ public class SwordController : MonoBehaviour
         foreach (GameObject obj in objects)
         {
             // Calculate vector from apex point to object's position
-            Vector3 vectorToObj = obj.transform.position - swordPosition;
-
-            // Calculate angle between direction vector and vector to object
-            float angle = Vector3.Angle(attackDirection, vectorToObj);
+            float distToEnemy = (obj.transform.position - swordPosition).magnitude;
 
             // Check if object is within cone's angle
-            if (angle <= 45f / 2f)
+            if (distToEnemy <= lightningRadius)
             {
-                // Check if object is within maximum distance
-                if (vectorToObj.magnitude <= swordRange)
+                if (obj.CompareTag("Enemy"))
                 {
                     DamageEnemy(obj, comboCounter, attackType);
+                }
+                else if (obj.CompareTag("Dragon"))
+                {
+                    DamageDragon(comboCounter, attackType);
                 }
             }
         }
@@ -172,7 +148,7 @@ public class SwordController : MonoBehaviour
 
     private float CalculateDamage(int comboCounter, int attackType)
     {
-        float damage = baseDamage * comboCounter;
+        float damage = baseDamage * (comboCounter+1);
         switch (attackType)
         {
             case 0:
@@ -193,12 +169,6 @@ public class SwordController : MonoBehaviour
 
     private void DamageEnemy(GameObject enemy, int comboCounter, int attackType)
     {
-
-        /**
-         * The Enemy can be of 2 types: EnemyAI and DragonAI. So this script checks
-         * for both types and calls the appropriate method to deal damage to the enemy.
-        */
-
         int damage = (int)CalculateDamage(comboCounter, attackType);
         playerController.rage += damage / 10;
 
@@ -208,7 +178,13 @@ public class SwordController : MonoBehaviour
             enemyAI.TakeDamage(damage);
             Debug.Log("Did Damage to " + enemy.name + " with " + damage + " damage");
         }
+    }
 
+    private void DamageDragon(int comboCounter, int attackType)
+    {
+        int damage = (int)CalculateDamage(comboCounter, attackType);
+
+        GameObject enemy = GameObject.Find("Dragon");
         DragonAI dragonAI = enemy.GetComponent<DragonAI>();
         if (dragonAI != null)
         {
@@ -222,6 +198,10 @@ public class SwordController : MonoBehaviour
     public void Upgrade()
     {
         swordMode++;
+        if (swordMode == 10)
+        {
+            lightningRadius = 16.0f;
+        }
     }
 
     // call to reset the sword to base state
@@ -229,15 +209,6 @@ public class SwordController : MonoBehaviour
     {
         swordMode = 0;
     }
-
-    // returns the cooldown status as a percentage (0-1)
-    public float GetSpecialModeCooldownStatus()
-    {
-        return (specialModeCooldownPeriod - specialModeCooldownStatus)/specialModeCooldownPeriod;
-    }
-
-
-
 
 
     public static T[] CreateCombinedArrayFrom< T >(T[] first, T[] second)
