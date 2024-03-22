@@ -35,6 +35,8 @@ Block: Hold right click
 # Main Roles #
 
 - Producer + Character Mechanics: Sahilbir Singh
+- Enemy Design and AI: Nicolo Del Bonta
+- Terrains and Visuals: Inseon Kim
 
 ## Producer + Player Mechanics - [Sahilbir Singh](https://github.com/s02singh)
 
