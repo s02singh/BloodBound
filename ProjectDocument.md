@@ -363,8 +363,7 @@ This was combined with a prefab we found online, which had an ice themed circe e
 
 The primary edit I made to this was to remove the snow flake particles. I then made this a child of the lightning object, and scaled it up so that it's diameter matches that of the lightning effect. The combined result was the [Lightning prefab](https://github.com/s02singh/BloodBound/blob/main/Assets/Lightning/Lightning.prefab).
 
-## UI Assets
-**List of assets used, including their sources and licenses.**
+## UI Assets and Sources
 - [Mountains Canyons Cliffs](https://assetstore.unity.com/packages/3d/environments/landscapes/mountains-canyons-cliffs-53984) by Infinita Studio under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 - [RPG Medieval Props DEMO](https://assetstore.unity.com/packages/3d/props/rpg-medieval-props-demo-248681) by Pixel Life under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 - [(P&W) Temple Edition](https://assetstore.unity.com/packages/3d/environments/landscapes/p-w-temple-edition-33637) by Aquarius Max under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
@@ -372,7 +371,7 @@ The primary edit I made to this was to remove the snow flake particles. I then m
 - [Outdoor Ground Textures](https://assetstore.unity.com/packages/2d/textures-materials/floors/outdoor-ground-textures-12555) by a dog's life software under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 - [AQUAS Lite - Built-In Render Pipeline](https://assetstore.unity.com/packages/vfx/shaders/aquas-lite-built-in-render-pipeline-53519) by dogmatic under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 - [StampIT! Collection](https://assetstore.unity.com/packages/tools/terrain/stampit-collection-free-examples-218286) by Rowlan.Inc under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
-- All of the assets used for the UI were obtained [here](https://sungraphica.itch.io/free-fantasy-game-ui). The font was obtained [here](https://www.dafont.com/metal-gothic.font).
+- All of the assets used for the UI menus were made by SunGraphica and obtained [here](https://sungraphica.itch.io/free-fantasy-game-ui) under the Creative Commons Attribution v4.0 International license. The font was created by Nirmana Visual and obtained [here](https://www.dafont.com/metal-gothic.font) under a free for personal use license.
 
 # Sub-Roles
 
