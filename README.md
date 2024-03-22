@@ -82,12 +82,22 @@ My primary goal with character animations was to make the character feel alive. 
 - roll
 - death
 
+
+DashAttack
+![DashAttack](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/dashattack.gif)
+
+Attack Combo
+![Combo](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/combo.gif)
+
+Dodging
+![Dodge](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/dodge.gif)
+
 Each animation has key animation events that trigger core mechanics. For example, each attack has events to trigger the sound and send raycasts, making the animation feel smooth and connected to the game. The roll triggers invincibility (iframes). Meteor ultimate triggers a vfx effect.
 
 #### Creative Implementation:
 
 Once all the base mechanics were implemented, I felt the player lacked a sense of power. The player should feel excited, he should enjoy being the paladin. That's how I decided on a unique ultimate attack for the player character. With incredible visual effects that includes meteor strikes, time-slowing effects, and dramatic camera angles, I crafted a show-stopping ability that added depth and excitement to the gameplay. This not only elevated the game's combat dynamics, but it provided players with a memorable and exhilarating experience. The idea was that the ability charges as you take damage, hence, you Roll With The Punches.
-![DiscordLayoutGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/meteorult.gif)
+![MeteorUlt](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/meteorult.gif)
 #### Technical Proficiency:
 
 My contributions extended beyond animation. I developed the combat logic for the player character. Through the implementation of damage logic, including sword slashing mechanics, aim assist, raycasting, and particle effects, I ensured that combat interactions felt responsive, fluid, and engaging. My scripting was documented, concise and enabled all character mechanics, contributing to the overall polish and gameplay of BloodBound.
