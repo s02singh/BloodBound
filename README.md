@@ -233,6 +233,8 @@ For the final boss fight terrain, we came up with the idea of having a cliff so 
 
 Since we made it as a cliff, I created a script that would [trigger the player's death once the player fell off the cliff during the fight](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/FallOffCliff.cs). 
 
+![Cliff Fall](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/CliffFall.gif)
+
 **List of assets used, including their sources and licenses.**
 - [Mountains Canyons Cliffs](https://assetstore.unity.com/packages/3d/environments/landscapes/mountains-canyons-cliffs-53984) by Infinita Studio under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 - [RPG Medieval Props DEMO](https://assetstore.unity.com/packages/3d/props/rpg-medieval-props-demo-248681) by Pixel Life under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
