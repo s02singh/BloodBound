@@ -11,6 +11,13 @@ public class RespawnMenu : MonoBehaviour
     public Animator transition;
     public GameObject playerController;
 
+    private void Awake()
+    {
+        // Hide and lock cursor
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     void Update()
     {
         if (playerController.GetComponent<PlayerController>().currentHealth <= 0)
@@ -25,34 +32,6 @@ public class RespawnMenu : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
-        
-        /* Debugging
-        // simulate game over
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            // prompt fade in
-            transition.SetTrigger("Died");
-
-            // Stop camera from moving
-            playerController.GetComponent<ThirdPersonController>().LockCameraPosition = true;
-
-            // Show cursor and let it move
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None; 
-        }
-
-        // simulate restarting
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Restart();
-        }
-
-        // simulate go back to menu
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            MainMenu();
-        }
-        */
     }
 
     public void Restart()
@@ -60,9 +39,6 @@ public class RespawnMenu : MonoBehaviour
         // Deselects clicked button so that it is no longer selected.
         EventSystem.current.SetSelectedGameObject(null);
 
-        // Hide and lock cursor
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         playerController.GetComponent<ThirdPersonController>().LockCameraPosition = false;
 
         if (GameObject.FindWithTag("Dragon") == null)

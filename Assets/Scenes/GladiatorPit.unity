@@ -13241,7 +13241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 6809988454918835168}
-  controlsMenu: {fileID: 0}
+  controlsMenu: {fileID: 329991870}
   playerCamera: {fileID: 7619141847228083223}
 --- !u!114 &8709398817171918218
 MonoBehaviour:
