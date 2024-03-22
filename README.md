@@ -188,7 +188,7 @@ For the main portion of the game, we needed a way of spawning enemies. I took he
 
 
 
-## Terrains and Visuals
+## Terrains and Visuals - [Inseon Kim](https://github.com/inseon-0507)
 As a terrain and visuals role, I mainly focused on choosing the correct theme of the game and making it all consistent to engage the users for a semi-realistic style of scene. As our objective for the game was to create a gladiator pit that generates wave survival, the initial theme I set up after researching reference images was medieval.  
 
 This was the initial planning that I had for the gladiator pit, which I showed to my group to also give them a sense of where I am planning to spawn the enemies and players and a rough sketch of how the scene would be structured:
@@ -298,11 +298,33 @@ https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb
 
 ![DiscordLayoutGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/sound_animation.png)
 
-## Gameplay Testing
+## Gameplay Testing - [Inseon Kim](https://github.com/inseon-0507)
+This role was originally Nicolo's sub-role, but we swapped our roles as Nicolo was great at finding bugs in our game and fixing them to balance the game feel, whereas, I was more able to ask around to play our games for some feedback. 
 
-**Add a link to the full results of your gameplay tests.**
+**[Full Results](https://drive.google.com/drive/u/0/folders/1k9x9x1VAXtYc7Qx-5_ipdPavXh7re3od) of our gameplay**
 
-**Summarize the key findings from your gameplay tests.**
+To ask for feedback, I have created a [Web-Playable](https://simmer.io/@inseon_k/bloodbound) version of our game so it could be easily accessible to ask around for gameplay testing. One challenge that I encountered was most of the web platforms take a build zip file under 200MB, whereas, our game is a high-detailed 3d game so the lowest I could get was 230MB. I had to try various textures to see if I could further decrease the size and I searched around for various platforms that supports larger files. I was able to find simmer.io, which takes an uncompressed folder and I was easily able to upload my build folder. 
+
+### Key Findings
+
+Most of the criticism landed into three categories: usability, difficulty, and bugs  
+#### Usability
+- The majority of the players were confused with the controls to equip, attack, ultimate strike, etc and they were commenting that it would be better to have a descriptive controls page or even tutorials to describe when certain attacks are used
+- Our original game idea of not having a health bar on the player nor the enemies was to give a sense of fear that you don't know when you would die and you don't know when the enemies would die, but lots of players encouraged that it would be easier to have the statistics of health remaining for the player at least
+- Some players thought the stamina bar on the bottom left was the health bar instead, so they had no idea why attacks or dash or dodge weren't working sometimes (it's because their stamina is low)
+Overall, I have realized that there should be more UI pages implemented or cut scenes at the beginning of the game to illustrate the controls and describe our game ideas/scenes to provide a better insight to the users.  
+#### Difficulty
+- A lot of the players thought our game was difficult. Mainly there were two categories of people commenting on our difficulty level:
+  1. People who were new to computer games or not familiar with using key commands to play the game found the overall game structure a bit difficult (relating to the usability, it provided us an insight that the tutorials page would've been a good idea or some suggested to have a different level modes)
+  2. People who were familiar with computer games and all the key bindings commented on the hitbox and the aim of the player. Especially since our camera gets modified with our mouse control, aiming to hit the enemies was difficult. Some even suggested to have a cross indicator of where the player is aiming at to give a better sense of killing the enemies.
+- One modification made from gameplay testing is that when players were playing our demo, one of our original commands was "left-click + F key" for heavy attack, so the players constantly used the F key since why not? So, we decided to take that command out and balance out the other attack damages.
+#### Bugs
+- There were several bugs that players found during the gameplay testing. One bug was getting stuck at an infinite meteor-strike loop if you pressed "v key + left click", so we were able to find one missing condition in our if-statement and were able to fix the bug. 
+- One player was able to find out they could stand on top of the archer (not really a bug, but an interesting find).
+
+Players enjoyed the camera movement during the meteor strike (ultimate attack) along with game graphics and sound. All of them liked fighting against our enemies and they tried their best to get to the dragon fight but so far, 3 have made it to the end scene. 
+
+The most common suggestion for our game was more descriptions of the controls and the components we see on the screen (blood effect that indicates health left, stamina bar, etc). 
 
 ## Narrative Design
 
