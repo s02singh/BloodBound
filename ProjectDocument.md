@@ -49,7 +49,7 @@ Block: Hold right click
 
 As the producer of BloodBound, my primary focus was coordinating and leading the development team. I used Discord to establish a way to connect and inform everyone of timelines as well as to stay in touch of updates. In Discord, I created dedicated channels for playtesting, bugs, and game ideas, each of which I had members document their findings. All Git repo pushes were also mandated to be reported before pushing. Everyone seemed to have a great understanding of their role, and I made sure to check on their systems, ensuring compatibility to the game as a whole. 
 
-![DiscordLayoutGIF](../READMEAssets/discordlayout.gif)
+![DiscordLayoutGIF](./READMEAssets/discordlayout.gif)
 #### Project Management:
 
 I organized and led all group meetings, using Discord as a central hub for scheduling and conducting discussions. My primary plan was to have each contributor create their components on their own branch in our GitHub repo. You can find that repo here https://github.com/s02singh/RollingWithThePunches. This allowed Nico to create enemies, Inseon to create the map, Khuyen to make the UI, and Darsh to learn vfx. My aim was to provide a "Playground" to each member, allowing them to learn and create their systems without having to deal with each other's bugs and problems. I was in charge of developing the entire player character - mechanics, look, feel and all. I will discuss this further in the Character Mechanics section. Once all systems were implemented, I had each member package their respective assignments. Finally, I put it all in one project as a base spawn point, which led to the creation of this GitHub repo. 
@@ -71,23 +71,23 @@ My primary goal with character animations was to make the character feel alive. 
 
 
 Animation Events:
-![DiscordLayoutGIF](../READMEAssets/animation_events.png)
+![DiscordLayoutGIF](./READMEAssets/animation_events.png)
 
 DashAttack
-![DashAttack](../READMEAssets/dashattack.gif)
+![DashAttack](./READMEAssets/dashattack.gif)
 
 Attack Combo
-![Combo](../READMEAssets/combo.gif)
+![Combo](./READMEAssets/combo.gif)
 
 Dodging
-![Dodge](../READMEAssets/dodge.gif)
+![Dodge](./READMEAssets/dodge.gif)
 
 Each animation has key animation events that trigger core mechanics. For example, each attack has events to trigger the sound and send raycasts, making the animation feel smooth and connected to the game. The roll triggers invincibility (iframes). Meteor ultimate triggers a vfx effect.
 
 #### Creative Implementation:
 
 Once all the base mechanics were implemented, I felt the player lacked a sense of power. The player should feel excited, he should enjoy being the paladin. That's how I decided on a unique ultimate attack for the player character. With incredible visual effects that includes Rage Blashs, time-slowing effects, and dramatic camera angles, I crafted a show-stopping ability that added depth and excitement to the gameplay. This not only elevated the game's combat dynamics, but it provided players with a memorable and exhilarating experience. The idea was that the ability charges as you take damage, hence, you Roll With The Punches. Check out my [time stopping](https://github.com/s02singh/BloodBound/blob/506b78c5f86b7cd2c055b4ea130c165e490e077d/Assets/StarterAssets/ThirdPersonController/Scripts/ThirdPersonController.cs#L251) (called through animation events) and [camera spin](https://github.com/s02singh/BloodBound/blob/506b78c5f86b7cd2c055b4ea130c165e490e077d/Assets/StarterAssets/ThirdPersonController/Scripts/ThirdPersonController.cs#L216) scripting.
-![MeteorUlt](../READMEAssets/meteorult.gif)
+![MeteorUlt](./READMEAssets/meteorult.gif)
 #### Technical Implementation:
 
 My contributions extended beyond animation. I developed the combat logic for the player character. Through the implementation of damage logic, including sword slashing mechanics, aim assist, raycasting, and particle effects, I ensured that combat interactions felt responsive, fluid, and engaging. My scripting was documented, concise and enabled all character mechanics, contributing to the overall polish and gameplay of BloodBound.
@@ -99,20 +99,20 @@ Check out my scripting here [PlayerController.cs](https://github.com/s02singh/Bl
 
 The main menu is a canvas that exists in the world space and has two separate screens for the start and controls menu. It's in its own scene and placed in front of the gladiator pit object.
 
-![](../READMEAssets/MainStartMenu.PNG)
+![](./READMEAssets/MainStartMenu.PNG)
 
 The start menu contains the game title, play button, controls button, and quit button. The play button utilizes Unity's scene manager to load the scene with the gameplay. Clicking Play will trigger an animation for the camera to go into the gate next to the start menu, enable a screen that says "good luck", and then load the next scene. The controls button will trigger the camera to move to the section of the world space with the controls menu. The quit button will quit the game. The color change on hover is handled by Unity's button component. I used the sprite swap transition the component to switch the base button sprite into a highlighted version upon hover and click.
 
-![](../READMEAssets/MainControlsMenu.PNG
+![](./READMEAssets/MainControlsMenu.PNG
 )
 
 The controls menu is a single screen that has the core controls including movement, attacking, dodging, blocking, jumping and equipping. Our game has other controls, like combos and abilities, but I decided not to put them on the main menu because our core controls already have a lot of information. I know that the player won't remember everything and they might feel overwhelmed from seeing multiple screens of controls.
 
 #### Main Menu Camera
 
-![](../READMEAssets/ControlsTransition.gif)
-![](../READMEAssets/StartTransition.gif)
-![](../READMEAssets/EnterTransition.gif)
+![](./READMEAssets/ControlsTransition.gif)
+![](./READMEAssets/StartTransition.gif)
+![](./READMEAssets/EnterTransition.gif)
 
 The camera movement is handled by Unity's Cinemachine package. I defined the points where I want the camera to be and what it was looking at, and Cineamchine interpolates the path and movement between points. These points are Cinemachine's virtual cameras and will be used by the main camera object when it's live. The change in cameras is carried out with [this function](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/UITransitionManager.cs#L29), which makes the target camera live and the current camera go on standby. The controls button on the start menu and the back button on the controls menu calls this function on click. The camera animation that plays when pressing start uses another Cinemachine camera, called the dolly camera with track. I used this camera instead of the basic virtual camera because I wanted a smooth and steady camera movement. The animation had key frames of where I wanted the camera to be at certain points in time and Unity interpolates the camera's position between frames. The interpolation follows the dolly track placed in the scene.
 
@@ -122,34 +122,34 @@ Initially, I had the menus be on a static brick background. The play button woul
 
 ### Pause Menu
 
-![](../READMEAssets/Pause.jpg)
-![](../READMEAssets/Controls.jpg)
-![](../READMEAssets/Combos.jpg)
-![](../READMEAssets/Abilities.jpg)
+![](./READMEAssets/Pause.jpg)
+![](./READMEAssets/Controls.jpg)
+![](./READMEAssets/Combos.jpg)
+![](./READMEAssets/Abilities.jpg)
 
 The pause menu uses the same assets as the main menu. It has a continue button, controls button, and main menu button. When the player presses escape, the pause menu appears and the game is stopped. The continue button or pressing escape again will resume the game, and the main menu button will retu rn to the main menu scene. The controls button will switch to a more comprehensive controls menu. This menu has the full control scheme of our game because players will be able to easily reference the menu during gameplay and put into practice what they saw.
 
 ### Respawn Menu
 
-![](../READMEAssets/DiedScreen.gif)
+![](./READMEAssets/DiedScreen.gif)
 
 The respawn menu appears when the player's health has reached 0. An animation that makes the screen darken and the text "YOU DIED" appear. The options to restart or return the to main menu will appear shortly after. I took inspiration from the souls games to make the text fade into the middle of the screen before making the options appear. I also imitated the way you can still see the enemies moving in the game from those gamesso the respawn screen doesn't become completely opaque. The try again button will reload the current gladiator pit scene while the main menu button will load the main menu scene.
 
 ### Stamina Bar
 
-![](../READMEAssets/Stamina.jpg)
+![](./READMEAssets/Stamina.jpg)
 
 I reused the button sprite for the stamina bar, but edited it so that the gray background and middle section were separated into separate sprites. I also changed the appearance of the middle section to have a different gradient and color. The image type of the sprite representing the stamina was set to filled, so that the amount of image shown can be changed easily with [the fill amount variable](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/Stamina.cs#L19). It has a range of 0-1, so it was set with the proportion of the current stamina over the max stamina.
 
 ### Dragon Health Bar and Name
 
-![](../READMEAssets/BertHealth.PNG)
+![](./READMEAssets/BertHealth.PNG)
 
 I used the same assets I edited for the stamina bar for the dragon health bar, except I created two more bars colored purple and green to represent the dragon's health. These health bars were updated the same way as the stamina bar, [with fill amount](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/DragonHealthBar.cs#L39), but the proportion was determined by the dragon's current health over the its max health. There's two colors to represent the dragon's health because I wanted to visually indicate to the player that the dragon was now at half health. The next attack phase also starts at half health, so they could also figure it out with that, but the color change was intended to invoke a sense of accomplishment for at least getting the dragon to the half way point. The health bar starts out as a hostile purple, kind of reminiscent of the ender dragon's health bar from Minecraft, to a more agreeable green to help motivate. The switch occurs through a check for the [status of the current phase](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/DragonHealthBar.cs#L30) the dragon's in. The dragon's name is just a simple UI text object. I had trouble finding a color that was visible in both the fog and the sky, so I settled on a color that would be visible against the fog but less visible against the sky since the camera would be positioned in the fog most of the time.
 
 ### Ending Cutscene
 
-![](../READMEAssets/EndCutscene.gif)
+![](./READMEAssets/EndCutscene.gif)
 
 The ending cutscene is a simple black screen with text telling the player that they've defeated the dragon and gives the player the opportunity to restart the game or return to the main menu. The "satisfy the crowd button" will load the previous scene with the gladiator pit gameplay and the "enjoy my freedom" button will load the main menu scene. The cutscene is triggered [when the dragon's health reaches 0 and the player is still alive](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/EndCutscene.cs#L15). This means if the player manages to defeat the dragon but happens to die from residual damage afterward, the cutscene won't play. When triggered, there will be a slight delay before the cutscene appears so that the player can see the dragon's dying animation.
 
@@ -159,29 +159,29 @@ There are five main enemies in our game: 3 melee, 1 ranged, and 1 boss with many
 
 Zombie: Weak enemy that paths at a medium speed towards the player and has a very short attack range. Appears on the first few waves.
 
-![ZombieGIF](../READMEAssets/zombie.gif)
+![ZombieGIF](./READMEAssets/zombie.gif)
 
 Archer: Weak enemy that paths at a very slow speed towards the player but has a very long attack range, in which the archer shoots an arrow at the player. Appears on the first few waves.
 
-![ArcherGIF](../READMEAssets/archer.gif)
+![ArcherGIF](./READMEAssets/archer.gif)
 
 Warrok: Tanky enemy that paths at a slow speed towards the player and has a short-medium attack range. Begins appearing towards the middle waves of the game.
 
-![WarrokGIF](../READMEAssets/warrok.gif)
+![WarrokGIF](./READMEAssets/warrok.gif)
 
 Reaper: Medium health enemy that is incredibly fast and dangerous, with a medium attack range. Only appears in the very late waves of the game.
 
-![ReaperGIF](../READMEAssets/reaper.gif)
+![ReaperGIF](./READMEAssets/reaper.gif)
 
 Dragon: Boss enemy that has two stages of the fight.
 
 Stage 1: Bites at the player from a fairly long distance, as the dragon is very large. Dragon walks towards the player until he is in bite range and keeps biting until he is low enough in health to enter Stage 2.
 
-![DragonStage1](../READMEAssets/dragonbasic.gif)
+![DragonStage1](./READMEAssets/dragonbasic.gif)
 
 Stage 2: Dragon now cycles (based on a timer) between two modes: flying and grounded. In the flying mode, the dragon is immune to damage and shoots explosive fireballs at the player until his flying timer is done. Once the flying timer has expired, the dragon lands so the player can get attacks to land on the dragon once again, but the dragon is not docile during this window of attack. Once grounded in Stage 2, the dragon breathes flames on the player, inducing tick damage.
 
-![DragonStage2](../READMEAssets/dragonStageTwo.gif)
+![DragonStage2](./READMEAssets/dragonStageTwo.gif)
 
 For the enemies in our game, I used many assets from the Unity Asset Store and mixamo.com to provide quick implementations of animated enemies without the heavy use of blender. Here is a list of all the sources used in this project for the enemies:
 
@@ -246,48 +246,48 @@ For the main portion of the game, we needed a way of spawning enemies. I took he
 As a terrain and visuals role, I mainly focused on choosing the correct theme of the game and making it all consistent to engage the users for a semi-realistic style of scene. As our objective for the game was to create a gladiator pit that generates wave survival, the initial theme I set up after researching reference images was medieval.  
 
 This was the initial planning that I had for the gladiator pit, which I showed to my group to also give them a sense of where I am planning to spawn the enemies and players and a rough sketch of how the scene would be structured:
-![Initial Plan](../READMEAssets/TerrainInfo.png)
+![Initial Plan](./READMEAssets/TerrainInfo.png)
 
 Focusing on a medieval-styled scene, I chose to use stone-texture walls that I had gathered from the Unity asset store and put them one by one to make a circular gladiator pit (it's more of a hexagonal shape, but I tried my best to make it look circular in player's view). As it was a challenge to build a circular-shaped pit using the walls with no guidelines to follow, I used the heights of the terrain to use the terrain stamp to elevate the terrain.
 
-![Terrain Height Changes to make the guideline for the pit](../READMEAssets/ChangeTerrain.png)
+![Terrain Height Changes to make the guideline for the pit](./READMEAssets/ChangeTerrain.png)
 
 After elevating the terrain, I placed the walls around the edge to make the outermost walls for the gladiator pit then I started building more walls on top of it so the wall would be high to give a sense of fear to the player. I did not place any windows, just stone-textured walls so the player is unable to view what's going on outside, nor know where he is. 
  
 For my first version of the gladiator pit scene, I added water and mountains around the gladiator pit to show that the character is indeed stuck and cannot escape unless the king allows the character to leave. 
-![Visuals for water and mountains](../READMEAssets/GladiatorPitTopView.png)
+![Visuals for water and mountains](./READMEAssets/GladiatorPitTopView.png)
 
 However, as we talked more about our game project, we came up with a final boss fight scene idea so considering that there would have to be a transition between the gladiator pit to the final boss fight scene, I took out the water and mountain feature and replaced it with a flat terrain so the player could "run" for a bit to feel a sense of freedom then have a transition to the boss fight so the sense of freedom quickly switches back to the sense of fear.
 
-![Revised Terrain](../READMEAssets/RevisedTerrain.png)
+![Revised Terrain](./READMEAssets/RevisedTerrain.png)
 
 For the visuals, after I completed the general structure and floor texture of the gladiator pit scene, I added some decorations to the scene to add to our medieval theme. 
 I stacked up the boxes to act as a shield so whenever the player is down for health or stamina, he could hide behind the boxes for a short moment to regenerate. 
-![Visual1](../READMEAssets/Decoration1.png) 
+![Visual1](./READMEAssets/Decoration1.png) 
 
 I added fence obstacles for the player to jump around and distract the enemies as they would keep following the player. 
-![Visual2](../READMEAssets/Decoration2.png)
+![Visual2](./READMEAssets/Decoration2.png)
 
 As I was communicating with the group regarding the player's and enemies' spawning points, I thought it would be best to spawn the enemies at random points on the gladiator pit as there were large numbers of them getting spawned at once (especially as waves go up). So, instead of my initial plan of placing the enemies behind the bar, I have decided to spawn the player behind the bar so it would give storytelling that you are forced to enter the pit, full of enemies to defeat and there is no way out besides entering the pit to fight. 
-![Player Spawn Point](../READMEAssets/PlayerSpawn.png) *Capsule is representing the player.
+![Player Spawn Point](./READMEAssets/PlayerSpawn.png) *Capsule is representing the player.
 
 To make the game more realistic and engageable to the users, I created a [bar movement script so that the bar would open the instant the game starts](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/BarMovement.cs). The wave doesn't start until the player exits the spawning point area, so I made sure I didn't close the bar until the player exits. During the gameplay testing that I will be describing in my sub-role section, I have found that a lot of the players used this time to practice their controls. Once the player exits the area and enters the pit, [box collider right in front of the bar gets active to block the player from re-entering the spawning point](https://github.com/s02singh/BloodBound/blob/c8f9df575c4f417bed6481f664eabf4f629fb1af/Assets/Scripts/StartZoneTrigger.cs#L19) and the door comes down along with the start of the wave. 
 
 Once all 10 waves ended, I created another bar on the other side of the player spawning bar so the player could leave the player through this bar for its freedom (but not really, it's heading towards the dragon). Once [waves are all done](https://github.com/s02singh/BloodBound/blob/e264e3fc7e1bda40874d2c91116dd9d66719a5f5/Assets/Scripts/WaveSpawner.cs#L28), it would trigger the fog particle system to activate to act as an indication to the user "this" is the next place to head towards to and would [open the player's door](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/PlayerDoorOpen.cs). 
 
-![Player Door](../READMEAssets/PlayerDoorOpens.gif)
+![Player Door](./READMEAssets/PlayerDoorOpens.gif)
 
 I have set a Game Object with a box collider at the end of the gate to trigger the [scene change](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/SceneChange.cs) so that once the player thinks he/she has ended the game, the scene would transition to the final boss fight. I also implemented a [fade-in](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/FadeInOut.cs) and [fade-out](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/Controller.cs) using UI images to create a smooth transition so the user would not get distracted during their gameplay. 
 
-![Scene Transition To Final Scene](../READMEAssets/SceneChange.gif)
+![Scene Transition To Final Scene](./READMEAssets/SceneChange.gif)
 
 For the final boss fight terrain, we came up with the idea of having a cliff so the dragon could freely fly in the air space to attack the player, so I modified some heights of the terrain and added assets to decorate the terrain. Since we are out of the gladiator pit, to give a sense of open space, I deviated from using stone texture to using grass and sand texture. 
 
-![Cliff Scene](../READMEAssets/CliffScene.png)
+![Cliff Scene](./READMEAssets/CliffScene.png)
 
 Since we made it as a cliff, I created a script that would [trigger the player's death once the player fell off the cliff during the fight](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/FallOffCliff.cs). 
 
-![Cliff Fall](../READMEAssets/CliffFall.gif)
+![Cliff Fall](./READMEAssets/CliffFall.gif)
 
 ## Weapon System, VFX + PlayerHUD Integration - [Darsh Parikh](https://github.com/Darsh-Parikh)
 
@@ -384,7 +384,7 @@ The primary edit I made to this was to remove the snow flake particles. I then m
 -   Sound effects (SFX) sourced from various online repositories and some created by Sahilbir Singh (the sourced sfx were free without licensing and full use without credit)
 -   Music composition and generation tools used: [suno.ai](https://www.suno.ai/)
 
-![DiscordLayoutGIF](../READMEAssets/all_sfx.png)
+![DiscordLayoutGIF](./READMEAssets/all_sfx.png)
 
 ### Implementation:
 
@@ -396,15 +396,15 @@ I utilized AI music composition tools to create the entire soundtrack for BloodB
 
 To enhance immersion, I implemented a 3D audio environment within the game. Each enemy has its own audio source, creating a sense of depth and spatial awareness for players. This implementation ensures that players can discern the location and proximity of enemies based on sound cues, adding an extra layer of strategy to gameplay. This is especially important when trying to determine when an enemy attack or where an attack is coming from, for example knowing where an archer's arrow is sourced or discerning when the dragon boss will bite.
 
-![DiscordLayoutGIF](../READMEAssets/zombie_sfx.png)
-![DiscordLayoutGIF](../READMEAssets/dragon_sfx.png)
+![DiscordLayoutGIF](./READMEAssets/zombie_sfx.png)
+![DiscordLayoutGIF](./READMEAssets/dragon_sfx.png)
 #### Sound Effects Integration:
 
 I linked sound effects to animation events, so that gameplay actions are timed and fluid with appropriate audio feedback. For example, the sound of the sword swing is synchronized with the animation of the player character's attack, giving overall better responsiveness and realism of combat mechanics. I even created custom sound effects, like those for the zombie enemy. SFX was definitely a fun, experimental part of game design for me. It was awesome creating a fully original and unique soundtrack for our game.
 
 https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb1fad/Assets/Scripts/PlayerController.cs#L212-L217
 
-![DiscordLayoutGIF](../READMEAssets/sound_animation.png)
+![DiscordLayoutGIF](./READMEAssets/sound_animation.png)
 
 ## Gameplay Testing - [Inseon Kim](https://github.com/inseon-0507)
 This role was originally Nicolo's sub-role, but we swapped our roles as Nicolo was great at finding bugs in our game and fixing them to balance the game feel, whereas, I was more able to ask around to play our games for some feedback. 
