@@ -18,17 +18,17 @@ You have unlimited time/waves. Defeat all enemies in the wave to start the next 
 Rage - As you inflict damage and take damage, you slowly build a rage meter. Once you are full, the character emits a red lightning aura.
 Press V to trigger Rage Blast.
 
-Current Controls:
-Movement: WASD
-Sprint: Hold shift
-Look: Mouse
-Jump: Space
-Equip: R
-Roll: Q
-Dash Attack - Sprint + Left click
-Light Attack: Left click
-Combos: Light x 3
-Block: Hold right click
+Current Controls:  
+Movement: WASD  
+Sprint: Hold shift  
+Look: Mouse  
+Jump: Space  
+Equip: R  
+Roll: Q  
+Dash Attack - Sprint + Left click  
+Light Attack: Left click  
+Combos: Light x 3  
+Block: Hold right click  
 
 
 
