@@ -99,7 +99,7 @@ Check out my scripting here [PlayerController.cs](https://github.com/s02singh/Bl
 **Add an entry for each platform or input style your project supports.**
 
 
-## Enemy Design and AI
+## Enemy Design and AI - [Nicolo Del Bonta](https://github.com/nicolodb)
 
 There are five main enemies in our game: 3 melee, 1 ranged, and 1 boss with many attacks.
 
@@ -146,9 +146,9 @@ https://assetstore.unity.com/packages/vfx/particles/fire-explosions/fire-spell-e
 Arrow (for archer attack): https://assetstore.unity.com/packages/3d/props/weapons/low-poly-rpg-fantasy-weapons-lite-226554
 
 
-With these prefabs and animations ready to implement, I used Unity’s AnimatorController to call certain animations based on boolean logic within my two main scripts: EnemyAI and DragonAI.
+With these prefabs and animations ready to implement, I used Unity’s AnimatorController to call certain animations based on boolean logic within my two main scripts: [EnemyAI.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/EnemyAI.cs) and [DragonAI.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/DragonAI.cs).
 
-EnemyAI:
+[EnemyAI.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/EnemyAI.cs):
 This script is used to control the four main enemies from the waves. It uses a NavMeshAgent placed on a NavMeshSurface that is baked into the scene to path towards the player at a speed decided within the inspector. The script provides implementations for all enemy decisions and pathing, using the transform position of the enemy and the position of the player to decide if the enemy is within range to attack. 
 
 https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/EnemyAI.cs#L48C9-L63C10
@@ -161,30 +161,30 @@ Finally, a TakeDamage() function is used to provide the player a way to hurt the
 
 https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/EnemyAI.cs#L128C5-L140C10
 
-DragonAI:
-This script uses very similar components to the EnemyAI script but implements two stages of fighting via boolean logic. Once the dragon has taken enough damage to reach a threshold health value, the dragon enters Stage 2 of the fight and begins attacking in new ways. Most of this is handled through boolean logic and calling events from the animation controller within the script.
+[DragonAI.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/DragonAI.cs):
+This script uses very similar components to the [EnemyAI.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/EnemyAI.cs) script but implements two stages of fighting via boolean logic. Once the dragon has taken enough damage to reach a threshold health value, the dragon enters Stage 2 of the fight and begins attacking in new ways. Most of this is handled through boolean logic and calling events from the animation controller within the script.
 
 https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/DragonAI.cs#L53C9-L94C10
 
 Enemy projectile attacks:
-Much of the influence for projectile attacks came from the factory pattern extra credit exercise we completed previously in the course. Both the dragon and the archer use projectile-based attacks. For this, I made separate scripts, DragonFire.cs, LaunchProjectile.cs, and LaunchFireball.cs to instantiate projectiles aimed towards the player with differing physics mechanisms. For example, the LaunchProjectile.cs script uses torque to rotate the projectile mid air to simulate how an arrow should rotate in the air as it reaches its target.
+Much of the influence for projectile attacks came from the factory pattern extra credit exercise we completed previously in the course. Both the dragon and the archer use projectile-based attacks. For this, I made separate scripts, [DragonFire.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/DragonFire.cs), [LaunchProjectile.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/LaunchProjectile.cs), and [LaunchFireball.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/LaunchFireball.cs) to instantiate projectiles aimed towards the player with differing physics mechanisms. For example, the [LaunchProjectile.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/LaunchProjectile.cs) script uses torque to rotate the projectile mid air to simulate how an arrow should rotate in the air as it reaches its target.
 
 https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/LaunchProjectile.cs#L15C5-L39C6
 
-Many of these projectiles use other scripts to actually deal damage to the player, such as the arrow using ProjectileDamage.cs to deal damage to the player if it hits him, then destroy the arrow GameObject. 
+Many of these projectiles use other scripts to actually deal damage to the player, such as the arrow using [ProjectileDamage.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/ProjectileDamage.cs) to deal damage to the player if it hits him, then destroy the arrow GameObject. 
 
 https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Scripts/ProjectileDamage.cs#L5C5-L13C6
 
-Some other scripts that deal with these projectiles for the dragon include FireBaseScript.cs and FlamethrowerCollider.cs. FireBaseScript.cs was an implemented script from the PyroParticles package, but I had to add code to damage the player with the fireball explosion. 
+Some other scripts that deal with these projectiles for the dragon include [FireBaseScript.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Prefabs/PyroParticles/Prefab/Script/FireBaseScript.cs) and [FlamethrowerCollider.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Prefabs/PyroParticles/Prefab/Script/FlamethrowerCollider.cs). [FireBaseScript.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Prefabs/PyroParticles/Prefab/Script/FireBaseScript.cs) was an implemented script from the PyroParticles package, but I had to add code to damage the player with the fireball explosion. 
 
 https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Prefabs/PyroParticles/Prefab/Script/FireBaseScript.cs#L148C9-L180C10
 
-I created FlamethrowerCollider.cs to deal with a damage over time (DoT) effect of the dragon’s flame breath attack. When the player is standing within the hitbox of the flame breath attack, he takes tick damage every 0.1 seconds for the duration of the attack. This encourages the player to not bathe in the flames of the dragon breath for too long.
+I created [FlamethrowerCollider.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Prefabs/PyroParticles/Prefab/Script/FlamethrowerCollider.cs) to deal with a damage over time (DoT) effect of the dragon’s flame breath attack. When the player is standing within the hitbox of the flame breath attack, he takes tick damage every 0.1 seconds for the duration of the attack. This encourages the player to not bathe in the flames of the dragon breath for too long.
 
 https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b470e9/Assets/Prefabs/PyroParticles/Prefab/Script/FlamethrowerCollider.cs#L16C5-L29C6
 
 Wave spawning:
-For the main portion of the game, we needed a way of spawning enemies. I took heavy influence from the shield factory exercise, and simply added a WaveSpawner GameObject to the scene that has the WaveSpawner.cs script attached to it, as well as various transform positions for the enemies to spawn at and the enemy prefabs themselves (Zombie, Archer, Warrok, Reaper). With this in place, all of the logic is contained within the WaveSpawner.cs script. This script begins spawning waves of enemies once the player has entered the arena, increasing in difficulty for each wave beaten. At the end of the 10 specified waves within the script, the player is allowed to enter the boss fight.
+For the main portion of the game, we needed a way of spawning enemies. I took heavy influence from the shield factory exercise, and simply added a WaveSpawner GameObject to the scene that has the [WaveSpawner.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/WaveSpawner.cs) script attached to it, as well as various transform positions for the enemies to spawn at and the enemy prefabs themselves (Zombie, Archer, Warrok, Reaper). With this in place, all of the logic is contained within the [WaveSpawner.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/WaveSpawner.cs) script. This script begins spawning waves of enemies once the player has entered the arena, increasing in difficulty for each wave beaten. At the end of the 10 specified waves within the script, the player is allowed to enter the boss fight.
 
 
 
@@ -340,7 +340,7 @@ The music for the trailer is one of the game’s soundtracks, Hope, but slightly
 Most of the screenshots for the Press-Kit were also taken directly from the clips used for the Trailer. They were nice cinematic shots of the environment and enemies, which I believe are the main elements of the game.
 
 
-## Game Feel and Polish
+## Game Feel and Polish - [Nicolo Del Bonta](https://github.com/nicolodb)
 
 With our game being a wave survival game, I wanted the waves to be increasingly difficult but easy enough towards the beginning that even inexperienced players could get through the first few. Balancing the game was an enormous task because we have so many different attacks, enemies, and systems in place to worry about such as stamina and rage gauges. Since I primarily designed the enemies, I tweaked all of their numbers numerous times to match the experience desired for the 10-wave system I implemented. Not only that, but deciding how many enemies and what types of enemies to come out in certain waves determines how exciting the experience may be for the player.
 
