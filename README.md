@@ -67,7 +67,10 @@ As the producer of BloodBound, my primary focus was coordinating and leading the
 I organized and led all group meetings, using Discord as a central hub for scheduling and conducting discussions. My primary plan was to have each contributor create their components on their own branch in our GitHub repo. You can find that repo here https://github.com/s02singh/RollingWithThePunches. This allowed Nico to create enemies, Inseon to create the map, Khuyen to make the UI, and Darsh to learn vfx. My aim was to provide a "Playground" to each member, allowing them to learn and create their systems without having to deal with each other's bugs and problems. I was in charge of developing the entire player character - mechanics, look, feel and all. I will discuss this further in the Character Mechanics section. Once all systems were implemented, I had each member package their respective assignments. Finally, I put it all in one project as a base spawn point, which led to the creation of this GitHub repo. 
 
 #### Engagement:
-Aside from meetings during class and Discord calls every few days, I made sure to actively communicate daily. I reached out to team members, making sure timelines were being followed and help was provided when needed. The timeline defined in the initial progress report was great baseline. However, during our peer review report, I used it as an opportunity to also create an updated report/progress check in. You can find that here. 
+Aside from meetings during class and Discord calls every few days, I made sure to actively communicate daily. I reached out to team members, making sure timelines were being followed and help was provided when needed. The timeline defined in the initial progress report was great baseline. However, during our peer review report, I used it as an opportunity to also create an updated report/progress check in. You can find that here. https://docs.google.com/document/d/1Hy5fcxIj2UezN37R412JOx16OQY12U62Vvo3Qlx1_To/edit?usp=sharing
+
+
+
 **Describe the steps you took in your role as producer. Typical items include group scheduling mechanisms, links to meeting notes, descriptions of team logistics problems with their resolution, project organization tools (e.g., timelines, dependency/task tracking, Gantt charts, etc.), and repository management methodology.**
 
 ### Character Mechanics:
