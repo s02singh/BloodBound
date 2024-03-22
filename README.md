@@ -171,4 +171,15 @@ For the main portion of the game, we needed a way of spawning enemies. I took he
 
 ## Game Feel and Polish
 
-**Document what you added to and how you tweaked your game to improve its game feel.**
+With our game being a wave survival game, I wanted the waves to be increasingly difficult but easy enough towards the beginning that even inexperienced players could get through the first few. Balancing the game was an enormous task because we have so many different attacks, enemies, and systems in place to worry about such as stamina and rage gauges. Since I primarily designed the enemies, I tweaked all of their numbers numerous times to match the experience desired for the 10-wave system I implemented. Not only that, but deciding how many enemies and what types of enemies to come out in certain waves determines how exciting the experience may be for the player.
+
+[Player and Enemy Stats](https://docs.google.com/document/d/1a7omcd_x4HPyXmLFQ7AxQ1R93e6L3X09QiWZiPWggSY/edit?usp=sharing)  
+
+Another huge aspect of game feel was ensuring that all animations played through smoothly. Many of the animations that I worked with had parts of the animation that transformed the enemy model’s position (root motion), which we did not want since we did our movement and physics calculations on our own in the scripts. Due to this reason, I had to trim many of the animations and reorder animation events called during those animations to perfectly fit the feel of the desired enemy.
+
+
+Lastly, the game debugging was a large part of my role as I experimented heavily with everybody’s implementations in the project. Although there are still countless bugs within the game, the major gamebreaking ones have mostly been extinguished. Some of the things to note during this process was that I was the main game tester and bug finder for all systems, such as character movement and animation transitions, enemy AI routing and animation transitions, and even some elements of the scene transitions for the map and UI. The presence of bugs in a game brings down the feel enormously, as it makes the game feel unpolished and without effort. Fortunately, everyone in the group worked hard to ensure that the major bugs that I pointed out after each system update were prioritized and dealt with before the final submission of the project.
+
+
+Overall, I think that game feel may be one of most important roles in a game in general, as it contributes to the players experience within the game. Even if you make an amazing game with complex structures that is not fun to play because of some imbalances or bugs, it’s unlikely that anyone will want to play your game.
+
