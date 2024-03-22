@@ -37,8 +37,7 @@ public class PauseMenu : MonoBehaviour
         playerCamera.GetComponent<ThirdPersonController>().LockCameraPosition = true;
 
         // Show cursor and let it move
-        Cursor.lockState = CursorLockMode.None; // <- problem code
-        // Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None; 
         Cursor.visible = true;
 
         // Pause application with timeScale
