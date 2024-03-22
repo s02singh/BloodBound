@@ -17,6 +17,7 @@ You have unlimited time. Defeat all enemies in the wave to start the next one. T
 
 Rage - As you inflict damage and take damage, you slowly build a rage meter. Once you are full, the character emits a red lightning aura.
 Press V to trigger Rage Blast.
+Lightning - As time goes on, you slowly activate the lightning ability. Once you are full, the character emits a blue lightning aura. Press C to trigger Lightning Strike
 
 Current Controls:  
 Movement: WASD  
@@ -37,6 +38,8 @@ Block: Hold right click
 - Producer + Character Mechanics: Sahilbir Singh
 - Enemy Design and AI: Nicolo Del Bonta
 - Terrains and Visuals: Inseon Kim
+- Weapon System & VFX: Darsh Parikh
+    - `NOTE`: My role was initially Game Logic, but I had trouble with Unity and the HDRP setup we had at first. The issues made it hard to work on any Game Logic directly hence why my role changed. Game Logic was handled by the team as a whole.
 
 ## Producer + Player Mechanics - [Sahilbir Singh](https://github.com/s02singh)
 
@@ -83,7 +86,7 @@ Each animation has key animation events that trigger core mechanics. For example
 
 #### Creative Implementation:
 
-Once all the base mechanics were implemented, I felt the player lacked a sense of power. The player should feel excited, he should enjoy being the paladin. That's how I decided on a unique ultimate attack for the player character. With incredible visual effects that includes meteor strikes, time-slowing effects, and dramatic camera angles, I crafted a show-stopping ability that added depth and excitement to the gameplay. This not only elevated the game's combat dynamics, but it provided players with a memorable and exhilarating experience. The idea was that the ability charges as you take damage, hence, you Roll With The Punches. Check out my [time stopping](https://github.com/s02singh/BloodBound/blob/506b78c5f86b7cd2c055b4ea130c165e490e077d/Assets/StarterAssets/ThirdPersonController/Scripts/ThirdPersonController.cs#L251) (called through animation events) and [camera spin](https://github.com/s02singh/BloodBound/blob/506b78c5f86b7cd2c055b4ea130c165e490e077d/Assets/StarterAssets/ThirdPersonController/Scripts/ThirdPersonController.cs#L216) scripting.
+Once all the base mechanics were implemented, I felt the player lacked a sense of power. The player should feel excited, he should enjoy being the paladin. That's how I decided on a unique ultimate attack for the player character. With incredible visual effects that includes Rage Blashs, time-slowing effects, and dramatic camera angles, I crafted a show-stopping ability that added depth and excitement to the gameplay. This not only elevated the game's combat dynamics, but it provided players with a memorable and exhilarating experience. The idea was that the ability charges as you take damage, hence, you Roll With The Punches. Check out my [time stopping](https://github.com/s02singh/BloodBound/blob/506b78c5f86b7cd2c055b4ea130c165e490e077d/Assets/StarterAssets/ThirdPersonController/Scripts/ThirdPersonController.cs#L251) (called through animation events) and [camera spin](https://github.com/s02singh/BloodBound/blob/506b78c5f86b7cd2c055b4ea130c165e490e077d/Assets/StarterAssets/ThirdPersonController/Scripts/ThirdPersonController.cs#L216) scripting.
 ![MeteorUlt](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/meteorult.gif)
 #### Technical Implementation:
 
@@ -286,6 +289,81 @@ Since we made it as a cliff, I created a script that would [trigger the player's
 
 ![Cliff Fall](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/CliffFall.gif)
 
+## Weapon System, VFX + PlayerHUD Integration - [Darsh Parikh](https://github.com/Darsh-Parikh)
+
+### Weapon System
+Since the sword came with the model itself, I used that sword as is. I initially tried to add particle effect vfx onto the sword, however this failed during integration since the partcile effects had nothing to track during player animations (since player animations aren't root tranformations and thus invisible in the transform). So I instead worked on the Upgrade and Damage system for the sword, all found in the [SwordController.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/SwordController.cs) script.
+
+Any attack animation from the player results in [a call to the SwordController's Attack function](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/PlayerController.cs#L610), which has support for [combos and multiple types of attacks](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/SwordController.cs#L63). Based on the type of attack, the sword internally determines which enemies are being attacked. The `ExecuteNormalAttack()` function uses a simply raycast to determine the closest enemy, which the `ExecuteSpecialAttack()` finds all the enemies in a range and attacks them all (since it's used for the Lightning Strike).
+
+To add some game-balancing, we decided to upgrade the sword as the waves progressed. In the SwordController, this is achieved by using a single variable. The `Upgrade()` funtion is used to upgrade this weapon. Under the current design, this function is [called after each wave ends](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/WaveSpawner.cs#L45). The damage system makes use of this variable to figure out how much damage enemies take.
+
+The [damage calculation](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/SwordController.cs#L149) is also done within the sword itself. The equation for the sword damage is as follows:
+```
+baseDamage + (comboCounter + 1) + damageModifier
+```
+The `damageModifier` depends on the type of attack, and this table below (with column 1 for Normal Attacks and column 2 for Special/Lightning Attack) shows the damage at different upgrade levels.
+
+![IMAGE](/READMEAssets/SwordUpgradeList.png)
+
+#### Lightning Strike Mechanic
+The `ExecuteSpecialAttack()` of the sword currently works for the Lightning Strike mechanic. The effects for this are documented in the VFX section. While the VFX and Damage is handled within [SwordController.cs](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/SwordController.cs), the cooldown and activation of the mechanic is handled by the [PlayerController](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/PlayerController.cs). I modified the script to add a cooldown period, in the [`LightningTime()` function](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/PlayerController.cs#L150). PlayerController's `Update()` function ends up running this function each time as part of the `CheckAura()` function (more details on it later). However, since the Lightning also does good amount of damage (killing zombies and archers in 1 shot), it would've been too strong. In order to add game-balancing, I decided to reduce how often the Lightning effect would be available. However, I wanted to add an element of randomness into the mix. Below is a clear explanation of how the Lightning Strike cooldown works:
+```
+The lightning effect cooldown counter increments upto a certain cutoff, at which point the lightning aura appears around the player. This cutoff is set to around 15. The counter increments at a rate of Time.deltaTime, but only every ~10% of the times the function is called. For the rest of the calls, the counter stays constant, prolonging the time until Lightning Strike.
+```
+There are 2 ways to indicate when the Lightning Strike is available, a Lightning Strike meter at the bottom right, and the Lightning Aura around the player. The meter is explained in the UI section, and the Lightning Aura VFX is explained in the VFX section. I implemented the [`CheckAura()` function](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/PlayerController.cs#L129) to check for when there was a need to activate the aura vfx around the player.
+
+The actual lightning strike is instantiated as part of the [SwordController](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/SwordController.cs), in the [`ExecuteSpecialAttack()` function](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/SwordController.cs#L113).  This is where the enemy collisions are also checked. Any enemy within a range takes damage. This [range](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/SwordController.cs#L15), is [different for the Gladiator Pit and the Dragon fight](https://github.com/s02singh/BloodBound/blob/f02aac3bff19dc68511438fb0caee8dc6d5b2de1/Assets/Scripts/SwordController.cs#L201). This is due to the fact that the Dragon's collider was too far away for the original range, so I almost doubled the range to ensure the Dragon took damage, but that the mechanic didn't become game breaking in the Gladiator Pit.
+
+### VFX - [Darsh Parikh](https://github.com/Darsh-Parikh)
+
+#### Health HUD
+Since we wanted to show the player health through a blood splatter type effect, I created the HealthUI as a UI element, with an Image component for the blood splatter itself. 
+
+![IMAGE](/READMEAssets/HealthUI_Components.png)
+
+To control it's visibility, I added a CanvasGroup component to the HealthUI, and controlling it's `alpha` value  controls the visibility. 
+
+![GIF](/READMEAssets/HealthUIGif.gif)
+
+For integrating it with the Player's health, I had a [simple script](https://github.com/s02singh/BloodBound/blob/main/Assets/HealthUI/Health.cs) that would check the player's health and update the `alpha` values based on that.
+
+#### Blood Effects on Enemies
+I also added blood effects on the enemies. The effect itself was from the Grim Reaper model downloaded by Nico. It's a [set of particle effects](https://github.com/s02singh/BloodBound/blob/main/Assets/BloodVFX/particle_damage.prefab) that result in a blood splatter.
+
+![GIF](/READMEAssets/BloodSplatterGIF.gif)
+
+To integrate this with the enemies, I added an empty GameObject to every enemy prefab. The Archer in particular is shown below
+
+![IMAGE](/READMEAssets/ArcherBloodPoint.png)
+
+Alongside this, I edited the [EnemyAI](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/Scripts/EnemyAI.cs#L142) script to instantiate the blood vfx whenever an enemy takes damage. Since all the enemies share the script, it works for them all as long as the prefabs have the Spawn Gameobject added and linked to the EnemyAI Script.
+However, the VFX wouldn't delete itself after instatiation, so I added a [script](https://github.com/s02singh/BloodBound/blob/main/Assets/BloodVFX/BloodParticleDeleter.cs) on the prefab to ensure that particles are deleted after their animation ends.
+
+#### Lightning Mechanic UI & VFX
+**NOTE**: The lightning meter at the bottom right was Khuyen's design. I simply added the [LightningUIController.cs](https://github.com/s02singh/BloodBound/blob/main/Assets/MenuImages/LightningUIController.cs) on it to control the `fillAmount` of the Image component. I converted the `timeSinceLightning` variable from the SwordController into a percentage to indicate how much of the lightning was charged up, and then used that for the fill amount.
+
+![GIF](/READMEAssets/LightningUI.gif)
+
+In order to indicate to the player that they can use the lightning strike, we wanted to add more than just a button. Sahil proposed add an aura around the player, very similar to how the Rage Blash mechanic creates an aura around the player. The VFX used by the Aura is the same prefab as that Rage Blash aura, but color shifted to be blueish in nature. Sahil added this as a child under the [PlayerArmature prefab](https://github.com/s02singh/BloodBound/blob/main/Assets/PlayerArmature.prefab), which resulted in it being attached to the player
+
+![GIF](/READMEAssets/Spark_on_Player.gif)
+
+The lightning attack itself is an amalgamation of 2 seperate effects. The first was a lightning strike that I created after following a [tutorial online](https://www.youtube.com/watch?v=5zec4nUewgk&t=39s).
+
+![GIF](/READMEAssets/Lightning1.gif)
+
+I edited the emission amount and shape properties in particular to make it fit the game's size and dimensions much better.
+
+![IMAGE](/READMEAssets/Lightning1_edits.png)
+
+This was combined with a prefab we found online, which had an ice themed circe effect.
+
+![GIF](/READMEAssets/lightning2.gif)
+
+The primary edit I made to this was to remove the snow flake particles. I then made this a child of the lightning object, and scaled it up so that it's diameter matches that of the lightning effect. The combined result was the [Lightning prefab](https://github.com/s02singh/BloodBound/blob/main/Assets/Lightning/Lightning.prefab).
+
+### UI Assets
 **List of assets used, including their sources and licenses.**
 - [Mountains Canyons Cliffs](https://assetstore.unity.com/packages/3d/environments/landscapes/mountains-canyons-cliffs-53984) by Infinita Studio under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 - [RPG Medieval Props DEMO](https://assetstore.unity.com/packages/3d/props/rpg-medieval-props-demo-248681) by Pixel Life under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
@@ -294,31 +372,9 @@ Since we made it as a cliff, I created a script that would [trigger the player's
 - [Outdoor Ground Textures](https://assetstore.unity.com/packages/2d/textures-materials/floors/outdoor-ground-textures-12555) by a dog's life software under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 - [AQUAS Lite - Built-In Render Pipeline](https://assetstore.unity.com/packages/vfx/shaders/aquas-lite-built-in-render-pipeline-53519) by dogmatic under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 - [StampIT! Collection](https://assetstore.unity.com/packages/tools/terrain/stampit-collection-free-examples-218286) by Rowlan.Inc under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
-
-### Health HUD
-…
-
-### Blood Effects on Enemies
-…
-
-### Lightning Strike VFX
-…
-
-### Meteor Strike VFX
-…
-
-### Sword VFX
-…
-
-### UI Assets
-All of the assets used for the UI were obtained [here](https://sungraphica.itch.io/free-fantasy-game-ui). The font was obtained [here](https://www.dafont.com/metal-gothic.font).
-
-## Game Logic
-
-**Document the game states and game data you managed and the design patterns you used to complete your task.**
+- All of the assets used for the UI were obtained [here](https://sungraphica.itch.io/free-fantasy-game-ui). The font was obtained [here](https://www.dafont.com/metal-gothic.font).
 
 # Sub-Roles
-
 
 ## Audio - [Sahilbir Singh](https://github.com/s02singh)
 
@@ -374,7 +430,7 @@ Overall, I have realized that there should be more UI pages implemented or cut s
 - There were several bugs that players found during the gameplay testing. One bug was getting stuck at an infinite meteor-strike loop if you pressed "v key + left click", so we were able to find one missing condition in our if-statement and were able to fix the bug. 
 - One player was able to find out they could stand on top of the archer (not really a bug, but an interesting find).
 
-Players enjoyed the camera movement during the meteor strike (ultimate attack) along with game graphics and sound. All of them liked fighting against our enemies and they tried their best to get to the dragon fight but so far, 3 have made it to the end scene. 
+Players enjoyed the camera movement during the Rage Blash (ultimate attack) along with game graphics and sound. All of them liked fighting against our enemies and they tried their best to get to the dragon fight but so far, 3 have made it to the end scene. 
 
 The most common suggestion for our game was more descriptions of the controls and the components we see on the screen (blood effect that indicates health left, stamina bar, etc). 
 
@@ -390,13 +446,16 @@ Since the narrative was designed after the gameplay loop, the nature of a wave s
 
 As mentioned previously, the style of the UI was chosen to fit the medieval dark fantasy theme of the game. The opening animation that plays when the player enters the game also reflects the narrative. Perhaps the narrator or the king is wishing the player luck in surviving their punishment. The cinematic camera movement into the gate promotes the sense of foreboding when it's combined with the "good luck". The respawn menu showing the enemies attacking the player after they're dead could be interpreted as the king being smug. It's likely that the king is controlling the non-human enemies and seeing them continuing to attack the player after they've died could motivate the player into trying harder the next time. Or they could be more reckless and greedy with their attacks the next time. I added descriptions for the special abilities that explain how the player can use those abilities in a way that fits the theme. It's not very informative in gameplay, but it acts as flavor text.
 
-## Press Kit and Trailer
+## Press Kit and Trailer - [Darsh Parikh](https://github.com/Darsh-Parikh)
 
-Trailer: https://youtu.be/gBnaaRzAJCg
-Press Kit: …
+- Trailer: https://youtu.be/gBnaaRzAJCg
+- Press Kit: https://nasal-countess-f36.notion.site/BloodBound-474be8868139405c935aaee1f9ebd400 
+
 
 For the trailer, I wanted to showcase gameplay but also focus on the core theme of the game, survival. Since it’s a medieval gladiator-style game, I thought it would be appropriate to start the trailer with a background of the situation the player is in, especially by showing the enemies and mobs first rather than any real gameplay. Once the viewer knows what the player’s predicament is, I showed some gameplay to demonstrate that the player must fight to survive, and slash enemies to kill them (the Grim Reaper for example). That is when I decided to include more details, such as the dodge mechanic, while also showcasing that there’s going to be multiple waves. Since we wanted to keep the final boss fight suspenseful, I decided to not show it directly, but to first show the Pit gate opening and the player crossing it. That’s when the dragon reveal happens, with brief clips to not reveal the dragon a lot and keep it as a secret for the player.
-The music for the trailer is one of the game’s soundtracks, Hope, but slightly edited around the end to fit the length of the trailer. The Font also matches the UI font. I used DaVinci Resolve to edit my video, and Unity Recorder to record in-game clips.
+
+The music for the trailer is one of the game’s soundtracks, [Hope](https://github.com/s02singh/BloodBound/blob/main/Assets/StarterAssets/ThirdPersonController/Character/Sfx/hope.mp3), but slightly edited around the end to fit the length of the trailer. The Font also matches the UI font. I used DaVinci Resolve to edit my video, and Unity Recorder to record in-game clips.
+
 Most of the screenshots for the Press-Kit were also taken directly from the clips used for the Trailer. They were nice cinematic shots of the environment and enemies, which I believe are the main elements of the game.
 
 
