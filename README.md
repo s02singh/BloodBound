@@ -52,18 +52,29 @@ There are five main enemies in our game: 3 melee, 1 ranged, and 1 boss with many
 
 Zombie: Weak enemy that paths at a medium speed towards the player and has a very short attack range. Appears on the first few waves.
 
+![ZombieGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/zombie.gif)
+
 Archer: Weak enemy that paths at a very slow speed towards the player but has a very long attack range, in which the archer shoots an arrow at the player. Appears on the first few waves.
+
+![ArcherGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/archer.gif)
 
 Warrok: Tanky enemy that paths at a slow speed towards the player and has a short-medium attack range. Begins appearing towards the middle waves of the game.
 
+![WarrokGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/warrok.gif)
+
 Reaper: Medium health enemy that is incredibly fast and dangerous, with a medium attack range. Only appears in the very late waves of the game.
+
+![ReaperGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/reaper.gif)
 
 Dragon: Boss enemy that has two stages of the fight.
 
 Stage 1: Bites at the player from a fairly long distance, as the dragon is very large. Dragon walks towards the player until he is in bite range and keeps biting until he is low enough in health to enter Stage 2.
 
+![DragonStage1](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/dragonbasic.gif)
+
 Stage 2: Dragon now cycles (based on a timer) between two modes: flying and grounded. In the flying mode, the dragon is immune to damage and shoots explosive fireballs at the player until his flying timer is done. Once the flying timer has expired, the dragon lands so the player can get attacks to land on the dragon once again, but the dragon is not docile during this window of attack. Once grounded in Stage 2, the dragon breathes flames on the player, inducing tick damage.
 
+![DragonStage2](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/dragonStageTwo.gif)
 
 For the enemies in our game, I used many assets from the Unity Asset Store and mixamo.com to provide quick implementations of animated enemies without the heavy use of blender. Here is a list of all the sources used in this project for the enemies:
 
