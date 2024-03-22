@@ -189,11 +189,60 @@ For the main portion of the game, we needed a way of spawning enemies. I took he
 
 
 ## Terrains and Visuals
+As a terrain and visuals role, I mainly focused on choosing the correct theme of the game and making it all consistent to engage the users for a semi-realistic style of scene. As our objective for the game was to create a gladiator pit that generates wave survival, the initial theme I set up after researching reference images was medieval.  
+
+This was the initial planning that I had for the gladiator pit, which I showed to my group to also give them a sense of where I am planning to spawn the enemies and players and a rough sketch of how the scene would be structured:
+![Initial Plan](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/TerrainInfo.png)
+
+Focusing on a medieval-styled scene, I chose to use stone-texture walls that I had gathered from the Unity asset store and put them one by one to make a circular gladiator pit (it's more of a hexagonal shape, but I tried my best to make it look circular in player's view). As it was a challenge to build a circular-shaped pit using the walls with no guidelines to follow, I used the heights of the terrain to use the terrain stamp to elevate the terrain.
+
+![Terrain Height Changes to make the guideline for the pit](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/ChangeTerrain.png)
+
+After elevating the terrain, I placed the walls around the edge to make the outermost walls for the gladiator pit then I started building more walls on top of it so the wall would be high to give a sense of fear to the player. I did not place any windows, just stone-textured walls so the player is unable to view what's going on outside, nor know where he is. 
+ 
+For my first version of the gladiator pit scene, I added water and mountains around the gladiator pit to show that the character is indeed stuck and cannot escape unless the king allows the character to leave. 
+![Visuals for water and mountains](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/GladiatorPitTopView.png)
+
+However, as we talked more about our game project, we came up with a final boss fight scene idea so considering that there would have to be a transition between the gladiator pit to the final boss fight scene, I took out the water and mountain feature and replaced it with a flat terrain so the player could "run" for a bit to feel a sense of freedom then have a transition to the boss fight so the sense of freedom quickly switches back to the sense of fear.
+
+![Revised Terrain](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/RevisedTerrain.png)
+
+For the visuals, after I completed the general structure and floor texture of the gladiator pit scene, I added some decorations to the scene to add to our medieval theme. 
+I stacked up the boxes to act as a shield so whenever the player is down for health or stamina, he could hide behind the boxes for a short moment to regenerate. 
+![Visual1](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/Decoration1.png) 
+
+I added fence obstacles for the player to jump around and distract the enemies as they would keep following the player. 
+![Visual2](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/Decoration2.png)
+
+As I was communicating with the group regarding the player's and enemies' spawning points, I thought it would be best to spawn the enemies at random points on the gladiator pit as there were large numbers of them getting spawned at once (especially as waves go up). So, instead of my initial plan of placing the enemies behind the bar, I have decided to spawn the player behind the bar so it would give storytelling that you are forced to enter the pit, full of enemies to defeat and there is no way out besides entering the pit to fight. 
+![Player Spawn Point](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/PlayerSpawn.png) *Capsule is representing the player.
+
+To make the game more realistic and engageable to the users, I created a [bar movement script so that the bar would open the instant the game starts](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/BarMovement.cs). The wave doesn't start until the player exits the spawning point area, so I made sure I didn't close the bar until the player exits. During the gameplay testing that I will be describing in my sub-role section, I have found that a lot of the players used this time to practice their controls. Once the player exits the area and enters the pit, [box collider right in front of the bar gets active to block the player from re-entering the spawning point](https://github.com/s02singh/BloodBound/blob/c8f9df575c4f417bed6481f664eabf4f629fb1af/Assets/Scripts/StartZoneTrigger.cs#L19) and the door comes down along with the start of the wave. 
+
+Once all 10 waves ended, I created another bar on the other side of the player spawning bar so the player could leave the player through this bar for its freedom (but not really, it's heading towards the dragon). Once [waves are all done](https://github.com/s02singh/BloodBound/blob/e264e3fc7e1bda40874d2c91116dd9d66719a5f5/Assets/Scripts/WaveSpawner.cs#L28), it would trigger the fog particle system to activate to act as an indication to the user "this" is the next place to head towards to and would [open the player's door](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/PlayerDoorOpen.cs). 
+
+![Player Door](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/PlayerDoorOpens.gif)
+
+I have set a Game Object with a box collider at the end of the gate to trigger the [scene change](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/SceneChange.cs) so that once the player thinks he/she has ended the game, the scene would transition to the final boss fight. I also implemented a [fade-in](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/FadeInOut.cs) and [fade-out](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/Controller.cs) using UI images to create a smooth transition so the user would not get distracted during their gameplay. 
+
+![Scene Transition To Final Scene](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/SceneChange.gif)
+
+For the final boss fight terrain, we came up with the idea of having a cliff so the dragon could freely fly in the air space to attack the player, so I modified some heights of the terrain and added assets to decorate the terrain. Since we are out of the gladiator pit, to give a sense of open space, I deviated from using stone texture to using grass and sand texture. 
+
+![Cliff Scene](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/CliffScene.png)
+
+Since we made it as a cliff, I created a script that would [trigger the player's death once the player fell off the cliff during the fight](https://github.com/s02singh/BloodBound/blob/main/Assets/Scripts/FallOffCliff.cs). 
+
+**List of assets used, including their sources and licenses.**
+- [Mountains Canyons Cliffs](https://assetstore.unity.com/packages/3d/environments/landscapes/mountains-canyons-cliffs-53984) by Infinita Studio under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
+- [RPG Medieval Props DEMO](https://assetstore.unity.com/packages/3d/props/rpg-medieval-props-demo-248681) by Pixel Life under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
+- [(P&W) Temple Edition](https://assetstore.unity.com/packages/3d/environments/landscapes/p-w-temple-edition-33637) by Aquarius Max under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
+- [Modular Prison Asset Pack](https://assetstore.unity.com/packages/3d/environments/dungeons/modular-prison-asset-pack-232410) by 7th Side LLC under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
+- [Outdoor Ground Textures](https://assetstore.unity.com/packages/2d/textures-materials/floors/outdoor-ground-textures-12555) by a dog's life software under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
+- [AQUAS Lite - Built-In Render Pipeline](https://assetstore.unity.com/packages/vfx/shaders/aquas-lite-built-in-render-pipeline-53519) by dogmatic under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
+- [StampIT! Collection](https://assetstore.unity.com/packages/tools/terrain/stampit-collection-free-examples-218286) by Rowlan.Inc under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 
 
-
-
-**List your assets, including their sources and licenses.**
 
 ### Health HUD
 …
