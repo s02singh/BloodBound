@@ -6,10 +6,10 @@ The objective of BloodBound is to survive in a gladiator pit-style arena. It’s
 
 ## Project Resources
 
-[Web-playable version of your game.](https://itch.io/)  
-[Trailor](https://youtube.com)  
+[Web-playable version of your game.](https://simmer.io/@inseon_k/bloodbound)  
+[Trailer](https://youtu.be/gBnaaRzAJCg)  
 [Press Kit](https://dopresskit.com/)  
-[Proposal: make your own copy of the linked doc.](https://docs.google.com/document/d/1qwWCpMwKJGOLQ-rRJt8G8zisCa2XHFhv6zSWars0eWM/edit?usp=sharing)  
+[Proposal - Need UCDavis access](https://docs.google.com/document/d/141i_HyjqgsnrFmnotgeV74-MPDZJ3-pqZvKzE4B2AXs/edit?usp=sharing)  
 
 ## Gameplay Explanation ##
 
