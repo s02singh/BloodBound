@@ -83,6 +83,9 @@ My primary goal with character animations was to make the character feel alive. 
 - death
 
 
+Animation Events:
+![DiscordLayoutGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/animation_events.png)
+
 DashAttack
 ![DashAttack](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/dashattack.gif)
 
@@ -241,6 +244,8 @@ For the main portion of the game, we needed a way of spawning enemies. I took he
 -   Sound effects (SFX) sourced from various online repositories and some created by Sahilbir Singh (the sourced sfx were free without licensing and full use without credit)
 -   Music composition and generation tools used: [suno.ai](https://www.suno.ai/)
 
+![DiscordLayoutGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/all_sfx.png)
+
 ### Implementation:
 
 #### Soundtrack Composition:
@@ -251,9 +256,13 @@ I utilized AI music composition tools to create the entire soundtrack for BloodB
 
 To enhance immersion, I implemented a 3D audio environment within the game. Each enemy has its own audio source, creating a sense of depth and spatial awareness for players. This implementation ensures that players can discern the location and proximity of enemies based on sound cues, adding an extra layer of strategy to gameplay. This is especially important when trying to determine when an enemy attack or where an attack is coming from, for example knowing where an archer's arrow is sourced or discerning when the dragon boss will bite.
 
+![DiscordLayoutGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/zombie_sfx.png)
+![DiscordLayoutGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/dragon_sfx.png)
 #### Sound Effects Integration:
 
 I linked sound effects to animation events, so that gameplay actions are timed and fluid with appropriate audio feedback. For example, the sound of the sword swing is synchronized with the animation of the player character's attack, giving overall better responsiveness and realism of combat mechanics. I even created custom sound effects, like those for the zombie enemy. SFX was definitely a fun, experimental part of game design for me. It was awesome creating a fully original and unique soundtrack for our game.
+
+![DiscordLayoutGIF](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/sound_animation.png)
 
 ## Gameplay Testing
 
