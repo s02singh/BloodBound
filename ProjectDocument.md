@@ -90,16 +90,65 @@ Once all the base mechanics were implemented, I felt the player lacked a sense o
 My contributions extended beyond animation. I developed the combat logic for the player character. Through the implementation of damage logic, including sword slashing mechanics, aim assist, raycasting, and particle effects, I ensured that combat interactions felt responsive, fluid, and engaging. My scripting was documented, concise and enabled all character mechanics, contributing to the overall polish and gameplay of BloodBound.
 Check out my scripting here [PlayerController.cs](https://github.com/s02singh/BloodBound/blob/359bd4876b90052a129f0684d52f56c03f948f14/Assets/Scripts/PlayerController.cs#L106-L126)
 
+## User Interface - [Khuyen Nguyen](https://github.com/bkhuyennguyen)
 
+### Main Menu
 
+The main menu is a canvas that exists in the world space and has two separate screens for the start and controls menu. It's in its own scene and placed in front of the gladiator pit object.
 
-## User Interface and Input
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/MainStartMenu.PNG)
 
-**Describe your user interface and how it relates to gameplay. This can be done via the template.**
-**Describe the default input configuration.**
+The start menu contains the game title, play button, controls button, and quit button. The play button utilizes Unity's scene manager to load the scene with the gameplay. Clicking Play will trigger an animation for the camera to go into the gate next to the start menu, enable a screen that says "good luck", and then load the next scene. The controls button will trigger the camera to move to the section of the world space with the controls menu. The quit button will quit the game. The color change on hover is handled by Unity's button component. I used the sprite swap transition the component to switch the base button sprite into a highlighted version upon hover and click.
 
-**Add an entry for each platform or input style your project supports.**
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/MainControlsMenu.PNG
+)
 
+The controls menu is a single screen that has the core controls including movement, attacking, dodging, blocking, jumping and equipping. Our game has other controls, like combos and abilities, but I decided not to put them on the main menu because our core controls already have a lot of information. I know that the player won't remember everything and they might feel overwhelmed from seeing multiple screens of controls.
+
+#### Main Menu Camera
+
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/ControlsTransition.gif)
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/StartTransition.gif)
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/EnterTransition.gif)
+
+The camera movement is handled by Unity's Cinemachine package. I defined the points where I want the camera to be and what it was looking at, and Cineamchine interpolates the path and movement between points. These points are Cinemachine's virtual cameras and will be used by the main camera object when it's live. The change in cameras is carried out with [this function](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/UITransitionManager.cs#L29), which makes the target camera live and the current camera go on standby. The controls button on the start menu and the back button on the controls menu calls this function on click. The camera animation that plays when pressing start uses another Cinemachine camera, called the dolly camera with track. I used this camera instead of the basic virtual camera because I wanted a smooth and steady camera movement. The animation had key frames of where I wanted the camera to be at certain points in time and Unity interpolates the camera's position between frames. The interpolation follows the dolly track placed in the scene.
+
+#### Main Menu Design Process
+
+Initially, I had the menus be on a static brick background. The play button would only load the next scene and the controls button just switched menus. I kept the original blue and gold color scheme of the UI assets I obtained and used [this font](https://www.dafont.com/marathon.font). The theme was more medieval fantasy rather than medieval dark fantasy. However, after showing it to the rest of the group, Sahil suggested I do something more flashy and make the feel of the UI fit more with the dark fantasy theme. That's when I came up with the idea to make the main menu be a part of the world space. I wanted to showcase a preview of the map that was created by Inseon and emphasize the main setting of our gaem. The start menu was placed next to the gate where the player would start in the next scene to make a nice transition. The controls menu was placed in between the crowd with the camera angled slightly upward so that the player can see the crowd. This was to make the point that the player is being spectated and is the center of attention. I also changed the color scheme of the UI to be blood red and metallic gray using a free graphics software called Inkscape. The font was also changed to fit the game theme.
+
+### Pause Menu
+
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/Pause.jpg)
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/Controls.jpg)
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/Combos.jpg)
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/Abilities.jpg)
+
+The pause menu uses the same assets as the main menu. It has a continue button, controls button, and main menu button. When the player presses escape, the pause menu appears and the game is stopped. The continue button or pressing escape again will resume the game, and the main menu button will retu rn to the main menu scene. The controls button will switch to a more comprehensive controls menu. This menu has the full control scheme of our game because players will be able to easily reference the menu during gameplay and put into practice what they saw.
+
+### Respawn Menu
+
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/DiedScreen.gif)
+
+The respawn menu appears when the player's health has reached 0. An animation that makes the screen darken and the text "YOU DIED" appear. The options to restart or return the to main menu will appear shortly after. I took inspiration from the souls games to make the text fade into the middle of the screen before making the options appear. I also imitated the way you can still see the enemies moving in the game from those gamesso the respawn screen doesn't become completely opaque. The try again button will reload the current gladiator pit scene while the main menu button will load the main menu scene.
+
+### Stamina Bar
+
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/Stamina.jpg)
+
+I reused the button sprite for the stamina bar, but edited it so that the gray background and middle section were separated into separate sprites. I also changed the appearance of the middle section to have a different gradient and color. The image type of the sprite representing the stamina was set to filled, so that the amount of image shown can be changed easily with [the fill amount variable](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/Stamina.cs#L19). It has a range of 0-1, so it was set with the proportion of the current stamina over the max stamina.
+
+### Dragon Health Bar and Name
+
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/BertHealth.PNG)
+
+I used the same assets I edited for the stamina bar for the dragon health bar, except I created two more bars colored purple and green to represent the dragon's health. These health bars were updated the same way as the stamina bar, [with fill amount](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/DragonHealthBar.cs#L39), but the proportion was determined by the dragon's current health over the its max health. There's two colors to represent the dragon's health because I wanted to visually indicate to the player that the dragon was now at half health. The next attack phase also starts at half health, so they could also figure it out with that, but the color change was intended to invoke a sense of accomplishment for at least getting the dragon to the half way point. The health bar starts out as a hostile purple, kind of reminiscent of the ender dragon's health bar from Minecraft, to a more agreeable green to help motivate. The switch occurs through a check for the [status of the current phase](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/DragonHealthBar.cs#L30) the dragon's in. The dragon's name is just a simple UI text object. I had trouble finding a color that was visible in both the fog and the sky, so I settled on a color that would be visible against the fog but less visible against the sky since the camera would be positioned in the fog most of the time.
+
+### Ending Cutscene
+
+![](https://github.com/s02singh/BloodBound/blob/main/READMEAssets/EndCutscene.gif)
+
+The ending cutscene is a simple black screen with text telling the player that they've defeated the dragon and gives the player the opportunity to restart the game or return to the main menu. The "satisfy the crowd button" will load the previous scene with the gladiator pit gameplay and the "enjoy my freedom" button will load the main menu scene. The cutscene is triggered [when the dragon's health reaches 0 and the player is still alive](https://github.com/s02singh/BloodBound/blob/e4aa5d8ace392689828ba31fbe7e1d73387e44fd/Assets/MenuScripts/EndCutscene.cs#L15). This means if the player manages to defeat the dragon but happens to die from residual damage afterward, the cutscene won't play. When triggered, there will be a slight delay before the cutscene appears so that the player can see the dragon's dying animation.
 
 ## Enemy Design and AI - [Nicolo Del Bonta](https://github.com/nicolodb)
 
@@ -246,8 +295,6 @@ Since we made it as a cliff, I created a script that would [trigger the player's
 - [AQUAS Lite - Built-In Render Pipeline](https://assetstore.unity.com/packages/vfx/shaders/aquas-lite-built-in-render-pipeline-53519) by dogmatic under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 - [StampIT! Collection](https://assetstore.unity.com/packages/tools/terrain/stampit-collection-free-examples-218286) by Rowlan.Inc under [Standard Unity Asset Store EULA](https://unity.com/legal/as-terms)
 
-
-
 ### Health HUD
 …
 
@@ -262,6 +309,9 @@ Since we made it as a cliff, I created a script that would [trigger the player's
 
 ### Sword VFX
 …
+
+### UI Assets
+All of the assets used for the UI were obtained [here](https://sungraphica.itch.io/free-fantasy-game-ui). The font was obtained [here](https://www.dafont.com/metal-gothic.font).
 
 ## Game Logic
 
@@ -328,9 +378,17 @@ Players enjoyed the camera movement during the meteor strike (ultimate attack) a
 
 The most common suggestion for our game was more descriptions of the controls and the components we see on the screen (blood effect that indicates health left, stamina bar, etc). 
 
-## Narrative Design
+## Narrative Design - [Khuyen Nguyen](https://github.com/bkhuyennguyen)
 
-**Document how the narrative is present in the game via assets, gameplay systems, and gameplay.** 
+While our game is not story heavy, there is a context of how the player ended up in the gladiator pit. The idea of the game taking place inside a gladiator pit was collectively determined by the group, but I pitched the idea that the player was in there due to the reason that the player committed treason and was sentenced to the pit as punishment. The idea evolved further to be that the player was fighting for their freedom from the sentence.
+
+### Narrative in Gameplay
+
+Since the narrative was designed after the gameplay loop, the nature of a wave survival game lends itself to the theme of the player fighting for their freedom. The soulslike difficulty elements hint at the fact that the king does not want you to survive the punishment. The enemy types are non-human to further emphasize this point. The dragon didn't have a name originally, but I thought it would be fitting for it to have a name like Bert and be the king's pet. The enemy types and the pet dragon shows that the king is a frivolous and pompous character. I expanded more on the story with the ending cutscene, where I mentioned that the dragon was the reigning champion of the pit. I was trying to figure out if it would be in character for the king to honor the deal and let the player go after surviving the punishment. In the end, I had the king honor the deal because I thought it would undermine the accomplishment of surviving the gauntlet. Because I wanted to give the opportunity of restarting the game, I had the motivator be the crowd demanding an encore instead.
+
+### Narrative in UI
+
+As mentioned previously, the style of the UI was chosen to fit the medieval dark fantasy theme of the game. The opening animation that plays when the player enters the game also reflects the narrative. Perhaps the narrator or the king is wishing the player luck in surviving their punishment. The cinematic camera movement into the gate promotes the sense of foreboding when it's combined with the "good luck". The respawn menu showing the enemies attacking the player after they're dead could be interpreted as the king being smug. It's likely that the king is controlling the non-human enemies and seeing them continuing to attack the player after they've died could motivate the player into trying harder the next time. Or they could be more reckless and greedy with their attacks the next time. I added descriptions for the special abilities that explain how the player can use those abilities in a way that fits the theme. It's not very informative in gameplay, but it acts as flavor text.
 
 ## Press Kit and Trailer
 
