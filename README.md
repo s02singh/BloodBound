@@ -57,13 +57,12 @@ Aside from meetings during class and Discord calls every few days, I made sure t
 #### Animations:
 
 My primary goal with character animations was to make the character feel alive. I wanted our protagonist to have a story to tell through his body language. I wanted his attacks to be desperate yet undying. The theme is Rolling with the Punches. The story to tell is of a gladiator who rises against all odds. I imported and configured a variety of animations for the player character, including combinations of combat maneuvers such as attacks, blocks, rolls, and dashes. These animations were sourced from https://www.mixamo.com/#/. Each animation is integrated into the gameplay with smooth transitions and feel. The character feels alive. He gives you a sense of immersion. All character animations were implemented by me. These include but are not limited to: 
-- attack1, attack2, attack3
-- block
-- takedamage
-- meteor ultimate
-- block
-- roll
-- death
+- [attack1, attack2, attack3](https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb1fad/Assets/Scripts/PlayerController.cs#L459-L519)
+- [block](https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb1fad/Assets/Scripts/PlayerController.cs#L297-L313)
+- [takedamage](https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb1fad/Assets/Scripts/PlayerController.cs#L615-L659)
+- [meteor ultimate](https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb1fad/Assets/Scripts/PlayerController.cs#L367)
+- [roll](https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb1fad/Assets/Scripts/PlayerController.cs#L400-L433)
+- [death](https://github.com/s02singh/BloodBound/blob/64b451a0925f11f1261cb622c1cc10b2d0bb1fad/Assets/Scripts/PlayerController.cs#L662)
 
 
 Animation Events:
