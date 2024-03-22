@@ -53,7 +53,7 @@ Here is an example:
 
 You should replay any **bold text** with your relevant information. Liberally use the template when necessary and appropriate.
 
-## Producer + Player Mechanics
+## Producer + Player Mechanics - [Sahilbir Singh](https://github.com/s02singh)
 
 ### Producer Role:
 
