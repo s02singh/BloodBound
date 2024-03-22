@@ -69,7 +69,28 @@ I organized and led all group meetings, using Discord as a central hub for sched
 #### Engagement:
 Aside from meetings during class and Discord calls every few days, I made sure to actively communicate daily. I reached out to team members, making sure timelines were being followed and help was provided when needed. The timeline defined in the initial progress report was great baseline. However, during our peer review report, I used it as an opportunity to also create an updated report/progress check in. You can find that here. https://docs.google.com/document/d/1Hy5fcxIj2UezN37R412JOx16OQY12U62Vvo3Qlx1_To/edit?usp=sharing
 
+### Character Mechanics:
 
+#### Animations:
+
+My primary goal with character animations was to make the character feel alive. I wanted our protagonist to have a story to tell through his body language. I wanted his attacks to be desperate yet undying. The theme is Rolling with the Punches. The story to tell is of a gladiator who rises against all odds. I imported and configured a variety of animations for the player character, including combinations of combat maneuvers such as attacks, blocks, rolls, and dashes. These animations were sourced from https://www.mixamo.com/#/. Each animation is integrated into the gameplay with smooth transitions and feel. The character feels alive. He gives you a sense of immersion. All character animations were implemented by me. These include but are not limited to: 
+- attack1, attack2, attack3
+- block
+- takedamage
+- meteor ultimate
+- block
+- roll
+- death
+
+Each animation has key animation events that trigger core mechanics. For example, each attack has events to trigger the sound and send raycasts, making the animation feel smooth and connected to the game. The roll triggers invincibility (iframes). Meteor ultimate triggers a vfx effect.
+
+#### Creative Implementation:
+
+Once all the base mechanics were implemented, I felt the player lacked a sense of power. The player should feel excited, he should enjoy being the paladin. That's how I decided on a unique ultimate attack for the player character. With incredible visual effects that includes meteor strikes, time-slowing effects, and dramatic camera angles, I crafted a show-stopping ability that added depth and excitement to the gameplay. This not only elevated the game's combat dynamics, but it provided players with a memorable and exhilarating experience. The idea was that the ability charges as you take damage, hence, you Roll With The Punches.
+
+#### Technical Proficiency:
+
+My contributions extended beyond animation. I developed the combat logic for the player character. Through the implementation of damage logic, including sword slashing mechanics, aim assist, raycasting, and particle effects, I ensured that combat interactions felt responsive, fluid, and engaging. My scripting was documented, concise and enabled all character mechanics, contributing to the overall polish and gameplay of BloodBound.
 
 **Describe the steps you took in your role as producer. Typical items include group scheduling mechanisms, links to meeting notes, descriptions of team logistics problems with their resolution, project organization tools (e.g., timelines, dependency/task tracking, Gantt charts, etc.), and repository management methodology.**
 
