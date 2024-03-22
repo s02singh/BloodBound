@@ -2,7 +2,7 @@
 
 ## Summary ##
 
-**A paragraph-length pitch for your game.**
+The objective of BloodBound is to survive in a gladiator pit-style arena. It’s a typical wave survival with various mobs being introduced as you progress. Your only weapon is a sword. The environment is a 3D world with a third-person controller for the player. Once you make it to wave 10, you unlock the boss fight, beat the final enemy, and win.
 
 ## Project Resources
 
@@ -14,6 +14,23 @@
 ## Gameplay Explanation ##
 
 **In this section, explain how the game should be played. Treat this as a manual within a game. Explaining the button mappings and the most optimal gameplay strategy is encouraged.**
+You have unlimited time/waves. Defeat all enemies in the wave to start the next one. There are 10 waves.
+
+Rage - As you inflict damage and take damage, you slowly build a rage meter. Once you are full, the character emits a red lightning aura.
+Press V to trigger Rage Blast.
+
+Current Controls:
+Movement: WASD
+Sprint: Hold shift
+Look: Mouse
+Jump: Space
+Equip: R
+Roll: Q
+Dash Attack - Sprint + Left click
+Light Attack: Left click
+Combos: Light x 3
+Block: Hold right click
+
 
 
 **Add it here if you did work that should be factored into your grade but does not fit easily into the proscribed roles! Please include links to resources and descriptions of game-related material that does not fit into roles here.**
@@ -21,6 +38,11 @@
 # Main Roles #
 
 Your goal is to relate the work of your role and sub-role in terms of the content of the course. Please look at the role sections below for specific instructions for each role.
+
+
+
+Producer + Character Mechanics: Sahilbir Singh
+
 
 Below is a template for you to highlight items of your work. These provide the evidence needed for your work to be evaluated. Try to have at least four such descriptions. They will be assessed on the quality of the underlying system and how they are linked to course content. 
 
@@ -31,7 +53,9 @@ Here is an example:
 
 You should replay any **bold text** with your relevant information. Liberally use the template when necessary and appropriate.
 
-## Producer
+## Producer + Player Mechanics
+
+The initial goal was 
 
 **Describe the steps you took in your role as producer. Typical items include group scheduling mechanisms, links to meeting notes, descriptions of team logistics problems with their resolution, project organization tools (e.g., timelines, dependency/task tracking, Gantt charts, etc.), and repository management methodology.**
 
@@ -42,9 +66,6 @@ You should replay any **bold text** with your relevant information. Liberally us
 
 **Add an entry for each platform or input style your project supports.**
 
-## Movement/Physics
-
-**Describe the basics of movement and physics in your game. Is it the standard physics model? What did you change or modify? Did you make your movement scripts that do not use the physics system?**
 
 ## Enemy Design and AI
 
@@ -133,11 +154,29 @@ https://github.com/s02singh/BloodBound/blob/7f8ed21a6d4c5965921ec0de8d6d6d2cd3b4
 Wave spawning:
 For the main portion of the game, we needed a way of spawning enemies. I took heavy influence from the shield factory exercise, and simply added a WaveSpawner GameObject to the scene that has the WaveSpawner.cs script attached to it, as well as various transform positions for the enemies to spawn at and the enemy prefabs themselves (Zombie, Archer, Warrok, Reaper). With this in place, all of the logic is contained within the WaveSpawner.cs script. This script begins spawning waves of enemies once the player has entered the arena, increasing in difficulty for each wave beaten. At the end of the 10 specified waves within the script, the player is allowed to enter the boss fight.
 
-## Animation and Visuals
+
+
+## Terrains and Visuals
+
+
+
 
 **List your assets, including their sources and licenses.**
 
-**Describe how your work intersects with game feel, graphic design, and world-building. Include your visual style guide if one exists.**
+### Health HUD
+…
+
+### Blood Effects on Enemies
+…
+
+### Lightning Strike VFX
+…
+
+### Meteor Strike VFX
+…
+
+### Sword VFX
+…
 
 ## Game Logic
 
@@ -165,9 +204,13 @@ For the main portion of the game, we needed a way of spawning enemies. I took he
 
 ## Press Kit and Trailer
 
-**Include links to your presskit materials and trailer.**
+Trailer: https://youtu.be/gBnaaRzAJCg
+Press Kit: …
 
-**Describe how you showcased your work. How did you choose what to show in the trailer? Why did you choose your screenshots?**
+For the trailer, I wanted to showcase gameplay but also focus on the core theme of the game, survival. Since it’s a medieval gladiator-style game, I thought it would be appropriate to start the trailer with a background of the situation the player is in, especially by showing the enemies and mobs first rather than any real gameplay. Once the viewer knows what the player’s predicament is, I showed some gameplay to demonstrate that the player must fight to survive, and slash enemies to kill them (the Grim Reaper for example). That is when I decided to include more details, such as the dodge mechanic, while also showcasing that there’s going to be multiple waves. Since we wanted to keep the final boss fight suspenseful, I decided to not show it directly, but to first show the Pit gate opening and the player crossing it. That’s when the dragon reveal happens, with brief clips to not reveal the dragon a lot and keep it as a secret for the player.
+The music for the trailer is one of the game’s soundtracks, Hope, but slightly edited around the end to fit the length of the trailer. The Font also matches the UI font. I used DaVinci Resolve to edit my video, and Unity Recorder to record in-game clips.
+Most of the screenshots for the Press-Kit were also taken directly from the clips used for the Trailer. They were nice cinematic shots of the environment and enemies, which I believe are the main elements of the game.
+
 
 ## Game Feel and Polish
 
@@ -182,4 +225,7 @@ Lastly, the game debugging was a large part of my role as I experimented heavily
 
 
 Overall, I think that game feel may be one of most important roles in a game in general, as it contributes to the players experience within the game. Even if you make an amazing game with complex structures that is not fun to play because of some imbalances or bugs, it’s unlikely that anyone will want to play your game.
+
+
+
 
