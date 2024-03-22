@@ -13,7 +13,7 @@ The objective of BloodBound is to survive in a gladiator pit-style arena. It’s
 
 ## Gameplay Explanation ##
 
-You have unlimited time/waves. Defeat all enemies in the wave to start the next one. There are 10 waves.
+You have unlimited time. Defeat all enemies in the wave to start the next one. There are 10 waves.
 
 Rage - As you inflict damage and take damage, you slowly build a rage meter. Once you are full, the character emits a red lightning aura.
 Press V to trigger Rage Blast.
